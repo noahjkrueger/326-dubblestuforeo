@@ -1,13 +1,13 @@
 # 326-dubblestuforeo  
-# application_name_here  
-## Team Overview  
+## application_name_here  
+### Team Overview  
 Noah Krueger - noahjkrueger  
 team member 2  
 team member 3  
 team member 4  
-## Our Innovative Idea  
+### Our Innovative Idea  
 this is __our__ innovative idea  
-## Important Components
+### Important Components
 *here* are some **important** components
 1. component1
     - additional details 1
