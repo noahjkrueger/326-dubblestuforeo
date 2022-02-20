@@ -2,7 +2,7 @@
 ## application_name_here  
 ### Team Overview  
 Noah Krueger - noahjkrueger  
-team member 2  
+Dignata Mainali - D-Mainali
 team member 3  
 team member 4  
 ### Our Innovative Idea  
