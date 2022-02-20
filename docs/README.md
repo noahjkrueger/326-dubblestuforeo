@@ -3,7 +3,7 @@
 ### Team Overview  
 Noah Krueger - noahjkrueger  
 Dignata Mainali - D-Mainali
-team member 3  
+Kenneth Drewry - kendrewry  
 team member 4  
 ### Our Innovative Idea  
 this is __our__ innovative idea  
