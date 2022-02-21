@@ -2,9 +2,9 @@
 ## application_name_here  
 ### Team Overview  
 Noah Krueger - noahjkrueger  
-Dignata Mainali - D-Mainali
+Diganta Mainali - D-Mainali
 Kenneth Drewry - kendrewry  
-team member 4  
+Piyush Makkapati - piyushm2001  
 ### Our Innovative Idea  
 this is __our__ innovative idea  
 ### Important Components
