@@ -27,7 +27,7 @@ Our idea is to create a cocktail/drink recipe guide social media hybrid.
 ### Wire Frames
 
 #### Home/Feed Page (index)
-![Home/Feed]["./wireframes/feed_index.png"]
+![Home/Feed](wireframes/feed_index.png)
 - This page will be similar for users that are logged in and for users that are not logged in.
 - Each type of user can navigate to the Guide Query page on the top left of the feed.
 - Logged in user:
