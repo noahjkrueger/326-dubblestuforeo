@@ -54,11 +54,11 @@ Our idea is to create a cocktail/drink recipe guide social media hybrid.
 - Guide posts: A template  will ask a user for ingredient lists, an image of the made drink, instructions on how to make said drink.
 - Text/image posts : A non guide post that can be interacted in the same way as guide pages.
 #### Guide Query Page
-![Guide](wireframes/query.png)
+![Guide](wireframes/guide_query.png)
 - Users can input a list of ingrediant or look up the name of a guide.
 - Returns a feed or related results.
 #### User Profile Page
-![Guide](wireframes/profile.png)
+![Guide](wireframes/user_profile.png)
 - If a user is loggged in, this will show their profile. Otherwise, It displays the Login/Signup page
 - Displays a user's biography, profile images and posts.
 - The owner of the page can create a guide here, logout, or otherwise modify the profile.
