@@ -38,22 +38,27 @@ Our idea is to create a cocktail/drink recipe guide social media hybrid.
     - Login/Signup button is in place of top right profile picture.
 - Users can navigate to a guide page by clicking a guide in their feed (see Guide Page)
 #### Guide Page
+![Guide](wireframes/guide_page.png)
 - From the feed or query, a user can navigate to a guide page.
 - Guide pages can be liked, commented on, shared, or modified (forked)
 - Can navigate to the user who posted profile page (see User Profile Page)
 - Will reccomend similar guides / popular forks
 #### Login / Signup Page
+![Guide](wireframes/login_signup.png)
 - Users can navigate to this page from the home/feed page if they are not logged in.
 - Option to log into existing account or create a new account.
 #### Content Creation Page
+![Guide](wireframes/create_guide.png)
 - Can be acsessed from the user's profile page (see User Profile Page)
 - A template for users to create a guide / post
 - Guide posts: A template  will ask a user for ingredient lists, an image of the made drink, instructions on how to make said drink.
 - Text/image posts : A non guide post that can be interacted in the same way as guide pages.
 #### Guide Query Page
+![Guide](wireframes/query.png)
 - Users can input a list of ingrediant or look up the name of a guide.
 - Returns a feed or related results.
 #### User Profile Page
+![Guide](wireframes/profile.png)
 - If a user is loggged in, this will show their profile. Otherwise, It displays the Login/Signup page
 - Displays a user's biography, profile images and posts.
 - The owner of the page can create a guide here, logout, or otherwise modify the profile.
