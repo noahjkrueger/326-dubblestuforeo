@@ -25,7 +25,9 @@ Our idea is to create a cocktail/drink recipe guide social media hybrid.
     - Users will have profiles that include their guides, images of drinks they have and/or made, or other text posts.
     - Users will have their own unique usernames and can upload a profile picture
 ### Wire Frames
-#### Home/Feed Page
+
+#### Home/Feed Page (index)
+![Home/Feed]["./wireframes/feed_index.png"]
 - This page will be similar for users that are logged in and for users that are not logged in.
 - Each type of user can navigate to the Guide Query page on the top left of the feed.
 - Logged in user:
