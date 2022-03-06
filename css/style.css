@@ -4,9 +4,7 @@
 
 
 /* B */
-body.feed_page {
-    background-color: #e2e2e2;
-}
+
 
 /* C */
 
@@ -18,8 +16,12 @@ body.feed_page {
 
 
 /* F */
-div.feed {
+.feed {
     padding: 20px 80px 20px 80px;
+}
+
+.feed_page {
+    background-color: #e2e2e2;
 }
 
 /* G */
@@ -50,9 +52,7 @@ div.feed {
 
 
 /* P */
-div.post-title {
-    
-}
+
 
 /* Q */
 
