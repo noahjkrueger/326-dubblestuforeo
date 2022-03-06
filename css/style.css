@@ -1,116 +1,88 @@
 /* ORDER CSS ELEMENTS ALPHABETICALLY (please)
-     By classname/id/element:
-        div.classname -> under C CLASSNAMES
-        .classname -> under C CLASSNAMES
-        #idname -> under 'I' I IDNAMES
-        div -> under D ELEMENTS
     Otherwise, store under 'OTHER' */
+/* A */
 
 
-/* A CLASSNAMES */
-/* A IDNAMES */
-/* A ELEMENTS */
+/* B */
+body.feed_page {
+    background-color: #e2e2e2;
+}
 
-/* B CLASSNAMES */
-/* B IDNAMES */
-/* B ELEMENTS */
+/* C */
 
-/* C CLASSNAMES */
-/* C IDNAMES */
-/* C ELEMENTS */
 
-/* D CLASSNAMES */
-/* D IDNAMES */
-/* D ELEMENTS */
+/* D */
 
-/* E CLASSNAMES */
-/* E IDNAMES */
-/* E ELEMENTS */
 
-/* F CLASSNAMES */
-/* F IDNAMES */
-/* F ELEMENTS */
+/* E */
 
-/* G CLASSNAMES */
-/* G IDNAMES */
-/* G ELEMENTS */
 
-/* H CLASSNAMES */
-/* H IDNAMES */
-/* H ELEMENTS */
+/* F */
+div.feed {
+    padding: 20px 80px 20px 80px;
+}
 
-/* I CLASSNAMES */
-/* I IDNAMES */
-/* I ELEMENTS */
+/* G */
 
-/* J CLASSNAMES */
-/* J IDNAMES */
-/* J ELEMENTS */
 
-/* K CLASSNAMES */
-/* K IDNAMES */
-/* K ELEMENTS */
+/* H */
 
-/* L CLASSNAMES */
-/* L IDNAMES */
-/* L ELEMENTS */
 
-/* M CLASSNAMES */
-/* M IDNAMES */
-/* M ELEMENTS */
+/* I */
 
-/* N CLASSNAMES */
-/* N IDNAMES */
-/* N ELEMENTS */
 
-/* O CLASSNAMES */
-/* O IDNAMES */
-/* O ELEMENTS */
+/* J */
 
-/* P CLASSNAMES */
-/* P IDNAMES */
-/* P ELEMENTS */
 
-/* Q CLASSNAMES */
-/* Q IDNAMES */
-/* Q ELEMENTS */
+/* K */
 
-/* R CLASSNAMES */
-/* R IDNAMES */
-/* R ELEMENTS */
 
-/* S CLASSNAMES */
-/* S IDNAMES */
-/* S ELEMENTS */
+/* L */
 
-/* T CLASSNAMES */
-/* T IDNAMES */
-/* T ELEMENTS */
 
-/* U CLASSNAMES */
-/* U IDNAMES */
-/* U ELEMENTS */
+/* M */
 
-/* V CLASSNAMES */
-/* V IDNAMES */
-/* V ELEMENTS */
 
-/* W CLASSNAMES */
-/* W IDNAMES */
-/* W ELEMENTS */
+/* N */
 
-/* X CLASSNAMES */
-/* X IDNAMES */
-/* X ELEMENTS */
 
-/* Y CLASSNAMES */
-/* Y IDNAMES */
-/* Y ELEMENTS */
+/* O */
 
-/* Z CLASSNAMES */
-/* Z IDNAMES */
-/* Z ELEMENTS */
 
-/* OTHER CLASSNAMES */
-/* OTHER IDNAMES */
-/* OTHER ELEMENTS */
+/* P */
+div.post-title {
+    
+}
+
+/* Q */
+
+
+/* R */
+
+
+/* S */
+
+
+/* T */
+
+
+/* U */
+
+
+/* V */
+
+
+/* W */
+
+
+/* X */
+
+
+/* Y */
+
+
+/* Z */
+
+
+/* OTHER */
+
