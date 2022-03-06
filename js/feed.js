@@ -31,7 +31,7 @@ content.forEach((posting) => {
     post.classList.add("post");
 
     let title_div = document.createElement("div");
-    title_div.classList.add("post-title");
+    title_div.classList.add("post-title");  
     let title_p = document.createElement("p");
     title_p.innerText = posting.title;
     title_div.appendChild(title_p);
