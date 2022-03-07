@@ -23,7 +23,7 @@ const content = [
         "rating": "rating1",
         "description": "here is the description1",
         "image": "./images/placeholde_beer.jpg"   
-    } 
+    }   
 ];
 
 content.forEach((posting) => {
