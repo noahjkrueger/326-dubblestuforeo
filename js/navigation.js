@@ -1,7 +1,8 @@
 const nav_bar = document.getElementById("navigation");
+const navbar_src = "navbar.html";
 const data = [
     {
-        "icon": "images/booze.png",
+        "icon": "../images/booze.png",
         "type": "Booze",
         "list": [
             "Brandy",
@@ -13,7 +14,7 @@ const data = [
         ]
     },
     {
-        "icon": "images/juice.png",
+        "icon": "../images/juice.png",
         "type": "Juice",
         "list": [
             "Juice 1",
@@ -25,7 +26,7 @@ const data = [
         ]
     },
     {
-        "icon": "images/fruit.png",
+        "icon": "../images/fruit.png",
         "type": "Fruit",
         "list": [
             "Fruit 1",
@@ -37,7 +38,7 @@ const data = [
         ]
     },
     {
-        "icon": "images/vegtable.png",
+        "icon": "../images/vegtable.png",
         "type": "Vegtable",
         "list": [
             "Vegtable 1",
@@ -49,7 +50,7 @@ const data = [
         ]
     },
     {
-        "icon": "images/garnish.png",
+        "icon": "../images/garnish.png",
         "type": "Garnish",
         "list": [
             "Garnish 1",
@@ -62,14 +63,74 @@ const data = [
     }
 ];
 
-const part_start = "\<nav class=\"navbar navbar-light bg-light fixed-top\"\>\<div class=\"container-fluid\"\>\<button class=\"navbar-toggler\" type=\"button\" data-bs-toggle=\"offcanvas\" data-bs-target=\"#sideMenu\" aria-controls=\"offcanvasNavbar\"\>\<span class=\"navbar-toggler-icon\"\>\</span\>\</button\>\<a class=\"navbar-brand\" href=\"#\"\>\<img src=\"./images/favicon.svg\" alt=\"favicon\" width=\"30\" height=\"24\" class=\"d-inline-block align-text-top\"\>guzzzle.\</a\>\<a class=\"navbar-brand\" href=\"pages/login.html\"\>\<img src=\"./images/default_pfp.jpg\" alt=\"user-profile\" width=\"32\" height=\"32\" class=\"d-inline-block align-text-top rounded-circle\"\>\</a\>\<div class=\"offcanvas offcanvas-start\" tabindex=\"-1\"id=\"sideMenu\" aria-labelledby=\"offcanvasNavbarLabel\"\>\<div class=\"offcanvas-header\"\>\<h2 class=\"offcanvas-title\" id=\"offcanvasNavbarLabel\"\>\<img src=\"./images/favicon.svg\" alt=\"favicon\" width=\"30\" height=\"24\"\> guzzzle.\</h2\>\<button type=\"button\" class=\"btn-close text-reset\" data-bs-dismiss=\"offcanvas\" aria-label=\"Close\"\>\</button\>\</div\>\<div class=\"offcanvas-body\"\>\<ul class=\"navbar-nav justify-content-end flex-grow-1 pe-3\"\>\<form class=\"d-flex\"\>\<input class=\"form-control me-2\" type=\"search\" placeholder=\"Search Guide or User\" aria-label=\"Search\"\>\<button class=\"btn btn-outline-success\" type=\"submit\"\>GetGuzzzlin'\</button\>\</form\>\<br\>\<li class=\"nav-item\" id=\"ingredient-search\"\>\<br\>\<h5\>Search by Ingredients\</h5\>\<hr\>\</li\>";
-const part_end = "\<li class=\"nav-item\"\>\<br\>\<button class=\"btn btn-outline-success\" type=\"submit\"\>GetGuzzzlin'\</button\>\</li\>\</ul\>\</div\>\</div\>\</div\>\</nav\>";
-let meat = "";
-data.forEach((entry) => {
-    meat = meat + "\<li class=\"nav-item\"\><nav class=\"navbar navbar-light bg-light\"\>\<div class=\"container-fluid\"\>\<a class=\"navbar-brand\" href=\"#\"\>\<img src=\"" + entry.icon +"\" alt=\"" + entry.type +"\" width=\"30\" height=\"24\" class=\"d-inline-block align-text-top\"\>" + entry.type + "\</a\>\<button class=\"navbar-toggler\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#" + entry.type + "List\" aria-controls=\"navbarToggleExternalContent\" aria-expanded=\"false\" aria-label=\"Toggle navigation\"\>\<span class=\"navbar-toggler-icon\"\>\</span\>\</button\>\</div\>\</nav\>\<div class=\"collapse\" id=\"" + entry.type + "List\"\>\<div class=\"bg-light p-4\"\>"
-    entry.list.forEach((ingred) => {
-        meat = meat + "\<div class=\"form-check\"\>\<input class=\"form-check-input\" type=\"checkbox\" value=\"" + ingred + "\" id=\"flexCheckDefault\"\>\<label class=\"form-check-label\" for=\"" + ingred + "\"\>" + ingred + "\</label\>\</div\>";
+fetch(navbar_src).then((response) => response.text()).then((html) => {
+    nav_bar.innerHTML = html;
+    let meat = "";
+    data.forEach((entry) => {
+        meat = meat + 
+        "<li class=\"nav-item\">" +
+            "<nav class=\"navbar navbar-light bg-light\">" +
+                "<div class=\"container-fluid\">" +
+                    "<a class=\"navbar-brand\" href=\"#\">" +
+                        "<img src=\"" + entry.icon +"\" alt=\"" + entry.type +"\" width=\"30\" height=\"24\" class=\"d-inline-block align-text-top\">" + entry.type + 
+                    "</a>" +
+                    "<button class=\"navbar-toggler\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#" + entry.type + "List\" aria-controls=\"navbarToggleExternalContent\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">" + 
+                        "<span class=\"navbar-toggler-icon\"></span>" + 
+                    "</button>" + 
+                "</div>" +
+            "</nav>" + 
+            "<div class=\"collapse\" id=\"" + entry.type + "List\">" + 
+                "<div class=\"bg-light p-4\"\>"
+                entry.list.forEach((ingred) => {
+                    meat = meat + 
+                    "<div class=\"form-check\">" +
+                        "<input id=\"" + ingred +"\" class=\"form-check-input\" type=\"checkbox\" id=\"flexCheckDefault\">" +
+                        "<label class=\"form-check-label\" for=\"" + ingred + "\"\>" + ingred + "</label>" +
+                    "</div>";
+                });
+         meat = meat + 
+                "</div>" + 
+            "</div>" +
+        "</li>";
     });
-        meat = meat + "\</div\>\</div\>\</li\>";
+    const ingredientList = document.getElementById("ingredientList");
+    ingredientList.innerHTML = ingredientList.innerHTML + meat;
+
+    data.forEach(entry => {
+        entry.list.forEach(ingred => {
+            let box = document.getElementById(ingred);
+            box.addEventListener("click", event => {
+                if (box.hasAttribute("checked")) {
+                    box.removeAttribute("checked");
+                }
+                else {
+                    box.setAttribute("checked", null);
+                }
+            });
+        });
+    });
+
+    const ingredientQuerySubmit = document.getElementById("ingredientQuerySubmit");
+    ingredientQuerySubmit.addEventListener("click", (event) => {
+        let formInfo = [];
+        data.forEach((entry) => {
+            entry.list.forEach((ingred) => {
+                let test = document.getElementById(ingred);
+                if (test.hasAttribute("checked")) {
+                    formInfo.push(test.id);
+                }
+            });
+        });
+        formInfo.forEach(point => {
+            console.log(point);
+        });
+        event.preventDefault();
+    });
+
+    const searchBox = document.getElementById("searchBox");
+    const serachBoxSubmit = document.getElementById("serachBoxSubmit");
+    serachBoxSubmit.addEventListener("click", event => {
+        console.log(searchBox.value);
+        event.preventDefault();
+    });
 });
-nav_bar.innerHTML = part_start + meat + part_end;

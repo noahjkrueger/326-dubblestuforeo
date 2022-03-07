@@ -3,26 +3,26 @@ const content = [
     {
         "title": "title1",
         "user": "username1",
-        "pfp": "./images/default_pfp.jpg",
+        "pfp": "../images/default_pfp.jpg",
         "rating": "rating1",
         "description": "here is the description1",
-        "image": "./images/placeholde_beer.jpg"   
+        "image": "../images/placeholde_beer.jpg"   
     },
     {
         "title": "title1",
         "user": "username1",
-        "pfp": "./images/default_pfp.jpg",
+        "pfp": "../images/default_pfp.jpg",
         "rating": "rating1",
         "description": "here is the description1",
-        "image": "./images/placeholde_beer.jpg"   
+        "image": "../images/placeholde_beer.jpg"   
     } ,
     {
         "title": "title1",
         "user": "username1",
-        "pfp": "./images/default_pfp.jpg",
+        "pfp": "../images/default_pfp.jpg",
         "rating": "rating1",
         "description": "here is the description1",
-        "image": "./images/placeholde_beer.jpg"   
+        "image": "../images/placeholde_beer.jpg"   
     }   
 ];
 
