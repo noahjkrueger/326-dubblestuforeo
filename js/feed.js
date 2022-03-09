@@ -6,23 +6,26 @@ const content = [
         "pfp": "../images/default_pfp.jpg",
         "rating": "rating1",
         "description": "here is the description1",
-        "image": "../images/placeholde_beer.jpg"   
+        "image": "../images/placeholde_beer.jpg",
+        "date": "date1" 
     },
     {
-        "title": "title1",
-        "user": "username1",
+        "title": "title2",
+        "user": "username2",
         "pfp": "../images/default_pfp.jpg",
-        "rating": "rating1",
+        "rating": "rating2",
         "description": "here is the description1",
-        "image": "../images/placeholde_beer.jpg"   
+        "image": "../images/placeholde_beer.jpg",
+        "date": "date2"   
     } ,
     {
-        "title": "title1",
-        "user": "username1",
+        "title": "title3",
+        "user": "username3",
         "pfp": "../images/default_pfp.jpg",
-        "rating": "rating1",
+        "rating": "rating3",
         "description": "here is the description1",
-        "image": "../images/placeholde_beer.jpg"   
+        "image": "../images/placeholde_beer.jpg",
+        "date": "date1"   
     }   
 ];
 
@@ -64,6 +67,13 @@ content.forEach((posting) => {
     desc_div.appendChild(desc_p);
     post.appendChild(desc_div);
 
+    let date_div = document.createElement("div");
+    date_div.classList.add("post-date")
+    let date_p = document.createElement("p");
+    date_p.innerText = posting.date;
+    date_div.appendChild(date_p);
+    post.appendChild(date_div);
+
 
     let img_div = document.createElement("div");
     img_div.classList.add("post-image");
@@ -73,6 +83,6 @@ content.forEach((posting) => {
     img_div.appendChild(img_img);
     post.appendChild(img_div);
 
-    post.appendChild(document.createElement("hr"));
     feed.appendChild(post);
+    feed.appendChild(document.createElement("hr"));
 });

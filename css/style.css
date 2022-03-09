@@ -10,18 +10,24 @@
 
 
 /* D */
-
+.date {
+    font-size: 12px;
+    color: #808080;
+}
 
 /* E */
 
 
 /* F */
 .feed {
-    padding: 20px 80px 20px 80px;
+    padding-top: 5%;
+    padding-bottom: 0px;
+    padding-left: 15%;
+    padding-right: 15%;
 }
 
 .feed_page {
-    background-color: #e2e2e2;
+    background-color: #f1f1f1;
 }
 
 /* G */
@@ -61,7 +67,25 @@
 }
 
 /* P */
+.post {
+    padding: 20px;
+    padding-left: 50px;
+    padding-right: 50px;
+    border-radius: 50px;
+    background-color: #FFFFFF;
+}
 
+.post-info {    
+    padding-top: 10px;
+    border-radius: 20px;
+    background-color: #e0e0e0;
+    border: 1px solid #000000;
+}
+
+.post-title {
+    padding-top: 5px;
+    font-size: 30px;
+}
 
 /* Q */
 
@@ -76,7 +100,10 @@
 
 
 /* U */
-
+.username {
+    padding-right: 10px;
+    padding-left: 10px;
+}
 
 /* V */
 

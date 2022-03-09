@@ -71,8 +71,8 @@ fetch(navbar_src).then((response) => response.text()).then((html) => {
         "<li class=\"nav-item\">" +
             "<nav class=\"navbar navbar-light bg-light\">" +
                 "<div class=\"container-fluid\">" +
-                    "<a class=\"navbar-brand\" href=\"#\">" +
-                        "<img src=\"" + entry.icon +"\" alt=\"" + entry.type +"\" width=\"30\" height=\"24\" class=\"d-inline-block align-text-top\">" + entry.type + 
+                    "<a class=\"navbar-brand\">" +
+                        "<img src=\"" + entry.icon +"\" alt=\"" + entry.type +"\" width=\"30\" height=\"24\" class=\"d-inline-block align-text-top\"> " + entry.type + 
                     "</a>" +
                     "<button class=\"navbar-toggler\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#" + entry.type + "List\" aria-controls=\"navbarToggleExternalContent\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">" + 
                         "<span class=\"navbar-toggler-icon\"></span>" + 
