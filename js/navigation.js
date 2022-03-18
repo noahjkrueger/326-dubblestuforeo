@@ -104,7 +104,7 @@ fetch(navbar_src).then((response) => response.text()).then((html) => {
                     box.removeAttribute("checked");
                 }
                 else {
-                    box.setAttribute("checked", null);
+                    box.setAttribute("checked", "");
                 }
             });
         });
@@ -125,6 +125,17 @@ fetch(navbar_src).then((response) => response.text()).then((html) => {
             console.log(point);
         });
         event.preventDefault();
+    });
+
+    const ingredientQueryClear = document.getElementById("ingredientQueryClear");
+    ingredientQueryClear.addEventListener("click", (event) => {
+        console.log("This button does not behave correctly");
+        data.forEach(entry => {
+            entry.list.forEach(ingred => {
+                let box = document.getElementById(ingred);
+                box.removeAttribute("checked");
+            });
+        });
     });
 
     const searchBox = document.getElementById("searchBox");

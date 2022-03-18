@@ -1,19 +1,21 @@
 const feed = document.getElementById("feed");
+const post_src = "post.html";
 const content = [
     {
         "title": "title1",
         "user": "username1",
         "pfp": "../images/default_pfp.jpg",
-        "rating": "rating1",
-        "description": "here is the description1",
-        "image": "../images/placeholde_beer.jpg",
-        "date": "date1" 
+        "description": "The original Bloody Mary is believed to have contained seven ingredients: vodka, tomato juice, " +
+        "Worcestershire sauce, black pepper, celery salt, Tabasco and lemon juice. But like many classic " +
+        "drinks, it has inspired several variations. Popular versions include the Bloody Maria (made with tequila), " +
+        "the Red Snapper (spiked with gin) and the Caesar, a Canadian creation that features Clamato juice.", 
+        "image": "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/bloody-mary-glass-2258f4e.jpg?quality=90&resize=504,458?quality=90&webp=true&resize=504,458",
+        "date": "March 18th, 2022" 
     },
     {
         "title": "title2",
         "user": "username2",
         "pfp": "../images/default_pfp.jpg",
-        "rating": "rating2",
         "description": "here is the description1",
         "image": "../images/placeholde_beer.jpg",
         "date": "date2"   
@@ -22,67 +24,17 @@ const content = [
         "title": "title3",
         "user": "username3",
         "pfp": "../images/default_pfp.jpg",
-        "rating": "rating3",
         "description": "here is the description1",
         "image": "../images/placeholde_beer.jpg",
         "date": "date1"   
     }   
 ];
 
-content.forEach((posting) => {
-    let post = document.createElement("div");
-    post.classList.add("post");
-
-    let title_div = document.createElement("div");
-    title_div.classList.add("post-title");  
-    let title_p = document.createElement("p");
-    title_p.innerText = posting.title;
-    title_div.appendChild(title_p);
-    post.appendChild(title_div);
-
-    let username_div = document.createElement("div");
-    let user_p = document.createElement("p");
-    user_p.innerText = posting.user;
-    username_div.appendChild(user_p);
-    post.appendChild(username_div);
-
-    let pfp_div = document.createElement("div");
-    pfp_div.classList.add("post-pfp");
-    let pfp_img = document.createElement("img");
-    pfp_img.src = posting.pfp;
-    pfp_img.alt = posting.user;
-    pfp_div.appendChild(pfp_img);
-    post.appendChild(pfp_div);
-
-    let rating_div = document.createElement("div");
-    rating_div.classList.add("post-rating");
-    rating_div.innerText = posting.rating;
-    post.appendChild(rating_div);
-
-
-    let desc_div = document.createElement("div");
-    desc_div.classList.add("post-description")
-    let desc_p = document.createElement("p");
-    desc_p.innerText = posting.description;
-    desc_div.appendChild(desc_p);
-    post.appendChild(desc_div);
-
-    let date_div = document.createElement("div");
-    date_div.classList.add("post-date")
-    let date_p = document.createElement("p");
-    date_p.innerText = posting.date;
-    date_div.appendChild(date_p);
-    post.appendChild(date_div);
-
-
-    let img_div = document.createElement("div");
-    img_div.classList.add("post-image");
-    let img_img = document.createElement("img");
-    img_img.src = posting.image;
-    img_img.alt = posting.title;
-    img_div.appendChild(img_img);
-    post.appendChild(img_div);
-
-    feed.appendChild(post);
-    feed.appendChild(document.createElement("hr"));
+content.forEach(post => {
+    let post_content = document.createElement("div");
+    fetch(post_src).then(response => response.text()).then(html => {
+        let title = document.getElementById("post_title");
+        title.innerText = post.content;
+    });
+    feed.appendChild(post_content);
 });
