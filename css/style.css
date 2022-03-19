@@ -4,7 +4,9 @@
 
 
 /* B */
-
+.button-label {
+    margin-left: 6px;
+}
 
 /* C */
 
@@ -17,11 +19,13 @@
 
 /* F */
 .feed {
-    padding: 20px 80px 20px 80px;
+    margin-top: 3%;
+    margin-left: 15%;
+    margin-right: 15%;
 }
 
 .feed_page {
-    background-color: #e2e2e2;
+    background-color: #f6fdff;
 }
 
 /* G */
@@ -31,7 +35,9 @@
 
 
 /* I */
-
+.icon {
+    font-size: 1.5rem;
+}
 
 /* J */
 
@@ -47,6 +53,10 @@
 
 /* N */
 
+.bg-light {
+    background-color: black;
+}
+
 .no-select {
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -61,7 +71,69 @@
 }
 
 /* P */
+.post{
+    background-color: #ffffff;  
+}
 
+.post-body-description {
+    margin-left: 5%;
+    margin-right: 5%;
+    padding: 20px;
+    line-height: 25px;
+    font-size: 1rem;
+}
+
+.post-info {
+    text-align: center;
+    margin-bottom: 20px ;
+}
+
+.post-info-date {
+    color: #808080;
+    font-size: 0.8rem;
+}
+
+.post-info-title {
+    font-size: 3.2rem;
+}
+
+.post-options-button {
+    color: #000000;
+    display: flex;
+    align-items:center;
+    border-radius: 0px;
+}
+
+.post-options-button:hover {
+    background-color: #ffebd6;
+}
+
+.post-options-comment {
+    background-color: #79ff96;
+}
+
+.post-options-follow {
+    background-color: #b7b7f8;
+}   
+
+.post-options-like {
+    background-color: #fc7c7c;
+}
+
+.post-options-profile {
+    background-color: #ffcb90;
+}
+
+.post-options-view {
+    background-color: #ffff80;
+}
+
+.post-image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
 
 /* Q */
 
@@ -76,7 +148,10 @@
 
 
 /* U */
-
+.user-pfp {
+    width: 32px;
+    height: 32px;
+}
 
 /* V */
 
