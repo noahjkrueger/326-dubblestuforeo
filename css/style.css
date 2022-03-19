@@ -19,13 +19,13 @@
 
 /* F */
 .feed {
-    margin-top: 5%;
+    margin-top: 3%;
     margin-left: 15%;
     margin-right: 15%;
 }
 
 .feed_page {
-    background-color: #ffffff;
+    background-color: #f6fdff;
 }
 
 /* G */
@@ -53,6 +53,10 @@
 
 /* N */
 
+.bg-light {
+    background-color: black;
+}
+
 .no-select {
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -68,7 +72,7 @@
 
 /* P */
 .post{
-    background-color: #f3f3f3;
+    background-color: #ffffff;  
 }
 
 .post-body-description {
@@ -100,6 +104,10 @@
     border-radius: 0px;
 }
 
+.post-options-button:hover {
+    background-color: #ffebd6;
+}
+
 .post-options-comment {
     background-color: #79ff96;
 }
@@ -113,7 +121,7 @@
 }
 
 .post-options-profile {
-    background-color: #e2e2e2;
+    background-color: #ffcb90;
 }
 
 .post-options-view {
@@ -140,7 +148,10 @@
 
 
 /* U */
-
+.user-pfp {
+    width: 32px;
+    height: 32px;
+}
 
 /* V */
 
