@@ -7,7 +7,79 @@
 
 
 /* C */
+.create-guide-header {
+    position: relative;
+    left: 46.25%;
+    top: 100px;
+    font-size: x-large;
+}
 
+.cg_title {
+    position: relative;
+    width: 300px;
+    top: 15%;
+    left: 25%;
+}
+
+.cg_desc {
+    position: relative;
+    height: 40px;
+    width: 300px;
+    left: 25%;
+    bottom: 50px;
+}
+
+.cg_ingredients {
+    position: relative;
+    height: 30px;
+    width: 150px;
+    left: 25%;
+    bottom: 80px;
+}
+
+.cg_type {
+    position: relative;
+    height: 37px;
+    width: 70px;
+    left: 105%;
+    bottom: 37px;
+}
+
+.cg_amount {
+    position: relative;
+    height: 30px;
+    width: 205px;
+    bottom: 60px;
+}
+
+.cg_inst {
+    position: relative;
+    width: 800px;
+    left: 25%;
+}
+
+.cg_image {
+    position: relative;
+    left: 45%;
+    bottom: 600px;
+    width: 300px;
+}
+
+.cg_btn {
+    position: relative;
+    height: 30px;
+    width: 150px;
+    left: 25%;
+    top: 10px;
+}
+
+.cg_post {
+    position: relative;
+    height: 30px;
+    width: 100px;
+    left: 25%;
+    bottom: 250px;
+}
 
 /* D */
 
@@ -28,12 +100,6 @@
 
 
 /* H */
-.create-guide-header {
-      position: relative;
-      left: 46.25%;
-      top: 100px;
-      font-size: x-large;
-  }
 
 
 /* I */

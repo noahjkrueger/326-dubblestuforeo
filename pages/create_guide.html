@@ -26,22 +26,43 @@
     <br></br>
     <br></br>
     <!-- Create Guide Form -->
-    <div class="mb-3">
-        <label for="cg_title" class="form-label">Title</label>
-        <input type="email" class="form-control" id="cg_title" placeholder="Add title">
+    <div class="cg_title">
+        <label for="cg_title" class="form-label"></label>
+        <input type="text" class="form-control" id="cg_title" placeholder="Title">
     </div>
-    <div class="mb-3">
-        <label for="cg_desc" class="form-label">Description</label>
-        <textarea class="form-control" id="cg_desc" rows="3" placeholder="Add description"></textarea>
+    <br></br>
+    <div class="cg_desc">
+        <label for="cg_desc" class="form-label"></label>
+        <textarea class="form-control" id="cg_desc" rows="3" placeholder="Description"></textarea>
     </div>
-    <button type="button" class="btn btn-outline-primary">Add Ingredient</button>
-    <div class="mb-3">
+    <br></br>
+    <br></br>
+    <div class = "cg_ingredients">
+        <label for="cg_ing" class="form-label"></label>
+        <input type="text" class="form-control" id="cg_ing" placeholder="Ingredient">
+        <select class="cg_type">
+            <option selected>Type</option>
+            <option value="1">Booze</option>
+            <option value="2">Juice</option>
+            <option value="3">Garnish</option>
+            <option value="4">Veggies</option>
+            <option value="5">Fruit</option>
+        </select>
+        <label for="cg_amount" class="cg_amount"></label>
+        <input type="number" id="cg_amount" placeholder="Amount(oz/tsp/tbs/units)" class="cg_amount">
+    </div>
+    <button type="button" class="cg_btn">Add ingredient</button>
+    <div class="cg_inst">
+        <label for="cg_inst" class="cg_inst"></label>
+        <textarea class="form-control" id="cg_inst" rows="9" placeholder="Instructions"></textarea>
+    </div>
+    <br></br>
+    <br></br>
+    <div class="cg_image">
         <label for="cg_image" class="form-label">Upload Image</label>
         <input class="form-control" type="file" id="cg_image">
-      </div>
-    <div class="mb-3">
-        <label for="cg_inst" class="form-label">Intructions</label>
-        <textarea class="form-control" id="cg_inst" rows="3" placeholder="Add instructions"></textarea>
     </div>
+    <br></br>
+    <br></br>
     <button class="cg_post" type="submit" id="cg_postbutton">Post Guide</button>
 </html>
