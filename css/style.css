@@ -26,7 +26,7 @@
     height: 40px;
     width: 300px;
     left: 25%;
-    bottom: 50px;
+    bottom: 30px;
 }
 
 .cg_ingredients {
@@ -34,7 +34,7 @@
     height: 30px;
     width: 150px;
     left: 25%;
-    bottom: 80px;
+    bottom: 60px;
 }
 
 .cg_type {
@@ -49,13 +49,14 @@
     position: relative;
     height: 30px;
     width: 205px;
-    bottom: 60px;
+    bottom: 30px;
 }
 
 .cg_inst {
     position: relative;
     width: 800px;
     left: 25%;
+    top: 40px;
 }
 
 .cg_image {
@@ -70,7 +71,6 @@
     height: 30px;
     width: 150px;
     left: 25%;
-    top: 10px;
 }
 
 .cg_post {
@@ -78,7 +78,7 @@
     height: 30px;
     width: 100px;
     left: 25%;
-    bottom: 250px;
+    bottom: 200px;
 }
 
 /* D */

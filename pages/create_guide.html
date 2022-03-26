@@ -27,20 +27,17 @@
     <br></br>
     <!-- Create Guide Form -->
     <div class="cg_title">
-        <label for="cg_title" class="form-label"></label>
         <input type="text" class="form-control" id="cg_title" placeholder="Title">
     </div>
     <br></br>
     <div class="cg_desc">
-        <label for="cg_desc" class="form-label"></label>
         <textarea class="form-control" id="cg_desc" rows="3" placeholder="Description"></textarea>
     </div>
     <br></br>
     <br></br>
-    <div class = "cg_ingredients">
-        <label for="cg_ing" class="form-label"></label>
-        <input type="text" class="form-control" id="cg_ing" placeholder="Ingredient">
-        <select class="cg_type">
+    <div class = "cg_ingredients" id="cg_ingClass1">
+        <input type="text" class="form-control" id="cg_ing1" placeholder="Ingredient">
+        <select class="cg_type" id="cg_type1">
             <option selected>Type</option>
             <option value="1">Booze</option>
             <option value="2">Juice</option>
@@ -48,12 +45,10 @@
             <option value="4">Veggies</option>
             <option value="5">Fruit</option>
         </select>
-        <label for="cg_amount" class="cg_amount"></label>
-        <input type="number" id="cg_amount" placeholder="Amount(oz/tsp/tbs/units)" class="cg_amount">
+        <input type="number" id="cg_amount1" placeholder="Amount(oz/tsp/tbs/units)" class="cg_amount">
     </div>
-    <button type="button" class="cg_btn">Add ingredient</button>
+    <button type="button" class="cg_btn" id="cg_btn">Add ingredient</button>
     <div class="cg_inst">
-        <label for="cg_inst" class="cg_inst"></label>
         <textarea class="form-control" id="cg_inst" rows="9" placeholder="Instructions"></textarea>
     </div>
     <br></br>
