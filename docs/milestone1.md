@@ -58,6 +58,7 @@ Screenshot: images/loginPage.png
 
 #### Content Creation Page
 ![Create_Guide](wireframes/create_guide.png)
+![Create Guide Page](docs/screenshots/create_guide.JPG)
 - Can be acsessed from the user's profile page (see User Profile Page)
 - A template for users to create a guide / post
 - Guide posts: A template  will ask a user for ingredient lists, an image of the made drink, instructions on how to make said drink.
