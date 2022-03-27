@@ -53,6 +53,9 @@ Screenshot2: images/guide_Page_Screenshot2.png
 ![Login/Signup](wireframes/login_signup.png)
 - Users can navigate to this page from the home/feed page if they are not logged in.
 - Option to log into existing account or create a new account.
+
+Screenshot: images/loginPage.png
+
 #### Content Creation Page
 ![Create_Guide](wireframes/create_guide.png)
 - Can be acsessed from the user's profile page (see User Profile Page)
@@ -65,3 +68,5 @@ Screenshot2: images/guide_Page_Screenshot2.png
 - Displays a user's biography, profile images and posts.
 - The owner of the page can create a guide here, logout, or otherwise modify the profile.
 - Can 'follow' a user if logged in and veiwing another user's page.
+
+Screenshot: images/userProfile.png
