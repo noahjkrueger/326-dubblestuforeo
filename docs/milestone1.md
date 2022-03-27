@@ -46,19 +46,19 @@ Our idea is to create a cocktail/drink recipe guide social media hybrid.
 - Can navigate to the user who posted profile page (see User Profile Page)
 - Will reccomend similar guides / popular forks
 
-Screenshot1: images/guide_Page_Screenshot1.png
-Screenshot2: images/guide_Page_Screenshot2.png
+![Screenshot1](screenshots/guide_Page_Screenshot1.png)
+![Screenshot2](screenshots/guide_Page_Screenshot2.png)
 
 #### Login / Signup Page
 ![Login/Signup](wireframes/login_signup.png)
 - Users can navigate to this page from the home/feed page if they are not logged in.
 - Option to log into existing account or create a new account.
 
-Screenshot: images/loginPage.png
+![Screenshot](screenshots/loginPage.png)
 
 #### Content Creation Page
 ![Create_Guide](wireframes/create_guide.png)
-![Create Guide Screenshot](docs/screenshots/create_guide.JPG)
+![Create Guide Screenshot](screenshots/create_guide.JPG)
 - Can be acsessed from the user's profile page (see User Profile Page)
 - A template for users to create a guide / post
 - Guide posts: A template  will ask a user for ingredient lists, an image of the made drink, instructions on how to make said drink.
@@ -70,4 +70,4 @@ Screenshot: images/loginPage.png
 - The owner of the page can create a guide here, logout, or otherwise modify the profile.
 - Can 'follow' a user if logged in and veiwing another user's page.
 
-Screenshot: images/userProfile.png
+![Screenshot](screenshots/userProfile.png)
