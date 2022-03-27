@@ -4,11 +4,27 @@
 
 
 /* B */
+.border_Related {
+    margin: 5px;
+    width: 90%;
+    border : solid 2px black;
+    background-color: lightgray;
+}
 .button-label {
     margin-left: 6px;
 }
 
 /* C */
+.column {
+    /* height: 90vh; */
+    padding-left: 6px;
+    padding-right: 6px;
+}
+
+.comments_Guide {
+    width: 100%;
+    font-size: 14pt;
+=======
 .cancelBtn {
     background-color: red; 
     position: fixed; 
@@ -156,6 +172,20 @@
     font-size: 1.5rem;
 }
 
+.img_Guide {
+    width : 23vw
+}
+
+.img_Related {
+    width : 15vw
+}
+
+.instruc_Header {
+    margin-top: 30px;
+    align-content: center;
+    align-self: center;
+}
+
 /* J */
 
 
@@ -196,6 +226,10 @@
 /* O */
 .offcanvas-body::-webkit-scrollbar {
     display: none;
+}
+
+.outline {
+    margin-top: 60px;
 }
 
 /* P */
@@ -282,6 +316,9 @@
 
 
 /* S */
+.stars_Guide {
+    margin-right : 150px;
+  
 .signupBtn {
     background-color: red;
 }
@@ -307,7 +344,13 @@
 }
 
 /* T */
+.table_Header {
+    font-weight: 400;
+}
 
+.table_Item {
+    font-weight: 300;
+}
 
 /* U */
 .user_Bio {
@@ -324,6 +367,9 @@
 .user-pfp {
     width: 32px;
     height: 32px;
+}
+.user_Name {
+    display: inline-flex;
 }
 
 /* V */
