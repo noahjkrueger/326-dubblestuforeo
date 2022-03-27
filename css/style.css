@@ -24,7 +24,8 @@
 .comments_Guide {
     width: 100%;
     font-size: 14pt;
-=======
+}
+
 .cancelBtn {
     background-color: red; 
     position: fixed; 
@@ -35,7 +36,8 @@
 .credentialsBox {
     margin: 8px;
     margin-left: 0px;
-  
+}
+
 .create-guide-header {
     position: relative;
     left: 46.25%;
@@ -318,10 +320,12 @@
 /* S */
 .stars_Guide {
     margin-right : 150px;
-  
+}
+
 .signupBtn {
     background-color: red;
 }
+
 .Signup-side {
     width: 100px; 
     float: left; 
