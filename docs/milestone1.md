@@ -45,6 +45,10 @@ Our idea is to create a cocktail/drink recipe guide social media hybrid.
 - Guide pages can be liked, commented on, shared, or modified (forked)
 - Can navigate to the user who posted profile page (see User Profile Page)
 - Will reccomend similar guides / popular forks
+
+Screenshot1: images/guide_Page_Screenshot1.png
+Screenshot2: images/guide_Page_Screenshot2.png
+
 #### Login / Signup Page
 ![Login/Signup](wireframes/login_signup.png)
 - Users can navigate to this page from the home/feed page if they are not logged in.
