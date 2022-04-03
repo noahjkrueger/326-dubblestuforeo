@@ -10,6 +10,7 @@
     border : solid 2px black;
     background-color: lightgray;
 }
+
 .button-label {
     margin-left: 6px;
 }
@@ -175,7 +176,7 @@
 }
 
 .img_Guide {
-    width : 23vw
+    width: 100%;
 }
 
 .img_Related {
@@ -198,6 +199,7 @@
 .loginBtn {
     background-color: red; 
 }
+
 .Login-side {
     width: 100px; 
     float: left; 
@@ -241,6 +243,7 @@
     top:100px; 
     font-size: 30px;
 }
+
 .post{
     background-color: #ffffff;  
 }
