@@ -2,102 +2,123 @@ import * as http from 'http';
 import * as url from 'url';
 import { readFile, writeFile } from 'fs/promises';
 
-let counters = {};
+const users_data = '/data/users.json';
+const posts_data = '/data/posts.json';
+const index_data = '/data/index.json'
 
-const JSONfile = 'counter.json';
+let users = null;
+let posts = null;
+let index = null;
 
-// NOTE: We changed the content type from text/html to application/json.
 const headerFields = { 'Content-Type': 'application/json' };
 
-async function reload(filename) {
+async function reload(filename, reference) {
   try {
     const data = await readFile(filename, { encoding: 'utf8' });
-    counters = JSON.parse(data);
+    reference = JSON.parse(data);
   } catch (err) {
-    counters = {};
+    reference = {};
   }
 }
 
-  async function saveCounters() {
-    try {
-      const data = JSON.stringify(counters);
-      await writeFile(JSONfile, data, { encoding: 'utf8' });
-    } catch (err) {
-      console.log(err);
+async function saveData(filename, reference) {
+  try {
+    const data = JSON.stringify(reference);
+    await writeFile(filename, data, { encoding: 'utf8' });
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+function userExists(uid) {
+  return uid in users;
+}
+
+function postExists(pid) {
+  return pid in posts;
+}
+
+function ingredientExists(ingred) {
+  return ingred in index;
+}
+
+async function updateIndex(ingredientList, pid, action) {
+  ingredientList.forEach(ingred => {
+    if (action === 'add') {
+      if (ingredientExists(ingred)) {
+        index[ingred].push(pid);
+      }
+      else {
+        index[ingred] = [pid];
+      }
     }
-  }
-
-function counterExists(name) {
-  return name in counters;
+    else if (action === 'remove') {
+      if (ingredientExists(ingred)) {
+        index[ingred].filter(id => id != pid);
+      }
+    }
+  });
+  await saveData(index_data, index);
 }
 
-async function createCounter(response, name) {
-  if (name === undefined) {
-    // 400 - Bad Request
+async function createAccount(response, options) {
+  if (userExists(options.uid)) {
     response.writeHead(400, headerFields);
-    response.write({ error: 'Counter Name Required' });
+    response.write({error: "user already exists"});
     response.end();
   } else {
-    await reload(JSONfile);
-    counters[name] = 0;
-    await saveCounters();
+    await reload(users_data);
+    users[options.uid] = {uid: options.uid, password: options.password, profileImage: options.profileImage, userPIDs: [], followingUIDs: []}
+    await saveData(users_data, users);
     response.writeHead(200, headerFields);
-    response.write(JSON.stringify({ name: name, value: 0 }));
+    response.write(users[uid]);
     response.end();
   }
 }
 
-async function readCounter(response, name) {
-  await reload(JSONfile);
-  if (counterExists(name)) {
-    response.writeHead(200, headerFields);
-    response.write(JSON.stringify({ name: name, value: counters[name] }));
+async function getAccount(response, uid) {
+  if (!userExists(uid)) {
+    response.writeHead(400, headerFields);
+    response.write({error: "user does not exists"});
     response.end();
   } else {
-    // 404 - Not Found
-    response.writeHead(404, headerFields);
-    response.write(JSON.stringify({ error: `Counter '${name}' Not Found` }));
+    await reload(users_data);
+    response.writeHead(200, headerFields);
+    response.write(users[uid]);
     response.end();
   }
 }
 
-async function updateCounter(response, name) {
-    await reload(JSONfile);
-    if (counterExists(name)) {
-      counters[name] += 1;
-      await saveCounters();
-      response.writeHead(200, headerFields);
-      response.write(JSON.stringify({ name: name, value: counters[name] }));
-      response.end();
-    } else {
-      // 404 - Not Found
-      response.writeHead(404, headerFields);
-      response.write(JSON.stringify({ error: `Counter '${name}' Not Found` }));
-      response.end();
-    }
-}
-
-async function deleteCounter(response, name) {
-    await reload(JSONfile);
-    if (counterExists(name)) {
-      response.writeHead(200, headerFields);
-      response.write(JSON.stringify({ name: name, value: counters[name] }));
-      delete counters[name];
-      await saveCounters();
-      response.end();
-    } else {
-      // 404 - Not Found
-      response.writeHead(404, headerFields);
-      response.write(JSON.stringify({ error: `Counter '${name}' Not Found` }));
-      response.end();
-    }
-}
-
-async function dumpCounters(response) {
-  await reload(JSONfile);
+async function createPost(response, options) {
+  await reload(posts_data);
+  posts[options.pid] = {pid: options.pid, title: options.title, body: options.body, image: options.image, ingredients: options.ingredients, comments: [], likes: 0}
+  await saveData(posts_data, posts);
   response.writeHead(200, headerFields);
-  response.write(JSON.stringify(counters));
+  response.write(posts[options.pid]);
+  updateIndex(posts[options.pid].ingredients, options.pid, 'add');
   response.end();
+}
+
+async function deletePost(response, pid) {
+  await reload(posts_data);
+  updateIndex(posts[options.pid].ingredients, options.pid, 'remove');
+  delete posts[pid];
+  await saveData(posts_data, posts);
+  response.writeHead(200, headerFields);
+  response.end();
+}
+
+async function getPost(response, pid) {
+  if (!postExists(pid)) {
+    response.writeHead(400, headerFields);
+    response.write({error: "post does not exists"});
+    response.end();
+  } else {
+    await reload(posts_data);
+    response.writeHead(200, headerFields);
+    response.write(posts[pid]);
+    response.end();
+  }
 }
 
 async function basicServer(request, response) {
@@ -106,33 +127,54 @@ async function basicServer(request, response) {
   const pathname = parsedURL.pathname;
   const method = request.method;
 
-  if (method == 'POST' && pathname.startsWith('/create')) {
-    createCounter(response, options.name);
-  } else if (method == 'GET' && pathname.startsWith('/read')) {
-    readCounter(response, options.name);
+  if (method === 'POST' && pathname.startsWith('/account_create')) {
+    createAccount(response, options);
+  } 
+  else if (method == 'GET' && pathname.startsWith('/account')) {
+    getAccount(response, options.uid);
   }
-  else if (method === 'PUT' && pathname.startsWith('/update')) {
-    updateCounter(response, options.name);
+  else if (method === 'POST' && pathname.startsWith('/post_create')) {
+    createPost(response, options);
+  } 
+  else if (method == 'GET' && pathname.startsWith('/post')) {
+    getPost(response, options.pid);
   }
-  else if (method === 'DELETE' && pathname.startsWith('/delete')) {
-    deleteCounter(response, options.name);
-  } else if (method == 'GET' && pathname.startsWith('/dump')) {
-    dumpCounters(response);
-  } else if (method == 'GET' && pathname.startsWith('/client')) {
+  else if (method == 'GET' && pathname.startsWith('/client')) {
     try {
-      // Determine the content type of the requested file (if it is a file).
+      let data = null;
       let type = '';
       if (pathname.endsWith('.css')) {
         type = 'text/css';
-      } else if (pathname.endsWith('.js')) {
+        data = await readFile(pathname.substring(1), 'utf8');
+      } 
+      else if (pathname.endsWith('.js')) {
         type = 'text/javascript';
-      } else if (pathname.endsWith('.html')) {
+        data = await readFile(pathname.substring(1), 'utf8');
+      } 
+      else if (pathname.endsWith('.html')) {
         type = 'text/html';
-      } else {
-        type = 'text/plain';
+        data = await readFile(pathname.substring(1), 'utf8');
+      } 
+      else if (pathname.endsWith('.png')) {
+        type = 'image/png';
+        data = data = await readFile(pathname.substring(1));
       }
-
-      const data = await readFile(pathname.substring(1), 'utf8');
+      else if (pathname.endsWith('.jpg') || pathname.endsWith('.jpeg')) {
+        type = 'image/jpeg';
+        data = data = await readFile(pathname.substring(1));
+      }
+      else if (pathname.endsWith('.svg')) {
+        type = 'image/svg+xml';
+        data = data = await readFile(pathname.substring(1));
+      }
+      else if (pathname.endsWith('.ico')) {
+        type = 'image/vnd.microsoft.icon';
+        data = data = await readFile(pathname.substring(1));
+      }
+      else {
+        type = 'text/plain';
+        data = await readFile(pathname.substring(1), 'utf8');
+      }
       response.writeHead(200, { 'Content-Type': type });
       response.write(data);
     } catch (err) {

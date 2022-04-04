@@ -4,7 +4,10 @@
   "description": "CS326 Final Project",
   "main": "main.js",
   "directories": {
-    "doc": "docs"
+    "doc": "docs",
+    "css": "css",
+    "images": "images",
+    "js": "js"
   },
   "dependencies": {
     "bootstrap-icons": "^1.8.1"
