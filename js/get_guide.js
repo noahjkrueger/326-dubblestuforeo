@@ -29,7 +29,7 @@ const content1 = [
 
 const content2 = [
     {
-        "Instructions" : ['1) Pour some celery salt onto a small plate.',
+        "Instructions" : [  '1) Pour some celery salt onto a small plate.',
                             '2) Rub the juicy side of the lemon or lime wedge along the lip of a pint glass.',
                             '3) Roll the outer edge of the glass in celery salt until fully coated, then fill the glass with ice and set aside.',
                             '4) Squeeze the lemon and lime wedges into a shaker and drop them in.',

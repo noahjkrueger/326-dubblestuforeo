@@ -14,17 +14,17 @@ const content = [
     {
         "title": "title2",
         "user": "username2",
-        "pfp": "../images/default_pfp.jpg",
+        "pfp": "/images/default_pfp.jpg",
         "description": "here is the description1",
-        "image": "../images/placeholde_beer.jpg",
+        "image": "/images/placeholde_beer.jpg",
         "date": "date2"   
     } ,
     {
         "title": "title3",
         "user": "username3",
-        "pfp": "../images/default_pfp.jpg",
+        "pfp": "/images/default_pfp.jpg",
         "description": "here is the description1",
-        "image": "../images/placeholde_beer.jpg",
+        "image": "/images/placeholde_beer.jpg",
         "date": "date1"   
     }   
 ];
