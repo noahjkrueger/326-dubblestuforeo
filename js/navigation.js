@@ -2,7 +2,7 @@ const nav_bar = document.getElementById("navigation");
 const navbar_src = "navbar.html";
 const data = [
     {
-        "icon": "../images/booze.png",
+        "icon": "/images/booze.png",
         "type": "Booze",
         "list": [
             "Brandy",
@@ -14,7 +14,7 @@ const data = [
         ]
     },
     {
-        "icon": "../images/juice.png",
+        "icon": "/images/juice.png",
         "type": "Juice",
         "list": [
             "Juice 1",
@@ -26,7 +26,7 @@ const data = [
         ]
     },
     {
-        "icon": "../images/fruit.png",
+        "icon": "/images/fruit.png",
         "type": "Fruit",
         "list": [
             "Fruit 1",
@@ -38,7 +38,7 @@ const data = [
         ]
     },
     {
-        "icon": "../images/vegtable.png",
+        "icon": "/images/vegtable.png",
         "type": "Vegtable",
         "list": [
             "Vegtable 1",
@@ -50,7 +50,7 @@ const data = [
         ]
     },
     {
-        "icon": "../images/garnish.png",
+        "icon": "/images/garnish.png",
         "type": "Garnish",
         "list": [
             "Garnish 1",
