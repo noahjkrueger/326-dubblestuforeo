@@ -1,6 +1,14 @@
 import * as guzzzleAPI from './guzzzle-api.js'
 
 const feed = document.getElementById("feed");
+// uid from cookie
+// get feed PIDs from API using uid
+// use PIDs to get JSON of each post
+// parse into the feed
+// modify like to include count
+// modify view guide
+//modify comments
+// modify user bar
 const content = [
     {
         "title": "Bloody Mary",

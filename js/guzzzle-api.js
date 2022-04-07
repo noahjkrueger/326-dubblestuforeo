@@ -1,3 +1,19 @@
+export async function login(uid, password) {
+    try {
+        const response = await fetch(`/login?uid=${uid}&password${password}`, {
+            method: 'GET',
+            headers: {
+            'Content-Type': 'application/json',
+            }
+        });
+        const data = await response.json();
+        return data;
+    }
+    catch(err) {
+        console.log(err);
+    }
+  }
+
 export async function createUser(uid, password, profileImage, biography) {
     try {
         const response = await fetch(`/user_create?uid=${uid}`, {
