@@ -28,12 +28,12 @@ export async function readUser(uid) {
     }
 }
   
-export async function updateUser(uid, newpassword, profileImage, biography) {
+export async function updateUser(uid, newPassword, newProfileImage, newBiography) {
     try {
         const response = await fetch(`/user_update?uid=${uid}`, {
             method: 'PUT',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({newpassword: newpassword, profileImage: profileImage, biography: biography})
+            body: JSON.stringify({newpassword: newPassword, profileImage: newProfileImage, biography: newBiography})
             });
         const data = await response.json();
         return data;
@@ -85,12 +85,12 @@ export async function readPost(pid) {
     }
 }
 
-export async function updatePost(pid, title, image, ingredient_keys, ingredients, instructions) {
+export async function updatePost(pid, newTitle, newImage, newIngredient_keys, newIngredients, newInstructions) {
     try {
-        const response = await fetch(`/post_update?uid=${pid}`, {
+        const response = await fetch(`/post_update?pid=${pid}`, {
             method: 'PUT',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({title: title, image: image, ingredient_keys: ingredient_keys, ingredients: ingredients, instructions: instructions})
+            body: JSON.stringify({title: newTitle, image: newImage, ingredient_keys: newIngredient_keys, ingredients: newIngredients, instructions: newInstructions})
         });
         const data = await response.json();
         return data;
@@ -102,7 +102,7 @@ export async function updatePost(pid, title, image, ingredient_keys, ingredients
   
 export async function deletePost(pid) {
     try {
-        const response = await fetch(`/post_delete?uid=${pid}`, {
+        const response = await fetch(`/post_delete?pid=${pid}`, {
             method: 'DELETE',
         });
         const data = await response.json();
@@ -180,11 +180,32 @@ export async function commentPost(uid, pid, comment) {
     try {
         const response = await fetch(`/comment?uid=${uid}&pid=${pid}`, {
             method: 'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({comment: comment})
+        });
+        const data = await response.json();
+        return data;
+    } 
+    catch (err) {
+        console.log(err);
+    }
+}
+
+export async function queryPosts(ingredients) {
+    try {
+        let request = '/query?query=';
+        for (let i = 0; i < ingredients.length; i++) {
+            if (i < ingredients.length - 1) {
+                request += `${ingredients[i]}+`;
+            } 
+            else {
+                request += `${ingredients[i]}`;
+            }
+        }
+        const response = await fetch(request, {
+            method: 'GET',
             headers: {
             'Content-Type': 'application/json',
-            },
-            body : {
-                comment: comment
             }
         });
         const data = await response.json();
@@ -195,13 +216,9 @@ export async function commentPost(uid, pid, comment) {
     }
 }
 
-export async function queryPosts(ingredients) {
+export async function getFeed(uid) {
     try {
-        let request = '/query?query=';
-        ingredients.forEach(ingred => {
-            request += `+${ingred}`;
-        });
-        const response = await fetch(request, {
+        const response = await fetch(`/feed?uid=${uid}`, {
             method: 'GET',
             headers: {
             'Content-Type': 'application/json',
