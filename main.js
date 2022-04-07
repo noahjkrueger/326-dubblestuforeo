@@ -45,6 +45,19 @@ function getNewPID() {
   Object.keys(posts).reduce((a, b) => a > b);
 }
 
+async function login(response, query) {
+  await reload(users_file);
+  if (!entryExists(users, query.uid)) {
+    response.status(404).json({ error: `Username '${query.uid}' does not exist`});
+  }
+  else if (users[query.uid].password != query.password) {
+    response.status(400).json({ error: `Password for '${query.uid}' was incorrect`});
+  }
+  else {
+    response.json(users[query.uid]);
+  }
+}
+
 async function createUser(response, query, body) {
   if (query.uid === undefined || entryExists(users, query.uid)) {
     response.status(400).json({ error: `Username '${query.uid}' is already taken`});
@@ -260,6 +273,11 @@ async function getFeed(response, uid) {
     response.json(PIDs);
   }
 }
+
+app.get('/login', async (request, response) => {
+  const query = request.query;
+  login(response, query);
+});
 
 app.post('/user_create', async (request, response) => {
   const query = request.query;

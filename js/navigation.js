@@ -1,5 +1,11 @@
 const nav_bar = document.getElementById("navigation");
 const navbar_src = "navbar.html";
+
+//update data
+//uid cookie -> modify pfp
+//create query functionality
+// display results?
+
 const data = [
     {
         "icon": "/images/booze.png",

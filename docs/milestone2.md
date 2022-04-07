@@ -45,6 +45,12 @@ With the guzzzleAPI.js file within the same directory, use:
     import * as guzzzleAPI from './guzzzle-api.js'
 
 #### Users
+##### Login
+    guzzzleAPI.login(uid, password)
+Will send a GET request to the server to login.
+If the UID does not exist, the server will respond with status 404 and a message that UID does not exist.
+If the password does not match, the server will respond with status 400 and a message that password was incorrect.
+This function returns the user object as it is stored in users.json.
 ##### Create a User
     guzzzleAPI.createUser(uid, password, profileImage, biography)
 Will send a POST request to the server to create an account. 
@@ -58,7 +64,7 @@ A user object includes:
 - following, a list of UIDs the user follows
 - followers, a list of UIDs that follow the user
 - posts, a list of PIDs representing posts the user makes
-This function returns the a user object as it is stored in users.json.
+This function returns the user object as it is stored in users.json.
 ##### Read a User
     guzzzleAPI.readUser(uid)
 Will send a GET request to the server to get an account.
@@ -72,7 +78,7 @@ A user object includes:
 - following, a list of UIDs the user follows
 - followers, a list of UIDs that follow the user
 - posts, a list of PIDs representing posts the user makes
-This function returns the a user object as it is stored in users.json.
+This function returns the user object as it is stored in users.json.
 ##### Update a User
     guzzzleAPI.updateUser(uid, newPassword, newProfileImage, newBiography)
 Will send a PUT request to the server to update an account. 
