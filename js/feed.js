@@ -1,3 +1,19 @@
+import * as guzzzleAPI from './guzzzle-api.js'
+console.log(await guzzzleAPI.createUser("noah", "1234", "img", "bio"));
+console.log(await guzzzleAPI.readUser("noah"));
+console.log(await guzzzleAPI.createUser("noah1", "1234", "img", "bio"));
+console.log(await guzzzleAPI.followUser("noah", "noah1"));
+console.log(await guzzzleAPI.createPost("noah", "title", "image", [1, 2 ,3], "1 cup ingr 1\n 2cup ingr 2\n", "instruct"));
+console.log(await guzzzleAPI.likePost(0));
+// console.log(await guzzzleAPI.commentPost("noah", 0, "comment"));
+console.log(await guzzzleAPI.unlikePost(0));
+console.log(await guzzzleAPI.unfollowUser("noah", "noah1"));
+// console.log(await guzzzleAPI.deleteUser("noah1"));
+console.log(await guzzzleAPI.updateUser("noah", "password", "newIMG", "newBIO"));
+console.log(await guzzzleAPI.updatePost(0, "newtitle", "newimage", [4, 5 ,6], "3 cup ingr 3\n 4cup ingr 4\n", "new instrict"));
+console.log(await guzzzleAPI.deletePost(0));
+console.log(await guzzzleAPI.queryPosts([4, 5]));
+
 const feed = document.getElementById("feed");
 const content = [
     {
