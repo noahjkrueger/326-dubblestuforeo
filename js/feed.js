@@ -1,3 +1,5 @@
+import * as guzzzleAPI from './guzzzle-api.js'
+
 const feed = document.getElementById("feed");
 const content = [
     {
