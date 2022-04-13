@@ -1,3 +1,5 @@
+import * as guzzzleAPI from './guzzzle-api.js'
+
 let ingredientCount = 1;
 const ingType = ['Booze', 'Juice', 'Garnish', 'Veggies', 'Fruit']
 
@@ -14,16 +16,16 @@ postButton.addEventListener("click", post);
 addIng.addEventListener("click", duplicate);
 
 function post() {
-    console.log("Title: " + title.value);
-    console.log("Description: " + desc.value);
-    console.log("Instructions: " + inst.value);
-    console.log("Image: " + img.value);
+    let ingredient_keys = [];
+    let ingredientStr = "";
     for(let i = 1; i <= ingredientCount; ++i) {
         let ing = document.getElementById("cg_ing" + i);
         let type = document.getElementById("cg_type" + i);
         let amount = document.getElementById("cg_amount" + i);
-        console.log("Ingredient " + i + ": " + ing.value + "\n\tType: " + ingType[type.value] + "\n\tAmount: " + amount.value)
+        ingredient_keys.push(type);
+        ingredientStr += "Ingredient " + i + ": " + ing + " " + amount;
     }
+    guzzzleAPI.createPost(uid, title.value, img.value, desc.value, ingredient_keys, ingredientStr, inst.value);
 };
 
 function duplicate() {

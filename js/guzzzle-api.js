@@ -71,14 +71,14 @@ export async function deleteUser(uid) {
     }
 }
 
-export async function createPost(uid, title, image, ingredient_keys, ingredients, instructions) {
+export async function createPost(uid, title, image, description, ingredient_keys, ingredients, instructions) {
     try {
         const response = await fetch(`/post_create?uid=${uid}`, {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json',
             },
-            body: JSON.stringify({title: title, image: image, ingredient_keys: ingredient_keys, ingredients: ingredients, instructions: instructions})
+            body: JSON.stringify({title: title, image: image, description: description, ingredient_keys: ingredient_keys, ingredients: ingredients, instructions: instructions})
         });
         const data = await response.json();
         return data;

@@ -137,7 +137,7 @@ relevant to the query, then use those PIDs to retrive posts (see "Read a Post").
 ingredient_keys is an array stored in a post object. These are used to index posts for querying. They do not include specific brands or measurements.
 For example, if a post included 'Tito's vodka', the ingredient key should be 'Vodka'. Same goes for other ingredients. If an ingredient is not listed (aka niche ingredients), please do not include it as it will not be indexed. The purpose of this is to keep the queries general and limited to the options the site offers.
 ##### Create a Post
-    guzzzleAPI.createPost(uid, title, image, ingredient_keys, ingredients, instructions)
+    guzzzleAPI.createPost(uid, title, image, description, ingredient_keys, ingredients, instructions)
 Will send a POST request to the server to create a post.
 If the uid does not exist, a response with status 400 will be returned with the message that one must be logged in to post.
 The pid is automatically assigned and in included in the returned object.
@@ -146,6 +146,7 @@ A post object includes:
 - pid, the post ID number integer
 - title, a string that is the post title
 - image, the image included in the post
+- description, a string that is the post description
 - ingredient_keys, an array of ingredients used to index the post within index
 - ingredients, a string of ingredients, including brands and measurements that is displayed on post
 - instructions, a string of the instructions to be included on the post.
