@@ -26,38 +26,40 @@
     <br></br>
     <br></br>
     <!-- Create Guide Form -->
-    <div class="cg_title">
-        <input type="text" class="form-control" id="cg_title" placeholder="Title">
+    <div>
+        <div class="cg_title">
+            <input type="text" class="form-control" id="cg_title" placeholder="Title">
+        </div>
+        <br></br>
+        <div class="cg_desc">
+            <textarea class="form-control" id="cg_desc" rows="3" placeholder="Description"></textarea>
+        </div>
+        <br></br>
+        <br></br>
+        <div class = "cg_ingredients" id="cg_ingClass">
+            <input type="text" class="form-control" id="cg_ing1" placeholder="Ingredient">
+            <select class="cg_type" id="cg_type1">
+                <option selected>Type</option>
+                <option value="1">Booze</option>
+                <option value="2">Juice</option>
+                <option value="3">Garnish</option>
+                <option value="4">Veggies</option>
+                <option value="5">Fruit</option>
+            </select>
+            <input type="number" id="cg_amount1" placeholder="Amount(oz/tsp/tbs/units)" class="cg_amount">
+        </div>
+        <button type="button" class="cg_btn" id="cg_btn">Add Ingredient</button>
+        <div class="cg_inst">
+            <textarea class="form-control" id="cg_inst" rows="9" placeholder="Instructions"></textarea>
+        </div>
+        <br></br>
+        <br></br>
+        <div class="cg_image">
+            <label for="cg_image" class="form-label">Upload Image</label>
+            <input class="form-control" type="file" id="cg_image">
+        </div>
+        <br></br>
+        <br></br>
+        <button class="cg_post" type="submit" id="cg_postbutton">Post Guide</button>
     </div>
-    <br></br>
-    <div class="cg_desc">
-        <textarea class="form-control" id="cg_desc" rows="3" placeholder="Description"></textarea>
-    </div>
-    <br></br>
-    <br></br>
-    <div class = "cg_ingredients" id="cg_ingClass">
-        <input type="text" class="form-control" id="cg_ing1" placeholder="Ingredient">
-        <select class="cg_type" id="cg_type1">
-            <option selected>Type</option>
-            <option value="1">Booze</option>
-            <option value="2">Juice</option>
-            <option value="3">Garnish</option>
-            <option value="4">Veggies</option>
-            <option value="5">Fruit</option>
-        </select>
-        <input type="number" id="cg_amount1" placeholder="Amount(oz/tsp/tbs/units)" class="cg_amount">
-    </div>
-    <button type="button" class="cg_btn" id="cg_btn">Add Ingredient</button>
-    <div class="cg_inst">
-        <textarea class="form-control" id="cg_inst" rows="9" placeholder="Instructions"></textarea>
-    </div>
-    <br></br>
-    <br></br>
-    <div class="cg_image">
-        <label for="cg_image" class="form-label">Upload Image</label>
-        <input class="form-control" type="file" id="cg_image">
-    </div>
-    <br></br>
-    <br></br>
-    <button class="cg_post" type="submit" id="cg_postbutton">Post Guide</button>
 </html>

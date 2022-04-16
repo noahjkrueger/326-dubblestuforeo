@@ -25,7 +25,7 @@ function post() {
         ingredient_keys.push(type);
         ingredientStr += "Ingredient " + i + ": " + ing + " " + amount;
     }
-    guzzzleAPI.createPost(uid, title.value, img.value, desc.value, ingredient_keys, ingredientStr, inst.value);
+    guzzzleAPI.createPost(123, title.value, img.value, desc.value, ingredient_keys, ingredientStr, inst.value);
 };
 
 function duplicate() {
@@ -50,9 +50,9 @@ function duplicate() {
 
     //move down cg_btn, cg_inst, and cg_postButton200
     let postButtonClass = document.querySelector('.cg_post');
-    postButtonClass.style.bottom = 200 - ingredientCount * 115 + 'px';
+    postButtonClass.style.bottom = 200 - ingredientCount * 120 + 'px';
     let addButtonClass = document.querySelector('.cg_btn');
-    addButtonClass.style.top = 115 * ingredientCount + 'px';
+    addButtonClass.style.top = 110 * ingredientCount + 'px';
     let instClass = document.querySelector('.cg_inst');
     instClass.style.top = 115 * ingredientCount + 'px';
 

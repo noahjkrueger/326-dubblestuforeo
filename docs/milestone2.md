@@ -97,7 +97,7 @@ Otherwise, the users.json file will update to remove the entry.
 In addition, the users following UID will have uid removed from both the followers and following lists.
 This function responds with status 200 and a message that the user was deleted.
 ##### Follow a User
-    guzzzleAPI.ollowUser(uid_from, uid_to)
+    guzzzleAPI.followUser(uid_from, uid_to)
 Will send a PUT request to the server to update both the following and followers lists of the two accounts.
 If the UID does not exist, the server will respond with status 404 and a message that UID does not exist.
 Otherwise, the users.json file will update the entry.
