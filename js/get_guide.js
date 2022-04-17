@@ -29,7 +29,7 @@ const content1 = [
 
 const content2 = [
     {
-        "Instructions" : ['1) Pour some celery salt onto a small plate.',
+        "Instructions" : [  '1) Pour some celery salt onto a small plate.',
                             '2) Rub the juicy side of the lemon or lime wedge along the lip of a pint glass.',
                             '3) Roll the outer edge of the glass in celery salt until fully coated, then fill the glass with ice and set aside.',
                             '4) Squeeze the lemon and lime wedges into a shaker and drop them in.',
@@ -187,31 +187,43 @@ content2.forEach(col2_content => {
         appendChildren(instruc, [s]);
     });
     appendChildren(row_1, [h, instruc]);
+    appendChildren(col2, [row_1]);
 
     //Second row in col2
     let row_2 = createElement("div");
 
     //Comments
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0].forEach(i => {
-        let inp = createElement("input")
-        inp.setAttribute("type", "text");
-        inp.setAttribute("placeholder", "ExampleComments#");
-        addClasses(inp, ["comments_Guide"]);
-        appendChildren(row_1, [inp]);
-    });
+    // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0].forEach(i => {
+    //     let inp = createElement("input")
+    //     inp.setAttribute("type", "text");
+    //     inp.setAttribute("placeholder", "ExampleComments#");
+    //     addClasses(inp, ["comments_Guide"]);
+    //     appendChildren(row_2, [inp]);
+    // });
+
+    let c = createElement("h3");
+    c.innerText = "Comments";
+    addClasses(c, ["instruc_Header"]);
+    appendChildren(row_2, [c]);
+    
+    let iframe = createElement("iframe");
+    addClasses(iframe, ["iframe"]);
+    let inner  = createElement("div");
+    appendChildren(iframe, [inner]);
+    appendChildren(row_2, [iframe]);
 
     let input = createElement("input")
     input.setAttribute("type", "text");
     input.setAttribute("placeholder", "MyComment");
     addClasses(input, ["comments_Guide"]);
-    appendChildren(row_1, [input]);
+    appendChildren(row_2, [input]);
+    appendChildren(col2, [row_2]);
 
     let button = createElement("button")
     button.setAttribute("type", "submit");
     button.innerText = "Comment"
 
-    appendChildren(row_1, [button]);
-    appendChildren(col2, [row_1]);
+    appendChildren(row_2, [button]);
 });
 
 

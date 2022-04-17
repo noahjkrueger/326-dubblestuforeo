@@ -1,4 +1,14 @@
+import * as guzzzleAPI from './guzzzle-api.js'
+
 const feed = document.getElementById("feed");
+// uid from cookie
+// get feed PIDs from API using uid
+// use PIDs to get JSON of each post
+// parse into the feed
+// modify like to include count
+// modify view guide
+//modify comments
+// modify user bar
 const content = [
     {
         "title": "Bloody Mary",
@@ -14,17 +24,17 @@ const content = [
     {
         "title": "title2",
         "user": "username2",
-        "pfp": "../images/default_pfp.jpg",
+        "pfp": "/images/default_pfp.jpg",
         "description": "here is the description1",
-        "image": "../images/placeholde_beer.jpg",
+        "image": "/images/placeholde_beer.jpg",
         "date": "date2"   
     } ,
     {
         "title": "title3",
         "user": "username3",
-        "pfp": "../images/default_pfp.jpg",
+        "pfp": "/images/default_pfp.jpg",
         "description": "here is the description1",
-        "image": "../images/placeholde_beer.jpg",
+        "image": "/images/placeholde_beer.jpg",
         "date": "date1"   
     }   
 ];
