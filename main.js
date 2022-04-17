@@ -42,7 +42,7 @@ function entryExists(file_referance, entry) {
 
 function getNewPID() {
   if (Object.keys(posts).length === 0) return 0;
-  Object.keys(posts).reduce((a, b) => a > b);
+  return parseInt(Object.keys(posts).reduce((a, b) => a > b)) + 1;
 }
 
 async function login(response, query) {
@@ -54,8 +54,12 @@ async function login(response, query) {
     response.status(400).json({ error: `Password for '${query.uid}' was incorrect`});
   }
   else {
-    response.json(users[query.uid]);
+    response.status(200).json(users[query.uid]);
   }
+}
+
+async function logout(response) {
+  response.status(200).json({ "status" : "Logout Success" });
 }
 
 async function createUser(response, query, body) {
@@ -63,18 +67,18 @@ async function createUser(response, query, body) {
     response.status(400).json({ error: `Username '${query.uid}' is already taken`});
   } else {
     await reload(users_file);
-    users[query.uid] = {uid: query.uid, password: body.password, profileImage: body.profileImage, biography: body.biography, posts: [], following: [], followers: []};
+    users[query.uid] = {uid: query.uid, password: body.password, profileImage: body.profileImage, biography: body.biography, posts: [], following: [], followers: [], likes: []};
     await saveFile(users_file, users);
-    response.json(users[query.uid]);
+    response.status(200).json(users[query.uid]);
   }
 }
 
 async function readUser(response, uid) {
   await reload(users_file);
   if (entryExists(users, uid)) {
-    response.json(users[uid]);
+    response.status(200).json(users[uid]);
   } else {
-    response.json({ error: `User '${uid}' Not Found` });
+    response.status(404).json({ error: `User '${uid}' Not Found` });
   }
 }
 
@@ -85,7 +89,7 @@ async function updateUser(response, query, body) {
     users[query.uid].profileImage = body.profileImage;
     users[query.uid].biography = body.biography;
     await saveFile(users_file, users);
-    response.json(users[query.uid]);
+    response.status(200).json(users[query.uid]);
   } 
   else {
     response.status(404).json({error: `Username '${query.uid}' is  not found`});
@@ -103,10 +107,10 @@ async function deleteUser(response, uid) {
     });
     delete users[uid];
     await saveFile(users_file, users);
-    response.json(`User '${uid}' Has been Deleted`);
+    response.status(200).json(`User '${uid}' Has been Deleted`);
   } 
   else {
-    response.json({ error: `User '${uid}' Not Found` });
+    response.status(404).json({ error: `User '${uid}' Not Found` });
   }
 }
 
@@ -125,7 +129,7 @@ async function manageFollow(response, uid_from, uid_to, follow) {
       users[uid_to].followers = users[uid_to].followers.filter(uid => uid != uid_from);
     }
     await saveFile(users_file, users);
-    response.json(users[uid_from]);
+    response.status(200).json(users[uid_from]);
   }
 }
 
@@ -141,7 +145,7 @@ async function createPost(response, query, body) {
     const date = `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()}`;
     users[query.uid].posts.push(pid);
     await saveFile(users_file, users);
-    posts[pid] = {pid: pid, uid: query.uid, title: body.title, image: body.image, date: date, likes: 0, ingredient_keys: body.ingredient_keys, ingredients: body.ingredients, instructions: body.instructions, comments: []};
+    posts[pid] = {pid: pid, uid: query.uid, title: body.title, image: body.image, date: date, likes: 0, ingredient_keys: body.ingredient_keys, ingredients: body.ingredients, instructions: body.instructions, description : body.description, comments: []};
     await saveFile(posts_file, posts);
     await reload(index_file);
     body.ingredient_keys.forEach(ingred => {
@@ -153,7 +157,7 @@ async function createPost(response, query, body) {
       }
     });
     await saveFile(index_file, index);
-    response.json(posts[pid]);
+    response.status(200).json(posts[pid]);
   }
 }
 
@@ -161,9 +165,9 @@ async function readPost(response, pid) {
   await reload(posts_file);
   if (!entryExists(posts, pid)) {
     response.status(400).json({ error: `Post does not exist`});
-  } 
+  }
   else {
-    response.json(posts[pid]);
+    response.status(200).json(posts[parseInt(pid)]);
   }
 }
 
@@ -189,7 +193,7 @@ async function updatePost(response, query, body) {
       }
     });
     await saveFile(index_file, index);
-    response.json(posts[query.pid]);
+    response.status(200).json(posts[query.pid]);
   } 
   else {
     response.status(404).json({error: `Post not found`});
@@ -206,18 +210,16 @@ async function deletePost(response, pid) {
     await saveFile(index_file, index);
     delete posts[pid];
     await saveFile(posts_file, posts);
-    response.json(`Post '${pid}' Has been Deleted`);
+    response.status(200).json(`Post '${pid}' Has been Deleted`);
   } 
   else {
-    response.json({ error: `Post not Found` });
+    response.status(404).json({ error: `Post not Found` });
   }
 }
 
 async function queryIndex(response, query) {
   await reload(index_file);
   let posts = {};
-  console.log(index);
-  console.log(query);
   query.split(" ").forEach(key => {
     index[key].forEach(pid => {
       if(pid in posts) {
@@ -228,10 +230,10 @@ async function queryIndex(response, query) {
       }
     });
   });
-  response.json(posts);
+  response.status(200).json(posts);
 }
 
-async function votePost(response, pid, like) {
+async function votePost(response, uid, pid, like) {
   await reload(users_file);
   if (!entryExists(posts, pid)) {
     response.status(400).json({ error: `Post does not exist`});
@@ -240,7 +242,15 @@ async function votePost(response, pid, like) {
     await reload(posts_file);
     posts[pid].likes += like ? 1 : -1;
     await saveFile(posts_file, posts);
-    response.json(posts[pid]);
+    await reload(users_file);
+    if (!like) {
+      users[uid].likes = users[uid].likes.filter(post => post != pid);
+    }
+    else {
+      users[uid].likes.push(pid);
+    }
+    await saveFile(users_file, users)
+    response.status(200).json(posts[pid]);
   }
 }
 
@@ -256,13 +266,13 @@ async function commentPost(response, query, body) {
     await reload(posts_file);
     posts[query.pid].comments.push({uid: query.uid, comment: body.comment});
     await saveFile(posts_file, posts);
-    response.json(posts[query.pid]);
+    response.status(200).json(posts[query.pid]);
   }
 }
 
 async function getFeed(response, uid) {
   await reload(users_file);
-  if (!entryExists(users, query.uid)) {
+  if (!entryExists(users, uid)) {
     response.status(404).json({ error: `User not found`});
   }
   else {
@@ -270,13 +280,17 @@ async function getFeed(response, uid) {
     users[uid].following.forEach(user => {
       users[user].posts.forEach(post => PIDs.push(post));
     });
-    response.json(PIDs);
+    response.status(200).json(PIDs);
   }
 }
 
 app.get('/login', async (request, response) => {
   const query = request.query;
   login(response, query);
+});
+
+app.get('/logout', async (request, response) => {
+  logout(response);
 });
 
 app.post('/user_create', async (request, response) => {
@@ -330,12 +344,12 @@ app.get('/query', async (request, response) => {
 
 app.put('/like', async (request, response) => {
     const query = request.query;
-    votePost(response, query.pid, true);
+    votePost(response, query.uid, query.pid, true);
 });
 
 app.put('/unlike', async (request, response) => {
   const query = request.query;
-  votePost(response, query.pid, false);
+  votePost(response, query.uid, query.pid, false);
 });
 
 app.put('/follow', async (request, response) => {
