@@ -1,3 +1,5 @@
+import * as guzzzleAPI from './guzzzle-api.js'
+
 const col1 = document.getElementById('col1')
 const col2 = document.getElementById('col2')
 const col3 = document.getElementById('col3')
