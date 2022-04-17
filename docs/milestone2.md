@@ -192,16 +192,18 @@ Otherwise, the posts.json file will update to remove the entry.
 In addition, the post is removed from index, making use of ingredient_keys.
 This function responds with status 200 and a message that the post was deleted.
 ##### Like a Post
-    guzzzleAPI.likePost(pid)
+    guzzzleAPI.likePost(uid, pid)
 Will send a PUT request to the server to update the likes on a post.
 If the PID does not exist, the server will respond with status 404 and a message that PID does not exist.
 Otherwise, the posts.json file will update the entry so that within the post object the likes increase by 1.
+The user object tied to UID will have the like recorded.
 This function returns the post object that was updated as it is stored in posts.json.
 ##### Unlike a Post
-    guzzzleAPI.unlikePost(pid)
+    guzzzleAPI.unlikePost(uid, pid)
 Will send a PUT request to the server to update the likes on a post.
 If the PID does not exist, the server will respond with status 404 and a message that PID does not exist.
 Otherwise, the posts.json file will update the entry so that within the post object the likes decrease by 1.
+The user object tied to UID will have the like recorded.
 This function returns the post object that was updated as it is stored in posts.json.
 ##### Comment on a Post
     guzzzleAPI.commentPost(uid, pid, comment)
