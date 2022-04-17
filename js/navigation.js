@@ -113,9 +113,12 @@ await fetch(navbar_src).then((response) => response.text()).then((html) => {
     ingredientList.innerHTML = ingredientList.innerHTML + meat;
 
     const user_profile = document.getElementById("user_profile");
+    user_profile.addEventListener('click', event => {
+        window.localStorage.setItem("user-info", JSON.stringify({uid: loggedin_user.uid}));
+    });
     if (loggedin_user === null) {
-        user_profile.href = "/login.html"
-        user_profile.innerHTML = "Login/Signup"
+        user_profile.innerText = "Login/Signup";
+        user_profile.href = "/login.html";
     }
     else {
         let pfp_img = document.createElement("img");
@@ -175,8 +178,8 @@ await fetch(navbar_src).then((response) => response.text()).then((html) => {
             window.alert(result.error);
         }
         else {
-            
+            window.localStorage.setItem("user-info", JSON.stringify({uid: result.uid}));
+            window.location.href = "./profile.html";
         }
-        event.preventDefault();
     });
 });

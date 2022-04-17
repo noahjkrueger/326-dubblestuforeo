@@ -1,15 +1,6 @@
 import * as guzzzleAPI from './guzzzle-api.js'
 
-// await guzzzleAPI.createUser("noah", "1234", "https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Twemoji_1f600.svg/800px-Twemoji_1f600.svg.png", "bio");
-// await guzzzleAPI.createUser("noah1", "1234", "https://static01.nyt.com/images/2021/09/30/fashion/29melting-face-emoji/29melting-face-emoji-mediumSquareAt3X-v2.jpg", "bio");
-// await guzzzleAPI.followUser("noah", "noah1");
-// await guzzzleAPI.createPost("noah1", "BEER", "https://products3.imgix.drizly.com/ci-coors-light-315ea47b7c9c0280.jpeg?auto=format%2Ccompress&ch=Width%2CDPR&fm=jpg&q=20", ["Vodka", "Ginger Beer"], "1. beer", "drink the beer", "crisp, light beer");
-// await guzzzleAPI.createPost("noah1", "BEER1", "https://products3.imgix.drizly.com/ci-coors-light-315ea47b7c9c0280.jpeg?auto=format%2Ccompress&ch=Width%2CDPR&fm=jpg&q=20", ["Vodka", "Ginger Beer", "Rum"], "1. beer", "drink the beer", "crisp, light beer");
-// await guzzzleAPI.likePost("noah", 0);
-// await guzzzleAPI.createPost("noah1", "red red wineee", "https://media.gq-magazine.co.uk/photos/5f479e8eeadd3a2aff8f3081/3:2/w_1620,h_1080,c_limit/20200827-wine-07.jpg", ["Vodka", "Carrot"], "1. WINE", "drink wine, get drunk", "red mf wine MFer");
-
 await guzzzleAPI.login("noah", "1234");
-
 
 const cookie_uid = JSON.parse(window.localStorage.getItem("uid"));
 
@@ -64,7 +55,6 @@ export async function renderFeed(post_objects, element) {
                 window.localStorage.setItem("user-info", JSON.stringify({
                     uid: post_object.uid
                 }));
-                event.preventDefault();
             });
             addClasses(user_bar, ["col-12", "col-sm-10", "btn", "post-options-button", "post-options-profile"]);
             user_bar.href = "./profile.html"; //FIX THIS
@@ -155,7 +145,6 @@ export async function renderFeed(post_objects, element) {
                     uid: post_object.uid,
                     pid: post_object.pid
                 }));
-                event.preventDefault();
             });
             view_guide.href = "./guide.html";
             addClasses(view_guide, ["col-sm-8", "col-12", "btn", "post-options-button", "post-options-view"]);
@@ -203,7 +192,6 @@ export async function renderFeed(post_objects, element) {
                     uid: post_object.uid,
                     pid: post_object.pid
                 }));
-                event.preventDefault();
             });
             comment_guide.href="./guide.html#comments";
             addClasses(comment_guide, ["col", "btn", "post-options-button", "post-options-comment"]);
