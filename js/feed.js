@@ -7,10 +7,12 @@ import * as guzzzleAPI from './guzzzle-api.js'
 // await guzzzleAPI.createPost("noah1", "BEER1", "https://products3.imgix.drizly.com/ci-coors-light-315ea47b7c9c0280.jpeg?auto=format%2Ccompress&ch=Width%2CDPR&fm=jpg&q=20", ["Vodka", "Ginger Beer", "Rum"], "1. beer", "drink the beer", "crisp, light beer");
 // await guzzzleAPI.likePost("noah", 0);
 // await guzzzleAPI.createPost("noah1", "red red wineee", "https://media.gq-magazine.co.uk/photos/5f479e8eeadd3a2aff8f3081/3:2/w_1620,h_1080,c_limit/20200827-wine-07.jpg", ["Vodka", "Carrot"], "1. WINE", "drink wine, get drunk", "red mf wine MFer");
+
 await guzzzleAPI.login("noah", "1234");
 
 
 const cookie_uid = JSON.parse(window.localStorage.getItem("uid"));
+
 const this_user = await guzzzleAPI.readUser(cookie_uid);
 
 let feed_pids = await guzzzleAPI.getFeed(cookie_uid);
