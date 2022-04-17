@@ -60,6 +60,12 @@ export async function renderFeed(post_objects, element) {
         
             //create user button
             let user_bar = createElement("a");
+            user_bar.addEventListener('click', event => {
+                window.localStorage.setItem("user-info", JSON.stringify({
+                    uid: post_object.uid
+                }));
+                event.preventDefault();
+            });
             addClasses(user_bar, ["col-12", "col-sm-10", "btn", "post-options-button", "post-options-profile"]);
             user_bar.href = "./profile.html"; //FIX THIS
             let user_pfp = createElement("img");
@@ -142,7 +148,16 @@ export async function renderFeed(post_objects, element) {
             
             //create view guide button
             let view_guide = createElement("a");
-            view_guide.href = "./guide.html"; //FIX THIS
+            //add event listener to use local storage on click
+            //so when guide is viewed, know where from
+            view_guide.addEventListener('click', event => {
+                window.localStorage.setItem("guide-info", JSON.stringify({
+                    uid: post_object.uid,
+                    pid: post_object.pid
+                }));
+                event.preventDefault();
+            });
+            view_guide.href = "./guide.html";
             addClasses(view_guide, ["col-sm-8", "col-12", "btn", "post-options-button", "post-options-view"]);
             let view_icon = createElement("i");
             addClasses(view_icon, ["bi-cup-straw", "icon"]);
@@ -183,7 +198,14 @@ export async function renderFeed(post_objects, element) {
         
             //create like guide button
             let comment_guide = createElement("a");
-            comment_guide.href="./guide.html#comments" //FIX THIS
+            comment_guide.addEventListener('click', event => {
+                window.localStorage.setItem("guide-info", JSON.stringify({
+                    uid: post_object.uid,
+                    pid: post_object.pid
+                }));
+                event.preventDefault();
+            });
+            comment_guide.href="./guide.html#comments";
             addClasses(comment_guide, ["col", "btn", "post-options-button", "post-options-comment"]);
             let comment_icon = createElement("i");
             addClasses(comment_icon, ["bi-chat", "icon"]);
