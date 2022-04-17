@@ -7,8 +7,14 @@ export async function login(uid, password) {
             }
         });
         const data = await response.json();
-        window.localStorage.setItem("uid", JSON.stringify(data.uid));
-        return data;
+        //bad login
+        if (data.hasOwnProperty("error")) {
+            window.alert(data.error);
+        }
+        //create cookie for good login
+        else {
+            window.localStorage.setItem("uid", JSON.stringify(data.uid));
+        }
     }
     catch(err) {
         console.log(err);
@@ -21,6 +27,7 @@ export async function logout() {
             method: 'GET',
         });
         const data = await response.json();
+        //delete cookie
         window.localStorage.removeItem("uid");
         return data;
     }
