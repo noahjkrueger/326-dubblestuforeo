@@ -10,6 +10,7 @@
     border : solid 2px black;
     background-color: lightgray;
 }
+
 .button-label {
     margin-left: 6px;
 }
@@ -37,7 +38,7 @@
     margin: 8px;
     margin-left: 0px;
 }
-  
+
 .create-guide-header {
     position: relative;
     left: 46.25%;
@@ -175,7 +176,7 @@
 }
 
 .img_Guide {
-    width : 23vw
+    width: 100%;
 }
 
 .img_Related {
@@ -198,6 +199,7 @@
 .loginBtn {
     background-color: red; 
 }
+
 .Login-side {
     width: 100px; 
     float: left; 
@@ -241,6 +243,7 @@
     top:100px; 
     font-size: 30px;
 }
+
 .post{
     background-color: #ffffff;  
 }
@@ -325,6 +328,7 @@
 .signupBtn {
     background-color: red;
 }
+
 .Signup-side {
     width: 100px; 
     float: left; 
