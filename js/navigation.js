@@ -18,55 +18,64 @@ const data = [
             "Rum",
             "Tequlia",
             "Vodka",
-            "Whiskey"
+            "Whiskey",
+            "Bourbon",
+            "Scotch",
+            "Liqueur",
+            "Vermouth"
         ]
     },
     {
         "icon": "/images/juice.png",
         "type": "Juice",
         "list": [
-            "Juice 1",
-            "Juice 2",
-            "Juice 3",
-            "Juice 4",
-            "Juice 5",
-            "Juice 6"
+            "Lemon Juice",
+            "Lime Juice",
+            "Orange Juice",
+            "Pineapple Juice",
+            "Cranberry Juice",
+            "Lemonade",
+            "Tonic Water",
+            "Seltzer Water",
+            "Ginger Beer"
         ]
     },
     {
         "icon": "/images/fruit.png",
         "type": "Fruit",
         "list": [
-            "Fruit 1",
-            "Fruit 2",
-            "Fruit 3",
-            "Fruit 4",
-            "Fruit 5",
-            "Fruit 6"
+            "Lemon",
+            "Lime",
+            "Olive",
+            "Orange",
+            "Pineapple",
+            "Strawberry",
+            "Watermelon",
+            "Marachino Cherry",
+            "Rasberry"
         ]
     },
     {
         "icon": "/images/vegtable.png",
         "type": "Vegtable",
         "list": [
-            "Vegtable 1",
-            "Vegtable 2",
-            "Vegtable 3",
-            "Vegtable 4",
-            "Vegtable 5",
-            "Vegtable 6"
+            "Carrot",
+            "Celery",
+            "Pepper",
+            "Cucumber",
         ]
     },
     {
         "icon": "/images/garnish.png",
         "type": "Garnish",
         "list": [
-            "Garnish 1",
-            "Garnish 2",
-            "Garnish 3",
-            "Garnish 4",
-            "Garnish 5",
-            "Garnish 6"
+            "Mint",
+            "Cinnamon",
+            "Salt",
+            "Sugar",
+            "Flowers",
+            "Nutmeg",
+            "Ginger"
         ]
     }
 ];

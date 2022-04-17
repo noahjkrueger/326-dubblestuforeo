@@ -1,3 +1,5 @@
+import * as guzzzleAPI from './guzzzle-api.js'
+
 let ingredientCount = 1;
 const ingType = ['Booze', 'Juice', 'Garnish', 'Veggies', 'Fruit']
 
@@ -14,16 +16,16 @@ postButton.addEventListener("click", post);
 addIng.addEventListener("click", duplicate);
 
 function post() {
-    console.log("Title: " + title.value);
-    console.log("Description: " + desc.value);
-    console.log("Instructions: " + inst.value);
-    console.log("Image: " + img.value);
+    let ingredient_keys = [];
+    let ingredientStr = "";
     for(let i = 1; i <= ingredientCount; ++i) {
         let ing = document.getElementById("cg_ing" + i);
         let type = document.getElementById("cg_type" + i);
         let amount = document.getElementById("cg_amount" + i);
-        console.log("Ingredient " + i + ": " + ing.value + "\n\tType: " + ingType[type.value] + "\n\tAmount: " + amount.value)
+        ingredient_keys.push(type);
+        ingredientStr += "Ingredient " + i + ": " + ing + " " + amount;
     }
+    guzzzleAPI.createPost(123, title.value, img.value, desc.value, ingredient_keys, ingredientStr, inst.value);
 };
 
 function duplicate() {
@@ -48,9 +50,9 @@ function duplicate() {
 
     //move down cg_btn, cg_inst, and cg_postButton200
     let postButtonClass = document.querySelector('.cg_post');
-    postButtonClass.style.bottom = 200 - ingredientCount * 115 + 'px';
+    postButtonClass.style.bottom = 200 - ingredientCount * 120 + 'px';
     let addButtonClass = document.querySelector('.cg_btn');
-    addButtonClass.style.top = 115 * ingredientCount + 'px';
+    addButtonClass.style.top = 110 * ingredientCount + 'px';
     let instClass = document.querySelector('.cg_inst');
     instClass.style.top = 115 * ingredientCount + 'px';
 
