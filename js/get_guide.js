@@ -193,28 +193,34 @@ content2.forEach(col2_content => {
     let row_2 = createElement("div");
 
     //Comments
-    // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0].forEach(i => {
-    //     let inp = createElement("input")
-    //     inp.setAttribute("type", "text");
-    //     inp.setAttribute("placeholder", "ExampleComments#");
-    //     addClasses(inp, ["comments_Guide"]);
-    //     appendChildren(row_2, [inp]);
-    // });
-
     let c = createElement("h3");
     c.innerText = "Comments";
     addClasses(c, ["instruc_Header"]);
     appendChildren(row_2, [c]);
     
-    let iframe = createElement("iframe");
-    addClasses(iframe, ["iframe"]);
-    let inner  = createElement("div");
-    appendChildren(iframe, [inner]);
-    appendChildren(row_2, [iframe]);
+    let section = createElement("div");
+    addClasses(section, ["scrollable"]);
+
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0].forEach(i => {
+        let comment = createElement("div");
+        let user = createElement("b");
+        let com = createElement("p");
+        user.innerText = "urmom420: ";
+        com.innerText = "This tastes AMAZING, I would recommend anyone to give this a go,absolutely love the collision of flavors!";
+        let divide = createElement("hr");
+        addClasses(user, ["comments_User"]);
+        appendChildren(comment, [user, com]);
+        appendChildren(section, [comment, divide])
+    });
+
+    appendChildren(row_2, [section]);
+
+
+    appendChildren(row_2, [section]);
 
     let input = createElement("input")
     input.setAttribute("type", "text");
-    input.setAttribute("placeholder", "MyComment");
+    input.setAttribute("placeholder", "Leave a Comment Here!");
     addClasses(input, ["comments_Guide"]);
     appendChildren(row_2, [input]);
     appendChildren(col2, [row_2]);
@@ -225,6 +231,7 @@ content2.forEach(col2_content => {
 
     appendChildren(row_2, [button]);
 });
+
 
 
 let h = createElement("h3");
