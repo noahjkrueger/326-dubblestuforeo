@@ -1,10 +1,11 @@
+import * as guzzzleAPI from './guzzzle-api.js'
+import * as feed from './feed.js';
+
 const nav_bar = document.getElementById("navigation");
 const navbar_src = "navbar.html";
 
-//update data
-//uid cookie -> modify pfp
-//create query functionality
-// display results?
+const cookie_uid = JSON.parse(window.localStorage.getItem("uid"));
+const loggedin_user = await guzzzleAPI.readUser(cookie_uid);
 
 const data = [
     {
@@ -16,60 +17,69 @@ const data = [
             "Rum",
             "Tequlia",
             "Vodka",
-            "Whiskey"
+            "Whiskey",
+            "Bourbon",
+            "Scotch",
+            "Liqueur",
+            "Vermouth"
         ]
     },
     {
         "icon": "/images/juice.png",
         "type": "Juice",
         "list": [
-            "Juice 1",
-            "Juice 2",
-            "Juice 3",
-            "Juice 4",
-            "Juice 5",
-            "Juice 6"
+            "Lemon Juice",
+            "Lime Juice",
+            "Orange Juice",
+            "Pineapple Juice",
+            "Cranberry Juice",
+            "Lemonade",
+            "Tonic Water",
+            "Seltzer Water",
+            "Ginger Beer"
         ]
     },
     {
         "icon": "/images/fruit.png",
         "type": "Fruit",
         "list": [
-            "Fruit 1",
-            "Fruit 2",
-            "Fruit 3",
-            "Fruit 4",
-            "Fruit 5",
-            "Fruit 6"
+            "Lemon",
+            "Lime",
+            "Olive",
+            "Orange",
+            "Pineapple",
+            "Strawberry",
+            "Watermelon",
+            "Marachino Cherry",
+            "Rasberry"
         ]
     },
     {
         "icon": "/images/vegtable.png",
         "type": "Vegtable",
         "list": [
-            "Vegtable 1",
-            "Vegtable 2",
-            "Vegtable 3",
-            "Vegtable 4",
-            "Vegtable 5",
-            "Vegtable 6"
+            "Carrot",
+            "Celery",
+            "Pepper",
+            "Cucumber",
         ]
     },
     {
         "icon": "/images/garnish.png",
         "type": "Garnish",
         "list": [
-            "Garnish 1",
-            "Garnish 2",
-            "Garnish 3",
-            "Garnish 4",
-            "Garnish 5",
-            "Garnish 6"
+            "Mint",
+            "Cinnamon",
+            "Salt",
+            "Sugar",
+            "Flowers",
+            "Nutmeg",
+            "Ginger"
         ]
     }
 ];
 
-fetch(navbar_src).then((response) => response.text()).then((html) => {
+await fetch(navbar_src).then((response) => response.text()).then((html) => {
     nav_bar.innerHTML = html;
     let meat = "";
     data.forEach((entry) => {
@@ -102,6 +112,25 @@ fetch(navbar_src).then((response) => response.text()).then((html) => {
     const ingredientList = document.getElementById("ingredientList");
     ingredientList.innerHTML = ingredientList.innerHTML + meat;
 
+    const user_profile = document.getElementById("user_profile");
+    user_profile.addEventListener('click', event => {
+        window.localStorage.setItem("user-info", JSON.stringify({uid: loggedin_user.uid}));
+    });
+    if (loggedin_user === null) {
+        user_profile.innerText = "Login/Signup";
+        user_profile.href = "/login.html";
+    }
+    else {
+        let pfp_img = document.createElement("img");
+        pfp_img.src = loggedin_user.profileImage;
+        pfp_img.alt ="user-profile";
+        pfp_img.classList = "d-inline-block align-text-top rounded-circle";
+        pfp_img.width = "32";
+        pfp_img.height = "32";
+        user_profile.appendChild(pfp_img);
+        user_profile.href ="/profile.html";
+    }
+
     data.forEach(entry => {
         entry.list.forEach(ingred => {
             let box = document.getElementById(ingred);
@@ -117,37 +146,40 @@ fetch(navbar_src).then((response) => response.text()).then((html) => {
     });
 
     const ingredientQuerySubmit = document.getElementById("ingredientQuerySubmit");
-    ingredientQuerySubmit.addEventListener("click", (event) => {
+    ingredientQuerySubmit.addEventListener("click", async function (event){
         let formInfo = [];
         data.forEach((entry) => {
             entry.list.forEach((ingred) => {
                 let test = document.getElementById(ingred);
                 if (test.hasAttribute("checked")) {
-                    formInfo.push(test.id);
+                    formInfo.push(test.id.replace(" ", "_"));
                 }
             });
         });
-        formInfo.forEach(point => {
-            console.log(point);
-        });
+        const results = await guzzzleAPI.queryPosts(formInfo);
+        let result_order = [];
+        for (const result of Object.keys(results)) {
+            result_order.push(result);
+        }
+        result_order = result_order.sort((a, b) => results[b] - results[a]);
+        let post_objects = [];
+        for (const pid in result_order) {
+            post_objects.push(await guzzzleAPI.readPost(pid));
+        }
+        feed.renderFeed(post_objects, "results");
         event.preventDefault();
-    });
-
-    const ingredientQueryClear = document.getElementById("ingredientQueryClear");
-    ingredientQueryClear.addEventListener("click", (event) => {
-        console.log("This button does not behave correctly");
-        data.forEach(entry => {
-            entry.list.forEach(ingred => {
-                let box = document.getElementById(ingred);
-                box.removeAttribute("checked");
-            });
-        });
     });
 
     const searchBox = document.getElementById("searchBox");
     const serachBoxSubmit = document.getElementById("serachBoxSubmit");
-    serachBoxSubmit.addEventListener("click", event => {
-        console.log(searchBox.value);
-        event.preventDefault();
+    serachBoxSubmit.addEventListener("click", async function (event){
+        const result = await guzzzleAPI.readUser(searchBox.value);
+        if (result.hasOwnProperty("error")) {
+            window.alert(result.error);
+        }
+        else {
+            window.localStorage.setItem("user-info", JSON.stringify({uid: result.uid}));
+            window.location.href = "./profile.html";
+        }
     });
 });

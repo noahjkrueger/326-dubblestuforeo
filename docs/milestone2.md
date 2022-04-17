@@ -97,7 +97,7 @@ Otherwise, the users.json file will update to remove the entry.
 In addition, the users following UID will have uid removed from both the followers and following lists.
 This function responds with status 200 and a message that the user was deleted.
 ##### Follow a User
-    guzzzleAPI.ollowUser(uid_from, uid_to)
+    guzzzleAPI.followUser(uid_from, uid_to)
 Will send a PUT request to the server to update both the following and followers lists of the two accounts.
 If the UID does not exist, the server will respond with status 404 and a message that UID does not exist.
 Otherwise, the users.json file will update the entry.
@@ -137,7 +137,7 @@ relevant to the query, then use those PIDs to retrive posts (see "Read a Post").
 ingredient_keys is an array stored in a post object. These are used to index posts for querying. They do not include specific brands or measurements.
 For example, if a post included 'Tito's vodka', the ingredient key should be 'Vodka'. Same goes for other ingredients. If an ingredient is not listed (aka niche ingredients), please do not include it as it will not be indexed. The purpose of this is to keep the queries general and limited to the options the site offers.
 ##### Create a Post
-    guzzzleAPI.createPost(uid, title, image, ingredient_keys, ingredients, instructions)
+    guzzzleAPI.createPost(uid, title, image, description, ingredient_keys, ingredients, instructions)
 Will send a POST request to the server to create a post.
 If the uid does not exist, a response with status 400 will be returned with the message that one must be logged in to post.
 The pid is automatically assigned and in included in the returned object.
@@ -146,6 +146,7 @@ A post object includes:
 - pid, the post ID number integer
 - title, a string that is the post title
 - image, the image included in the post
+- description, a string that is the post description
 - ingredient_keys, an array of ingredients used to index the post within index
 - ingredients, a string of ingredients, including brands and measurements that is displayed on post
 - instructions, a string of the instructions to be included on the post.
@@ -192,16 +193,18 @@ Otherwise, the posts.json file will update to remove the entry.
 In addition, the post is removed from index, making use of ingredient_keys.
 This function responds with status 200 and a message that the post was deleted.
 ##### Like a Post
-    guzzzleAPI.likePost(pid)
+    guzzzleAPI.likePost(uid, pid)
 Will send a PUT request to the server to update the likes on a post.
 If the PID does not exist, the server will respond with status 404 and a message that PID does not exist.
 Otherwise, the posts.json file will update the entry so that within the post object the likes increase by 1.
+The user object tied to UID will have the like recorded.
 This function returns the post object that was updated as it is stored in posts.json.
 ##### Unlike a Post
-    guzzzleAPI.unlikePost(pid)
+    guzzzleAPI.unlikePost(uid, pid)
 Will send a PUT request to the server to update the likes on a post.
 If the PID does not exist, the server will respond with status 404 and a message that PID does not exist.
 Otherwise, the posts.json file will update the entry so that within the post object the likes decrease by 1.
+The user object tied to UID will have the like recorded.
 This function returns the post object that was updated as it is stored in posts.json.
 ##### Comment on a Post
     guzzzleAPI.commentPost(uid, pid, comment)

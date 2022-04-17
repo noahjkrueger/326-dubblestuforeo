@@ -110,7 +110,7 @@
 }
 
 .cg_image {
-    position: relative;
+    position: absolute;
     left: 45%;
     bottom: 600px;
     width: 300px;
@@ -133,7 +133,7 @@
     height: 40px;
     width: 150px;
     left: 25%;
-    bottom: 200px;
+    bottom: 75px;
     border-radius: 12px;
     font-size: 20px;
     background-color: #8400ff;
