@@ -1,8 +1,8 @@
 import * as guzzzleAPI from './guzzzle-api.js'
 
-const col1 = document.getElementById('col1')
-const col2 = document.getElementById('col2')
-const col3 = document.getElementById('col3')
+const column1 = document.getElementById('col1')
+const column2 = document.getElementById('col2')
+const column3 = document.getElementById('col3')
 const content1 = [
     {
         "title": "Bloody Mary",
@@ -78,21 +78,33 @@ const createElement = function (element_name) {
     return document.createElement(element_name);
 };
 
+const cookie_uid = JSON.parse(window.localStorage.getItem("uid"));
+const cookie_pid = JSON.parse(window.localStorage.getItem("pid"));
 
+renderFeed(cookie_uid, cookie_pid, [column1, column2, column3]);
 
-content1.forEach(col1_content => {
+export async function renderFeed(uid, pid, columns) {
+    const feed = document.getElementById(element);
+    let posting_user = await guzzzleAPI.readUser(uid);
+    let user_post = await guzzzleAPI.readPost(pid);
+
+    col1 = columns[0]
+    col2 = columns[1]
+    col3 = columns[2]
+
+// content1.forEach(col1_content => {
 
     //first row in col1
     let row_1 = createElement("div");
 
     //create username and profile
     let user_pfp = createElement("img");
-    user_pfp.src = col1_content.pfp;
+    user_pfp.src = posting_user.profileImage;
     addClasses(user_pfp, ["rounded-circle", "user-pfp",]);
     let user_name = createElement("span");
     addClasses(user_name, ["button-label", "user_Name"]);
     let user = createElement("h5");
-    user.innerText = col1_content.user;
+    user.innerText = posting_user.uid;
     appendChildren(user_name, [user]);
     appendChildren(row_1, [user_pfp, user_name]);
 
@@ -105,7 +117,7 @@ content1.forEach(col1_content => {
     let title = createElement("span");
     addClasses(title, ["guide_Title"]);
     let name = createElement("h3");
-    name.innerText = col1_content.title;
+    name.innerText = user_post.title
     appendChildren(title, [name]);
     appendChildren(row_2, [title]);
 
@@ -117,7 +129,7 @@ content1.forEach(col1_content => {
     //Image
     let guide_img = createElement("img");
     addClasses(guide_img, ["img_Guide"]);
-    guide_img.src = col1_content.image;
+    guide_img.src = user_post.image;
     appendChildren(row_3, [guide_img]);
 
 
@@ -126,12 +138,12 @@ content1.forEach(col1_content => {
     let row_4 = createElement("div");
 
     //create stars and date
-    let stars = createElement("span");
+    let like = createElement("span");
     let date = createElement("span");
     addClasses(stars, ["stars_Guide"]);
-    stars.innerText = "Rating: " + col1_content.stars;
-    date.innerText = col1_content.date;
-    appendChildren(row_4, [stars, date]);
+    like.innerText = "Likes: " + user_post.likes;
+    date.innerText = user_post.date;
+    appendChildren(row_4, [like, date]);
 
 
 
@@ -149,7 +161,7 @@ content1.forEach(col1_content => {
     appendChildren(tr1, [th1]);
     appendChildren(thead, [tr1]);
     let tbody = createElement("tbody");
-    let ingred = col1_content.ingredients;
+    let ingred = user_post.ingredient_keys;
 
     ingred.forEach(ing => {
         let tr = createElement("tr");
@@ -164,11 +176,11 @@ content1.forEach(col1_content => {
     appendChildren(row_5, [tab]);
 
     appendChildren(col1, [row_1, row_2, row_3, row_4, row_5]);
-});
+// });
 
 
 
-content2.forEach(col2_content => {
+// content2.forEach(col2_content => {
 
     // First row in col2
     let row_1 = createElement("div");
@@ -180,7 +192,7 @@ content2.forEach(col2_content => {
 
     //Instructions body
     let instruc = createElement("div")
-    let steps = col2_content.Instructions
+    let steps = [user_post.instructions]
 
     steps.forEach(step => {
         let s = createElement("p");
@@ -202,7 +214,7 @@ content2.forEach(col2_content => {
     let section = createElement("div");
     addClasses(section, ["scrollable"]);
 
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0].forEach(i => {
+    user_post.comments.forEach(i => {
         let comment = createElement("div");
         let user = createElement("b");
         let com = createElement("p");
@@ -214,8 +226,7 @@ content2.forEach(col2_content => {
         appendChildren(section, [comment, divide])
     });
 
-    appendChildren(row_2, [section]);
-
+    // appendChildren(row_2, [section]);
 
     appendChildren(row_2, [section]);
 
@@ -231,17 +242,17 @@ content2.forEach(col2_content => {
     button.innerText = "Comment"
 
     appendChildren(row_2, [button]);
-});
+// });
 
 
 
-let h = createElement("h3");
-h.innerText = "Related Guides";
-addClasses(h, ["instruc_Header"]);
-appendChildren(col3, [h]);
+    let h = createElement("h3");
+    h.innerText = "Related Guides";
+    addClasses(h, ["instruc_Header"]);
+    appendChildren(col3, [h]);
 
 
-content3.forEach(col3_content => {
+// content3.forEach(col3_content => {
     let post = createElement("div");
     addClasses(post, ['border_Related'])
     let user_pfp = createElement("img");
@@ -267,4 +278,218 @@ content3.forEach(col3_content => {
     appendChildren(post, [guide_img]);
 
     appendChildren(col3, [post]);
-});
+// });
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// content1.forEach(col1_content => {
+
+//     //first row in col1
+//     let row_1 = createElement("div");
+
+//     //create username and profile
+//     let user_pfp = createElement("img");
+//     user_pfp.src = col1_content.pfp;
+//     addClasses(user_pfp, ["rounded-circle", "user-pfp",]);
+//     let user_name = createElement("span");
+//     addClasses(user_name, ["button-label", "user_Name"]);
+//     let user = createElement("h5");
+//     user.innerText = col1_content.user;
+//     appendChildren(user_name, [user]);
+//     appendChildren(row_1, [user_pfp, user_name]);
+
+
+
+//     //Second row in col1
+//     let row_2 = createElement("div");
+
+//     //Title
+//     let title = createElement("span");
+//     addClasses(title, ["guide_Title"]);
+//     let name = createElement("h3");
+//     name.innerText = col1_content.title;
+//     appendChildren(title, [name]);
+//     appendChildren(row_2, [title]);
+
+
+
+//     //Third row in col1
+//     let row_3 = createElement("div");
+
+//     //Image
+//     let guide_img = createElement("img");
+//     addClasses(guide_img, ["img_Guide"]);
+//     guide_img.src = col1_content.image;
+//     appendChildren(row_3, [guide_img]);
+
+
+
+//     //Fourth row in col1
+//     let row_4 = createElement("div");
+
+//     //create stars and date
+//     let stars = createElement("span");
+//     let date = createElement("span");
+//     addClasses(stars, ["stars_Guide"]);
+//     stars.innerText = "Rating: " + col1_content.stars;
+//     date.innerText = col1_content.date;
+//     appendChildren(row_4, [stars, date]);
+
+
+
+//     //Fifth row in col1
+//     let row_5 = createElement("div");
+
+//     //Table of Ingredients
+//     let tab = createElement("table");
+//     addClasses(tab, ["table"]);
+//     let thead = createElement("thead");
+//     let tr1 = createElement("tr");
+//     let th1 = createElement("th");
+//     addClasses(th1, ["table_Header"]);
+//     th1.innerText = "Ingredients";
+//     appendChildren(tr1, [th1]);
+//     appendChildren(thead, [tr1]);
+//     let tbody = createElement("tbody");
+//     let ingred = col1_content.ingredients;
+
+//     ingred.forEach(ing => {
+//         let tr = createElement("tr");
+//         let th = createElement("th");
+//         th.innerText = ing;
+//         addClasses(th, ["table_Item"]);
+//         appendChildren(tr, [th]);
+//         appendChildren(tbody, [tr]);
+//     })
+
+//     appendChildren(tab, [thead, tbody]);
+//     appendChildren(row_5, [tab]);
+
+//     appendChildren(col1, [row_1, row_2, row_3, row_4, row_5]);
+// });
+
+
+
+// content2.forEach(col2_content => {
+
+//     // First row in col2
+//     let row_1 = createElement("div");
+
+//     //Instructions Header
+//     let h = createElement("h3");
+//     h.innerText = "Instructions";
+//     addClasses(h, ["instruc_Header"]);
+
+//     //Instructions body
+//     let instruc = createElement("div")
+//     let steps = col2_content.Instructions
+
+//     steps.forEach(step => {
+//         let s = createElement("p");
+//         s.innerText = step
+//         appendChildren(instruc, [s]);
+//     });
+//     appendChildren(row_1, [h, instruc]);
+//     appendChildren(col2, [row_1]);
+
+//     //Second row in col2
+//     let row_2 = createElement("div");
+
+//     //Comments
+//     let c = createElement("h3");
+//     c.innerText = "Comments";
+//     addClasses(c, ["instruc_Header"]);
+//     appendChildren(row_2, [c]);
+    
+//     let section = createElement("div");
+//     addClasses(section, ["scrollable"]);
+
+//     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0].forEach(i => {
+//         let comment = createElement("div");
+//         let user = createElement("b");
+//         let com = createElement("p");
+//         user.innerText = "urmom420: ";
+//         com.innerText = "This tastes AMAZING, I would recommend anyone to give this a go,absolutely love the collision of flavors!";
+//         let divide = createElement("hr");
+//         addClasses(user, ["comments_User"]);
+//         appendChildren(comment, [user, com]);
+//         appendChildren(section, [comment, divide])
+//     });
+
+//     appendChildren(row_2, [section]);
+
+
+//     appendChildren(row_2, [section]);
+
+//     let input = createElement("input")
+//     input.setAttribute("type", "text");
+//     input.setAttribute("placeholder", "Leave a Comment Here!");
+//     addClasses(input, ["comments_Guide"]);
+//     appendChildren(row_2, [input]);
+//     appendChildren(col2, [row_2]);
+
+//     let button = createElement("button")
+//     button.setAttribute("type", "submit");
+//     button.innerText = "Comment"
+
+//     appendChildren(row_2, [button]);
+// });
+
+
+
+// let h = createElement("h3");
+// h.innerText = "Related Guides";
+// addClasses(h, ["instruc_Header"]);
+// appendChildren(col3, [h]);
+
+
+// content3.forEach(col3_content => {
+//     let post = createElement("div");
+//     addClasses(post, ['border_Related'])
+//     let user_pfp = createElement("img");
+//     user_pfp.src = col3_content.pfp;
+//     addClasses(user_pfp, ["rounded-circle", "user-pfp",]);
+//     let user_name = createElement("span");
+//     addClasses(user_name, ["button-label", "user_Name"]);
+//     let user = createElement("h5");
+//     user.innerText = col3_content.user;
+//     appendChildren(user_name, [user]);
+//     appendChildren(post, [user_pfp, user_name]);
+
+//     let title = createElement("span");
+//     addClasses(title, ["guide_Title"]);
+//     let name = createElement("h3");
+//     name.innerText = col3_content.title;
+//     appendChildren(title, [name]);
+//     appendChildren(post, [title]);
+
+//     let guide_img = createElement("img");
+//     addClasses(guide_img, ["img_Related"]);
+//     guide_img.src = col3_content.image;
+//     appendChildren(post, [guide_img]);
+
+//     appendChildren(col3, [post]);
+// });
