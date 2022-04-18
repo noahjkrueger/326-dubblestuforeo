@@ -1,7 +1,8 @@
 import * as guzzzleAPI from './guzzzle-api.js'
 
 let ingredientCount = 1;
-const ingType = ['Booze', 'Juice', 'Garnish', 'Veggies', 'Fruit']
+const ingType = ['Booze', 'Juice', 'Garnish', 'Veggies', 'Fruit'];
+window.localStorage.setItem("uid", "123");
 
 const guide = document.getElementById("create_guide");
 const postButton = document.getElementById("cg_postbutton");
@@ -10,7 +11,7 @@ const desc = document.getElementById("cg_desc");
 const inst = document.getElementById("cg_inst");
 const img = document.getElementById("cg_image");
 const addIng = document.getElementById("cg_btn");
-const ingredients = document.getElementsByClassName("cg_ingredients")
+const ingredients = document.getElementsByClassName("cg_ingredients");
 
 postButton.addEventListener("click", post);
 addIng.addEventListener("click", duplicate);
@@ -25,7 +26,7 @@ function post() {
         ingredient_keys.push(type);
         ingredientStr += "Ingredient " + i + ": " + ing + " " + amount;
     }
-    guzzzleAPI.createPost(123, title.value, img.value, desc.value, ingredient_keys, ingredientStr, inst.value);
+    guzzzleAPI.createPost(window.localStorage.getItem("uid"), title.value, img.value, desc.value, ingredient_keys, ingredientStr, inst.value);
 };
 
 function duplicate() {
