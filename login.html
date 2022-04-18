@@ -18,7 +18,7 @@
             <div class="login" id="login"></div>
             <div class="splitBar"></div>
             <div class="cancelBtn">
-                <button type="button" class="btn btn-block">Cancel</button>
+                <button type="button" onclick="location.href = 'http://localhost:3000/feed.html';" class="btn btn-block">Cancel</button>
             </div>
         </main>
             <div class="Login-side" >
@@ -46,7 +46,7 @@
                         <span><i class="icon icon-user"></i></span>
                     </div>
                     <div class="form-group">
-                        <input type="email" pattern="/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/" id="email" placeholder="Email" class="credentialsBox">
+                        <input type="email" id="email" placeholder="Email" class="credentialsBox">
                     </div>
                     <div class="form-group">
                         <input type="text" id="UsernameSignup" placeholder="Username" class="credentialsBox">
