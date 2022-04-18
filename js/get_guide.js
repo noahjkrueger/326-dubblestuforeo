@@ -3,64 +3,64 @@ import * as guzzzleAPI from './guzzzle-api.js'
 const column1 = document.getElementById('col1')
 const column2 = document.getElementById('col2')
 const column3 = document.getElementById('col3')
-const content1 = [
-    {
-        "title": "Bloody Mary",
-        "user": "urmom420",
-        "pfp": "https://i.guim.co.uk/img/media/a1b7129c950433c9919f5670c92ef83aa1c682d9/55_344_1971_1183/master/1971.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=88ba2531f114b9b58b9cb2d8e723abe1",
-        "image": "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/bloody-mary-glass-2258f4e.jpg?quality=90&resize=504,458?quality=90&webp=true&resize=504,458",
-        "date": "03/18/2022",
-        "stars": "4 stars",
-        "ingredients" : ['Celery salt',
-                            '1 lemon wedge',
-                            '1 lime wedge',
-                            '2 ounces vodka',
-                            '4 ounces tomato juice',
-                            '2 teaspoons prepared horseradish',
-                            '2 dashes Tabasco sauce',
-                            '2 dashes Worcestershire sauce',
-                            '1 pinch ground black pepper',
-                            '1 pinch smoked paprika',
-                            'Garnished parsley sprig',
-                            'Garnished green olives',
-                            'Garnished lime wedge',
-                            'Garnished celery stalk']
-    }
-]
+// const content1 = [
+//     {
+//         "title": "Bloody Mary",
+//         "user": "urmom420",
+//         "pfp": "https://i.guim.co.uk/img/media/a1b7129c950433c9919f5670c92ef83aa1c682d9/55_344_1971_1183/master/1971.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=88ba2531f114b9b58b9cb2d8e723abe1",
+//         "image": "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/bloody-mary-glass-2258f4e.jpg?quality=90&resize=504,458?quality=90&webp=true&resize=504,458",
+//         "date": "03/18/2022",
+//         "stars": "4 stars",
+//         "ingredients" : ['Celery salt',
+//                             '1 lemon wedge',
+//                             '1 lime wedge',
+//                             '2 ounces vodka',
+//                             '4 ounces tomato juice',
+//                             '2 teaspoons prepared horseradish',
+//                             '2 dashes Tabasco sauce',
+//                             '2 dashes Worcestershire sauce',
+//                             '1 pinch ground black pepper',
+//                             '1 pinch smoked paprika',
+//                             'Garnished parsley sprig',
+//                             'Garnished green olives',
+//                             'Garnished lime wedge',
+//                             'Garnished celery stalk']
+//     }
+// ]
 
-const content2 = [
-    {
-        "Instructions" : [  '1) Pour some celery salt onto a small plate.',
-                            '2) Rub the juicy side of the lemon or lime wedge along the lip of a pint glass.',
-                            '3) Roll the outer edge of the glass in celery salt until fully coated, then fill the glass with ice and set aside.',
-                            '4) Squeeze the lemon and lime wedges into a shaker and drop them in.',
-                            '5) Add the vodka, tomato juice, horseradish, Tabasco, Worcestershire, black pepper, paprika, plus a pinch of celery salt along with ice and shake gently.',
-                            '6) Strain into the prepared glass.',
-                            '7) Garnish with parsley sprig, 2 speared green olives, a lime wedge and a celery stalk (optional).'
-        ]
-    }
-]
+// const content2 = [
+//     {
+//         "Instructions" : [  '1) Pour some celery salt onto a small plate.',
+//                             '2) Rub the juicy side of the lemon or lime wedge along the lip of a pint glass.',
+//                             '3) Roll the outer edge of the glass in celery salt until fully coated, then fill the glass with ice and set aside.',
+//                             '4) Squeeze the lemon and lime wedges into a shaker and drop them in.',
+//                             '5) Add the vodka, tomato juice, horseradish, Tabasco, Worcestershire, black pepper, paprika, plus a pinch of celery salt along with ice and shake gently.',
+//                             '6) Strain into the prepared glass.',
+//                             '7) Garnish with parsley sprig, 2 speared green olives, a lime wedge and a celery stalk (optional).'
+//         ]
+//     }
+// ]
 
-const content3 = [
-    {
-        "title": "Vampire Juice",
-        "user": "urmom421",
-        "pfp": "https://i.guim.co.uk/img/media/a1b7129c950433c9919f5670c92ef83aa1c682d9/55_344_1971_1183/master/1971.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=88ba2531f114b9b58b9cb2d8e723abe1",
-        "image": "https://insanelygoodrecipes.com/wp-content/uploads/2021/09/Red-Negroni-Cocktail-with-Ice-800x530.jpg"
-    },
-    {
-        "title": "Jim Carry",
-        "user": "urmom422",
-        "pfp": "https://i.guim.co.uk/img/media/a1b7129c950433c9919f5670c92ef83aa1c682d9/55_344_1971_1183/master/1971.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=88ba2531f114b9b58b9cb2d8e723abe1",
-        "image": "https://createyum.com/wp-content/uploads/2020/05/alcohol-drinks-caribbean-rum-punch-83.jpg"
-    },
-    {
-        "title": "Mary O' Death",
-        "user": "urmom423",
-        "pfp": "https://i.guim.co.uk/img/media/a1b7129c950433c9919f5670c92ef83aa1c682d9/55_344_1971_1183/master/1971.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=88ba2531f114b9b58b9cb2d8e723abe1",
-        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiEndHkjFmusKIlYoQEuLAfh7DM44Xu_pPxQ&usqp=CAU"
-    }
-]
+// const content3 = [
+//     {
+//         "title": "Vampire Juice",
+//         "user": "urmom421",
+//         "pfp": "https://i.guim.co.uk/img/media/a1b7129c950433c9919f5670c92ef83aa1c682d9/55_344_1971_1183/master/1971.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=88ba2531f114b9b58b9cb2d8e723abe1",
+//         "image": "https://insanelygoodrecipes.com/wp-content/uploads/2021/09/Red-Negroni-Cocktail-with-Ice-800x530.jpg"
+//     },
+//     {
+//         "title": "Jim Carry",
+//         "user": "urmom422",
+//         "pfp": "https://i.guim.co.uk/img/media/a1b7129c950433c9919f5670c92ef83aa1c682d9/55_344_1971_1183/master/1971.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=88ba2531f114b9b58b9cb2d8e723abe1",
+//         "image": "https://createyum.com/wp-content/uploads/2020/05/alcohol-drinks-caribbean-rum-punch-83.jpg"
+//     },
+//     {
+//         "title": "Mary O' Death",
+//         "user": "urmom423",
+//         "pfp": "https://i.guim.co.uk/img/media/a1b7129c950433c9919f5670c92ef83aa1c682d9/55_344_1971_1183/master/1971.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=88ba2531f114b9b58b9cb2d8e723abe1",
+//         "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiEndHkjFmusKIlYoQEuLAfh7DM44Xu_pPxQ&usqp=CAU"
+//     }
+// ]
 
 const appendChildren = function (element, children) {
     children.forEach(child => {
@@ -78,19 +78,20 @@ const createElement = function (element_name) {
     return document.createElement(element_name);
 };
 
-const cookie_uid = JSON.parse(window.localStorage.getItem("uid"));
-const cookie_pid = JSON.parse(window.localStorage.getItem("pid"));
+const cookie_guide_info = JSON.parse(window.localStorage.getItem("guide-info"));
+const cookie_login_uid = JSON.parse(window.localStorage.getItem("uid"));
+const cookie_uid = cookie_guide_info.uid
+const cookie_pid = cookie_guide_info.pid
 
-renderFeed(cookie_uid, cookie_pid, [column1, column2, column3]);
+renderFeed(cookie_login_uid, cookie_uid, cookie_pid, [column1, column2, column3]);
 
-export async function renderFeed(uid, pid, columns) {
-    const feed = document.getElementById(element);
+export async function renderFeed(login, uid, pid, columns) {
     let posting_user = await guzzzleAPI.readUser(uid);
     let user_post = await guzzzleAPI.readPost(pid);
 
-    col1 = columns[0]
-    col2 = columns[1]
-    col3 = columns[2]
+    const col1 = columns[0]
+    const col2 = columns[1]
+    const col3 = columns[2]
 
 // content1.forEach(col1_content => {
 
@@ -140,7 +141,7 @@ export async function renderFeed(uid, pid, columns) {
     //create stars and date
     let like = createElement("span");
     let date = createElement("span");
-    addClasses(stars, ["stars_Guide"]);
+    addClasses(like, ["stars_Guide"]);
     like.innerText = "Likes: " + user_post.likes;
     date.innerText = user_post.date;
     appendChildren(row_4, [like, date]);
@@ -183,12 +184,12 @@ export async function renderFeed(uid, pid, columns) {
 // content2.forEach(col2_content => {
 
     // First row in col2
-    let row_1 = createElement("div");
+    let row_10 = createElement("div");
 
     //Instructions Header
-    let h = createElement("h3");
-    h.innerText = "Instructions";
-    addClasses(h, ["instruc_Header"]);
+    let h1 = createElement("h3");
+    h1.innerText = "Instructions";
+    addClasses(h1, ["instruc_Header"]);
 
     //Instructions body
     let instruc = createElement("div")
@@ -199,22 +200,22 @@ export async function renderFeed(uid, pid, columns) {
         s.innerText = step
         appendChildren(instruc, [s]);
     });
-    appendChildren(row_1, [h, instruc]);
-    appendChildren(col2, [row_1]);
+    appendChildren(row_10, [h1, instruc]);
+    appendChildren(col2, [row_10]);
 
     //Second row in col2
-    let row_2 = createElement("div");
+    let row_20 = createElement("div");
 
     //Comments
     let c = createElement("h3");
     c.innerText = "Comments";
     addClasses(c, ["instruc_Header"]);
-    appendChildren(row_2, [c]);
+    appendChildren(row_20, [c]);
     
     let section = createElement("div");
     addClasses(section, ["scrollable"]);
 
-    user_post.comments.forEach(i => {
+    Object.keys(user_post.comments).forEach(i => {
         let comment = createElement("div");
         let user = createElement("b");
         let com = createElement("p");
@@ -226,58 +227,59 @@ export async function renderFeed(uid, pid, columns) {
         appendChildren(section, [comment, divide])
     });
 
-    // appendChildren(row_2, [section]);
-
-    appendChildren(row_2, [section]);
+    appendChildren(row_20, [section]);
 
     let input = createElement("input")
     input.setAttribute("type", "text");
     input.setAttribute("placeholder", "Leave a Comment Here!");
     addClasses(input, ["comments_Guide"]);
-    appendChildren(row_2, [input]);
-    appendChildren(col2, [row_2]);
+    appendChildren(row_20, [input]);
+    appendChildren(col2, [row_20]);
 
     let button = createElement("button")
     button.setAttribute("type", "submit");
     button.innerText = "Comment"
+    button.addEventListener("click", async function(event) {
+        // await guzzzleAPI.commentPost()
+    });
 
-    appendChildren(row_2, [button]);
+    appendChildren(row_20, [button]);
 // });
 
 
 
-    let h = createElement("h3");
-    h.innerText = "Related Guides";
-    addClasses(h, ["instruc_Header"]);
-    appendChildren(col3, [h]);
+    let h2 = createElement("h3");
+    h2.innerText = "Related Guides";
+    addClasses(h2, ["instruc_Header"]);
+    appendChildren(col3, [h2]);
 
 
 // content3.forEach(col3_content => {
-    let post = createElement("div");
-    addClasses(post, ['border_Related'])
-    let user_pfp = createElement("img");
-    user_pfp.src = col3_content.pfp;
-    addClasses(user_pfp, ["rounded-circle", "user-pfp",]);
-    let user_name = createElement("span");
-    addClasses(user_name, ["button-label", "user_Name"]);
-    let user = createElement("h5");
-    user.innerText = col3_content.user;
-    appendChildren(user_name, [user]);
-    appendChildren(post, [user_pfp, user_name]);
+    // let post = createElement("div");
+    // addClasses(post, ['border_Related'])
+    // let user_pfp = createElement("img");
+    // user_pfp.src = col3_content.pfp;
+    // addClasses(user_pfp, ["rounded-circle", "user-pfp",]);
+    // let user_name = createElement("span");
+    // addClasses(user_name, ["button-label", "user_Name"]);
+    // let user = createElement("h5");
+    // user.innerText = col3_content.user;
+    // appendChildren(user_name, [user]);
+    // appendChildren(post, [user_pfp, user_name]);
 
-    let title = createElement("span");
-    addClasses(title, ["guide_Title"]);
-    let name = createElement("h3");
-    name.innerText = col3_content.title;
-    appendChildren(title, [name]);
-    appendChildren(post, [title]);
+    // let title = createElement("span");
+    // addClasses(title, ["guide_Title"]);
+    // let name = createElement("h3");
+    // name.innerText = col3_content.title;
+    // appendChildren(title, [name]);
+    // appendChildren(post, [title]);
 
-    let guide_img = createElement("img");
-    addClasses(guide_img, ["img_Related"]);
-    guide_img.src = col3_content.image;
-    appendChildren(post, [guide_img]);
+    // let guide_img = createElement("img");
+    // addClasses(guide_img, ["img_Related"]);
+    // guide_img.src = col3_content.image;
+    // appendChildren(post, [guide_img]);
 
-    appendChildren(col3, [post]);
+    // appendChildren(col3, [post]);
 // });
 
 }
