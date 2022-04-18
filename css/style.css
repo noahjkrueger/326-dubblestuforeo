@@ -214,6 +214,12 @@
 
 
 /* N */
+.noFlow {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline; 
+}
 
 .bg-light {
     background-color: black;

@@ -8,7 +8,9 @@ let userSignup = document.getElementById('UsernameSignup');
 let passSignup = document.getElementById('passwordSignup');
 let confirmP = document.getElementById('confirm_Password');
 let notice = document.getElementById('notice');
-
+let checkBox1 = document.getElementById('checkbox1');
+let checkBox2 = document.getElementById('checkbox2');
+let checkBox3 = document.getElementById('checkbox3');
 
 // userLogin.addEventListener('input', function(){
 //     const uid = guzzzleAPI.login(userLogin.value, passLogin.value);
@@ -27,6 +29,33 @@ let notice = document.getElementById('notice');
 //         logBtn.setAttribute('onClick', "location.href = 'http://localhost:3000/login.html';");
 //     }
 // });
+
+checkBox1.addEventListener("click", function visible() {
+    var x = passSignup;
+    if(x.type === "password") {
+        x.type = "text";
+    } else {
+        x.type = "password";
+    }
+});
+
+checkBox2.addEventListener("click", function visible() {
+    var x = confirmP;
+    if(x.type === "password") {
+        x.type = "text";
+    } else {
+        x.type = "password";
+    }
+});
+
+checkBox3.addEventListener("click", function visible() {
+    var x = passLogin;
+    if(x.type === "password") {
+        x.type = "text";
+    } else {
+        x.type = "password";
+    }
+});
 
 logBtn.addEventListener("click", function() {
     const uid = guzzzleAPI.login(userLogin.value, passLogin.value);
