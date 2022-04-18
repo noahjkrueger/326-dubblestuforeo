@@ -73,6 +73,11 @@ signBtn.addEventListener("click", function() {
         const uid = guzzzleAPI.createUser(userSignup.value, passSignup.value, "https://i.guim.co.uk/img/media/a1b7129c950433c9919f5670c92ef83aa1c682d9/55_344_1971_1183/master/1971.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=88ba2531f114b9b58b9cb2d8e723abe1", "");      
         alert("User has been created!");
         return true;
+    } else if (!(emailPattern.test(check))) {
+        alert("Retry with a valid Email");
+        return false;
+    } else if (!(passSignup.value === confirmP.value)) {
+        notice.innerText = "*passwords must match*";
     } else {
         notice.innerText = "*passwords must match*";
         alert("Retry with a valid Email");
