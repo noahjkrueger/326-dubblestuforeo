@@ -151,17 +151,28 @@
 }
 
 /* E */
+.empty-feed-img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
 
 
 /* F */
 .feed {
-    margin-top: 3%;
+    margin-top: 5%;
     margin-left: 15%;
     margin-right: 15%;
 }
 
+@media (max-width: 1000px) {
+    .feed {
+        margin-top: 15%;
+    }
+}
+
 .feed_page {
-    background-color: #f6fdff;
+    background-color: #ffffff;
 }
 
 /* G */
@@ -245,7 +256,7 @@
 }
 
 .post{
-    background-color: #ffffff;  
+    background-color: #f4fdff;
 }
 
 .post-body-description {
@@ -394,5 +405,16 @@
 /* Z */
 
 
-/* OTHER */
-
+::-webkit-scrollbar {
+    width: 3vw;
+}
+::-webkit-scrollbar-track {
+    background-color: #00000000;
+}
+ 
+::-webkit-scrollbar-thumb {
+    background:url('../images/scrollbar_thumb.png') no-repeat;
+    background-size: 3vw 3vw;
+    background-position-y: center;
+    background-position-x: right;
+}

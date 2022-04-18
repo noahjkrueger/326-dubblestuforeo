@@ -116,7 +116,7 @@ await fetch(navbar_src).then((response) => response.text()).then((html) => {
     user_profile.addEventListener('click', event => {
         window.localStorage.setItem("user-info", JSON.stringify({uid: loggedin_user.uid}));
     });
-    if (loggedin_user === null) {
+    if (loggedin_user.hasOwnProperty("error")) {
         user_profile.innerText = "Login/Signup";
         user_profile.href = "/login.html";
     }
