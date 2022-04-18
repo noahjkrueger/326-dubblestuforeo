@@ -1,6 +1,6 @@
 import * as guzzzleAPI from './guzzzle-api.js'
 
-await guzzzleAPI.login("noah", "1234");
+//await guzzzleAPI.login("noah", "1234");
 
 const cookie_uid = JSON.parse(window.localStorage.getItem("uid"));
 
