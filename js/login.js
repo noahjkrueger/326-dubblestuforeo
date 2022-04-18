@@ -31,7 +31,7 @@ let checkBox3 = document.getElementById('checkbox3');
 // });
 
 checkBox1.addEventListener("click", function visible() {
-    var x = passSignup;
+    let x = passSignup;
     if(x.type === "password") {
         x.type = "text";
     } else {
@@ -40,7 +40,7 @@ checkBox1.addEventListener("click", function visible() {
 });
 
 checkBox2.addEventListener("click", function visible() {
-    var x = confirmP;
+    let x = confirmP;
     if(x.type === "password") {
         x.type = "text";
     } else {
@@ -49,13 +49,17 @@ checkBox2.addEventListener("click", function visible() {
 });
 
 checkBox3.addEventListener("click", function visible() {
-    var x = passLogin;
+    let x = passLogin;
     if(x.type === "password") {
         x.type = "text";
     } else {
         x.type = "password";
     }
 });
+
+function validEmail() {
+    
+}
 
 logBtn.addEventListener("click", function() {
     const uid = guzzzleAPI.login(userLogin.value, passLogin.value);
