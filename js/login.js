@@ -10,9 +10,27 @@ let confirmP = document.getElementById('confirm_Password');
 let notice = document.getElementById('notice');
 
 
+// userLogin.addEventListener('input', function(){
+//     const uid = guzzzleAPI.login(userLogin.value, passLogin.value);
+//     if(window.localStorage.getItem("uid") != null) {
+//         logBtn.setAttribute('onClick', "location.href = 'http://localhost:3000/feed.html';");
+//     } else {
+//         logBtn.setAttribute('onClick', "location.href = 'http://localhost:3000/login.html';");
+//     }
+// });
+
+// passLogin.addEventListener('input', function(){
+//     const uid = guzzzleAPI.login(userLogin.value, passLogin.value);
+//     if(window.localStorage.getItem("uid") != null) {
+//         logBtn.setAttribute('onClick', "location.href = 'http://localhost:3000/feed.html';");
+//     } else {
+//         logBtn.setAttribute('onClick', "location.href = 'http://localhost:3000/login.html';");
+//     }
+// });
+
 logBtn.addEventListener("click", function() {
-    const uid = guzzzleAPI.login(userLogin, passLogin);
-    window.localStorage.setItem("uid", uid); // ask noah about this
+    const uid = guzzzleAPI.login(userLogin.value, passLogin.value);
+    window.localStorage.setItem("uid", uid); 
     console.log("Username: " + userLogin.value + "Password: " + passLogin.value);
 });
 
