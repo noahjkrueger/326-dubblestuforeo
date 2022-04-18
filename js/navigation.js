@@ -21,7 +21,11 @@ const data = [
             "Bourbon",
             "Scotch",
             "Liqueur",
-            "Vermouth"
+            "Vermouth",
+            "Red Wine",
+            "White Wine",
+            "Beer",
+            "Sake"
         ]
     },
     {
@@ -33,6 +37,7 @@ const data = [
             "Orange Juice",
             "Pineapple Juice",
             "Cranberry Juice",
+            "Tomato Juice",
             "Lemonade",
             "Tonic Water",
             "Seltzer Water",
@@ -62,6 +67,7 @@ const data = [
             "Celery",
             "Pepper",
             "Cucumber",
+            "Pickle"
         ]
     },
     {
