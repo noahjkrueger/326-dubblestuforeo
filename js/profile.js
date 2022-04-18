@@ -24,7 +24,16 @@ let userProfile = document.getElementById('user-profile');
 
 let img = createElement('img');
 addClasses(img, ["rounded-circle", "profileImg"]);
-
+img.setAttribute("src", obj.profileImage);
+let span1 = createElement('span');
+addClasses(span1, ["pfpUserName"]);
+span2.innerText = cookie_uid;
+let span2 = createElement('span');
+addClasses(span2, ["user_Bio"]);
+span2.innerText = obj.biography;
+let div = createElement('div');
+addClasses(div, ["dividerLine"]);
+appendChildren(userProfile, [img, span1, span2, div]);
 
 let PIDs = [];
 obj.posts.forEach(post => PIDs.push(post));
