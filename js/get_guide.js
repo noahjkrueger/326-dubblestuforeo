@@ -88,6 +88,7 @@ renderFeed(cookie_login_uid, cookie_uid, cookie_pid, [column1, column2, column3]
 export async function renderFeed(login, uid, pid, columns) {
     let posting_user = await guzzzleAPI.readUser(uid);
     let user_post = await guzzzleAPI.readPost(pid);
+    let log = await guzzzleAPI.readUser(login);
 
     const col1 = columns[0]
     const col2 = columns[1]
@@ -138,11 +139,38 @@ export async function renderFeed(login, uid, pid, columns) {
     //Fourth row in col1
     let row_4 = createElement("div");
 
-    //create stars and date
+    //create likes and date
     let like = createElement("span");
+    addClasses(like, ["btn", "post-options-guide-button", "post-options-guide-like", "stars_Guide"]);
+
+    let like_icon = createElement("i");
+    if (user_post.pid in log.likes) {
+        addClasses(like_icon, ["bi-balloon-heart-fill", "icon"]);
+    }
+    else {
+        addClasses(like_icon, ["bi-balloon-heart", "icon"]);
+    }
+
+    let like_text = createElement("span");
+    like_text.innerText = user_post.likes;
+
+    like.addEventListener("click", async function(event) {
+        if (like_icon.classList.contains("bi-balloon-heart")) {
+            like_icon.classList.remove("bi-balloon-heart");
+            addClasses(like_icon, ["bi-balloon-heart-fill"]);
+            //like post
+            await guzzzleAPI.likePost(login, pid);
+        }
+        else {
+            like_icon.classList.remove("bi-balloon-heart-fill")
+            //unlike post
+            addClasses(like_icon, ["bi-balloon-heart"]);
+            await guzzzleAPI.unlikePost(login, pid);
+        }
+        event.preventDefault();
+    });
+    appendChildren(like, [like_icon, like_text]);
     let date = createElement("span");
-    addClasses(like, ["stars_Guide"]);
-    like.innerText = "Likes: " + user_post.likes;
     date.innerText = user_post.date;
     appendChildren(row_4, [like, date]);
 

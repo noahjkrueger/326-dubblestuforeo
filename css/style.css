@@ -277,6 +277,17 @@
     border-radius: 0px;
 }
 
+.post-options-guide-button {
+    color: #000000;
+    display: inline;
+    align-items:center;
+    border-radius: 10px;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 5px;
+}
+
 .post-options-button:hover {
     background-color: #ffebd6;
 }
@@ -291,6 +302,11 @@
 
 .post-options-like {
     background-color: #fc7c7c;
+}
+
+.post-options-guide-like {
+    background-color: gray;
+    color: black;
 }
 
 .post-options-profile {
