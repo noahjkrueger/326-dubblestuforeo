@@ -11,11 +11,12 @@ let notice = document.getElementById('notice');
 let checkBox1 = document.getElementById('checkbox1');
 let checkBox2 = document.getElementById('checkbox2');
 let checkBox3 = document.getElementById('checkbox3');
-let checkButton = document.getElementById('checkBtn');
+
+
 
 // userLogin.addEventListener('input', function(){
 //     const uid = guzzzleAPI.login(userLogin.value, passLogin.value);
-//     if(window.localStorage.getItem("uid") != null) {
+//     if(uid != null) {
 //         logBtn.setAttribute('onClick', "location.href = 'http://localhost:3000/feed.html';");
 //     } else {
 //         logBtn.setAttribute('onClick', "location.href = 'http://localhost:3000/login.html';");
@@ -60,7 +61,13 @@ checkBox3.addEventListener("click", function visible() {
 
 logBtn.addEventListener("click", function() {
     const uid = guzzzleAPI.login(userLogin.value, passLogin.value);
-    window.localStorage.setItem("uid", uid); 
+    let user = guzzzleAPI.readUser(uid);
+    if (window.localStorage.getItem("uid") != null) {
+        window.localStorage.setItem("uid", uid); 
+        window.location('http://localhost:3000/feed.html');
+    } else {
+        window.location('http://localhost:3000/login.html');
+    }
     console.log("Username: " + userLogin.value + "Password: " + passLogin.value);
 });
 
