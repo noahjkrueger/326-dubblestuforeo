@@ -12,7 +12,10 @@ here is what I did
 #### Diganta Mainali
 here is what I did
 #### Kenneth Drewry
-here is what I did
+Updated and polished create guide page
+Added API call to createPost when creating a new post
+Edited createPost and updatePost APIs
+Created and added master ingredient list to navigation bar
 #### Piyush Makkapati
 here is what I did
 
@@ -166,7 +169,7 @@ A post object includes:
 - title, a string that is the post title
 - image, the image included in the post
 - ingredient_keys, an array of ingredients used to index the post within index
-- ingredients, a string of ingredients, including brands and measurements that is displayed on post
+- ingredients, array of strings of ingredients, including brands and measurements that is displayed on post
 - instructions, a string of the instructions to be included on the post.
 - likes, the number of likes the post has
 - comments, a list of objects (UID, comment values)
@@ -183,7 +186,7 @@ Otherwise, the posts.json file will update the entry so that within the post obj
 - ingredients is set to newIngredients
 - instructions is set to newInstrucitons
 ingredient_keys is used to modify the index to include the created post as well as remove ingredients no longer included, before ingredient_keys is updated.
-All of these feilds update on function call, so make sure to pass in all of them! (pass in the original of each if do not wish to update)
+All of these fields update on function call, so make sure to pass in all of them! (pass in the original of each if do not wish to update)
 This function returns the post object that was updated as it is stored in posts.json.
 ##### Delete a Post
     guzzzleAPI.deletePost(pid)
