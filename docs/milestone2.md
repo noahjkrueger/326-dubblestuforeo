@@ -183,7 +183,7 @@ Otherwise, the posts.json file will update the entry so that within the post obj
 - ingredients is set to newIngredients
 - instructions is set to newInstrucitons
 ingredient_keys is used to modify the index to include the created post as well as remove ingredients no longer included, before ingredient_keys is updated.
-All of these feilds update on function call, so make sure to pass in all of them! (pass in the original of each if do not wish to update)
+All of these fields update on function call, so make sure to pass in all of them! (pass in the original of each if do not wish to update)
 This function returns the post object that was updated as it is stored in posts.json.
 ##### Delete a Post
     guzzzleAPI.deletePost(pid)

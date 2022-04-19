@@ -15,6 +15,7 @@ const ingredients = document.getElementsByClassName("cg_ingredients");
 
 postButton.addEventListener("click", post);
 addIng.addEventListener("click", duplicate);
+document.getElementById("cg_ingClass").addEventListener("change", ingredientType);
 
 function post() {
     let ingredient_keys = [];
@@ -31,12 +32,6 @@ function post() {
 };
 
 function duplicate() {
-    //cg_ing1
-    let originalIng = document.getElementById('cg_ing' + ingredientCount);
-    let cloneIng = originalIng.cloneNode(true);
-    cloneIng.id = "cg_ing" + (ingredientCount + 1);
-    cloneIng.value = ''
-    originalIng.parentNode.appendChild(cloneIng);
     //cg_type1
     let originalType = document.getElementById('cg_type' + ingredientCount);
     let cloneType = originalType.cloneNode(true);
@@ -59,4 +54,83 @@ function duplicate() {
     instClass.style.top = 115 * ingredientCount + 'px';
 
     ingredientCount += 1;
+}
+
+function ingredientType() {
+    //<select class="cg_typeb" id="cg_ing1"></select>
+    let op = ingType[document.getElementById("cg_type" + ingredientCount).value - 1];
+    var select = document.createElement("select");
+    select.classList.add('cg_typeb');
+    let ingredientDict = {
+        "Booze": [
+            "Brandy",
+            "Gin",
+            "Rum",
+            "Tequlia",
+            "Vodka",
+            "Whiskey",
+            "Bourbon",
+            "Scotch",
+            "Liqueur",
+            "Vermouth",
+            "Red Wine",
+            "White Wine",
+            "Beer",
+            "Sake"
+        ],
+        "Juice": [
+            "Lemon Juice",
+            "Lime Juice",
+            "Orange Juice",
+            "Pineapple Juice",
+            "Cranberry Juice",
+            "Tomato Juice",
+            "Lemonade",
+            "Tonic Water",
+            "Seltzer Water",
+            "Ginger Beer"
+        ],
+        "Fruit": [
+            "Lemon",
+            "Lime",
+            "Olive",
+            "Orange",
+            "Pineapple",
+            "Strawberry",
+            "Watermelon",
+            "Marachino Cherry",
+            "Rasberry"
+        ],
+        "Vegetable": [
+            "Carrot",
+            "Celery",
+            "Pepper",
+            "Cucumber",
+            "Pickle"
+        ],
+        "Garnish": [
+            "Mint",
+            "Cinnamon",
+            "Salt",
+            "Sugar",
+            "Flowers",
+            "Nutmeg",
+            "Ginger"
+        ],
+        "Other": [
+            "Temp"
+        ]
+    };
+    select.id = "cg_ing" + ingredientCount;
+ 
+    for (const val of ingredientDict[op])
+    {
+        var option = document.createElement("option");
+        option.value = val;
+        console.log(option.value);
+        option.text = val.charAt(0).toUpperCase() + val.slice(1);
+        select.appendChild(option);
+    }
+    document.getElementById("cg_ingClass").appendChild(select);
+    let a = 0;
 }

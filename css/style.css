@@ -83,8 +83,19 @@
     position: relative;
     height: 37px;
     width: 100px;
-    left: 105%;
     bottom: 37px;
+    background: #8400ff;
+    border-radius: 12px;
+    color: white;
+    border: 2px solid #000000;
+    text-align: center;
+}
+
+.cg_typeb {
+    position: relative;
+    height: 37px;
+    width: 100px;
+    bottom: 28px;
     background: #8400ff;
     border-radius: 12px;
     color: white;
