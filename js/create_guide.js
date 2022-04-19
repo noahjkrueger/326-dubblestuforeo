@@ -23,7 +23,7 @@ function post() {
         let ing = document.getElementById("cg_ing" + i);
         let type = document.getElementById("cg_type" + i);
         let amount = document.getElementById("cg_amount" + i);
-        ingredient_keys.push(type.value);
+        ingredient_keys.push(ingType[type.value-1]);
         ingredientStr += "Ingredient " + i + ": " + ing.value + " " + amount.value + "; ";
     }
              //createPost(uid, title, image, ingredient_keys, ingredients, instructions, description)
