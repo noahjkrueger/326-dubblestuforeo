@@ -12,7 +12,10 @@ here is what I did
 #### Diganta Mainali
 here is what I did
 #### Kenneth Drewry
-here is what I did
+Updated and polished create guide page
+Added API call to createPost when creating a new post
+Edited createPost and updatePost APIs
+Created and added master ingredient list to navigation bar
 #### Piyush Makkapati
 here is what I did
 
