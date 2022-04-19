@@ -199,7 +199,7 @@ export async function renderFeed(login, uid, pid, columns) {
         addClasses(th, ["table_Item"]);
         appendChildren(tr, [th]);
         appendChildren(tbody, [tr]);
-    })
+    });
 
     appendChildren(tab, [thead, tbody]);
     appendChildren(row_5, [tab]);
@@ -274,42 +274,62 @@ export async function renderFeed(login, uid, pid, columns) {
     appendChildren(row_20, [button]);
 // });
 
-
-
     let h2 = createElement("h3");
     h2.innerText = "Related Guides";
     addClasses(h2, ["instruc_Header"]);
     appendChildren(col3, [h2]);
 
 
-// content3.forEach(col3_content => {
-    // let post = createElement("div");
-    // addClasses(post, ['border_Related'])
-    // let user_pfp = createElement("img");
-    // user_pfp.src = col3_content.pfp;
-    // addClasses(user_pfp, ["rounded-circle", "user-pfp",]);
-    // let user_name = createElement("span");
-    // addClasses(user_name, ["button-label", "user_Name"]);
-    // let user = createElement("h5");
-    // user.innerText = col3_content.user;
-    // appendChildren(user_name, [user]);
-    // appendChildren(post, [user_pfp, user_name]);
+    let login_following_pids = await guzzzleAPI.getFeed(login); // check to make sure users current post not here and duplicates
+    let user_following_pids = await guzzzleAPI.getFeed(uid); // check to make sure login's posts not here and duplicates
+    let other_user_pids = await guzzzleAPI.readOtherPosts(uid, pid); // already filtered current post, check for duplicates
+    let total_pids = [];
+    for(const post of login_following_pids) {
+        if (post != pid) {
+            total_pids.push(post);
+        }
+    }
+    for(const post of user_following_pids) {
+        if (!post in total_pids && !post in log.posts) {
+            total_pids.push(post);
+        }
+    }
+    for(const post of other_user_pids) {
+        if (!post in total_pids) {
+            total_pids.push(post);
+        }
+    }
 
-    // let title = createElement("span");
-    // addClasses(title, ["guide_Title"]);
-    // let name = createElement("h3");
-    // name.innerText = col3_content.title;
-    // appendChildren(title, [name]);
-    // appendChildren(post, [title]);
+    total_pids.forEach(async function(post) {
+        const related_post_info = await guzzzleAPI.readPost(post)
+        const related_user_info = await guzzzleAPI.readUser(related_post_info.uid)
+        let p = createElement("div");
+        addClasses(p, ['border_Related'])
+        let related_user_pfp = createElement("img");
+        related_user_pfp.src = related_user_info.profileImage;
+        addClasses(related_user_pfp, ["rounded-circle", "user-pfp",]);
+        let related_user_name = createElement("span");
+        addClasses(related_user_name, ["button-label", "user_Name"]);
+        let related_user = createElement("h5");
+        related_user.innerText = related_user_info.uid;
+        appendChildren(related_user_name, [related_user]);
+        appendChildren(p, [related_user_pfp, related_user_name]);
 
-    // let guide_img = createElement("img");
-    // addClasses(guide_img, ["img_Related"]);
-    // guide_img.src = col3_content.image;
-    // appendChildren(post, [guide_img]);
+        let related_title = createElement("span");
+        addClasses(related_title, ["guide_Title"]);
+        let related_name = createElement("h3");
+        related_name.innerText = related_post_info.title;
+        appendChildren(related_title, [related_name]);
+        appendChildren(p, [related_title]);
 
-    // appendChildren(col3, [post]);
-// });
+        let related_guide_img = createElement("img");
+        addClasses(related_guide_img, ["img_Related"]);
+        related_guide_img.src = related_post_info.image;
+        appendChildren(p, [related_guide_img]);
 
+        appendChildren(col3, [p]);
+    });
+    
 }
 
 

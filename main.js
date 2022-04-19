@@ -260,11 +260,39 @@ app.get('/post', async (request, response) => {
   await reloadPosts();
   //404 not found
   if (!entryExists(posts, pid)) {
-    response.status(4004).json({ error: `Post does not exist`});
+    response.status(404).json({ error: `Post '${pid}' does not exist`});
   }
   //200 found, return data
   else {
     response.status(200).json(posts[parseInt(pid)]);
+  }
+});
+
+//GET A USERS OTHER POSTS
+app.get('/otherposts', async (request, response) => {
+  const query = request.query;
+  const uid = query.uid;
+  const pid = query.pid;
+  //reload file into memeory
+  await reloadUsers();
+  await reloadPosts();
+  //404 not found
+  if (!entryExists(users, uid)) {
+    response.status(404).json({ error: `User '${uid}' Not Found`});
+  }
+  //200 found, return data
+  else if (!entryExists(posts, pid)) {
+    response.status(404).json({ error: `Post '${pid}' does not exist`});
+  }
+  else {
+    let PIDs = [];
+    //get rest of pids in PID list from each user
+    users[uid].posts.forEach(post => { 
+      if (post != pid) {
+        otherPosts.push(PIDs);
+      }
+    });
+    response.status(200).json(otherPosts);
   }
 });
 

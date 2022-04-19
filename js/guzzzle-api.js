@@ -123,6 +123,22 @@ export async function readPost(pid) {
     }
 }
 
+export async function readOtherPosts(uid, pid) {
+    try {
+        const response = await fetch(`/otherposts?uid=${uid}&pid=${pid}`, {
+            method: 'GET',
+            headers: {
+            'Content-Type': 'application/json',
+            }
+        });
+        const data = await response.json();
+        return data;
+    } 
+    catch (err) {
+        console.log(err);
+    }
+}
+
 export async function updatePost(pid, newTitle, newImage, newIngredient_keys, newIngredients, newInstructions) {
     try {
         const response = await fetch(`/post_update?pid=${pid}`, {
