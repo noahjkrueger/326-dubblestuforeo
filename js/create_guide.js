@@ -19,13 +19,13 @@ document.getElementById("cg_type" + ingredientCount).addEventListener("change", 
 
 function post() {
     let ingredient_keys = [];
-    let ingredientStr = "";
+    let ingredientStr = [];
     for(let i = 1; i <= ingredientCount; ++i) {
         let ing = document.getElementById("cg_ing" + i);
         let type = document.getElementById("cg_type" + i);
         let amount = document.getElementById("cg_amount" + i);
-        ingredient_keys.push(ingType[type.value-1]);
-        ingredientStr += "Ingredient " + i + ": " + ing.value + " " + amount.value + "; ";
+        ingredient_keys.push(ing.value);
+        ingredientStr.push("Ingredient " + i + ": " + ing.value + " " + amount.value + "; ");
     }
              //createPost(uid, title, image, ingredient_keys, ingredients, instructions, description)
     guzzzleAPI.createPost(window.localStorage.getItem("uid"), title.value, img.value, ingredient_keys, ingredientStr, inst.value, desc.value);
@@ -128,7 +128,6 @@ function ingredientType() {
     {
         var option = document.createElement("option");
         option.value = val;
-        console.log(option.value);
         option.text = val.charAt(0).toUpperCase() + val.slice(1);
         select.appendChild(option);
     }
