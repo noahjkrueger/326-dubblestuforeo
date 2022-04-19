@@ -27,6 +27,7 @@ function post() {
     }
              //createPost(uid, title, image, ingredient_keys, ingredients, instructions, description)
     guzzzleAPI.createPost(window.localStorage.getItem("uid"), title.value, img.value, ingredient_keys, ingredientStr, inst.value, desc.value);
+    // window.href='/post.html';
 };
 
 function duplicate() {
