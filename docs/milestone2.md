@@ -166,7 +166,7 @@ A post object includes:
 - title, a string that is the post title
 - image, the image included in the post
 - ingredient_keys, an array of ingredients used to index the post within index
-- ingredients, a string of ingredients, including brands and measurements that is displayed on post
+- ingredients, array of strings of ingredients, including brands and measurements that is displayed on post
 - instructions, a string of the instructions to be included on the post.
 - likes, the number of likes the post has
 - comments, a list of objects (UID, comment values)

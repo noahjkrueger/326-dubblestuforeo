@@ -45,7 +45,7 @@ function duplicate() {
     cloneAmount.value = ''
     originalAmount.parentNode.appendChild(cloneAmount);
 
-    //move down cg_btn, cg_inst, and cg_postButton200
+    //move down cg_btn, cg_inst, and cg_postButton
     let postButtonClass = document.querySelector('.cg_post');
     postButtonClass.style.bottom = 200 - ingredientCount * 120 + 'px';
     let addButtonClass = document.querySelector('.cg_btn');
@@ -58,7 +58,6 @@ function duplicate() {
 }
 
 function ingredientType() {
-    //<select class="cg_typeb" id="cg_ing1"></select>
     let op = ingType[document.getElementById("cg_type" + ingredientCount).value - 1];
     var select = document.createElement("select");
     select.classList.add('cg_typeb');
@@ -131,5 +130,5 @@ function ingredientType() {
         option.text = val.charAt(0).toUpperCase() + val.slice(1);
         select.appendChild(option);
     }
-    document.getElementById("cg_ingClass").appendChild(select);
+    document.getElementById("cg_ingDups").appendChild(select);
 }
