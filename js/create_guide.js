@@ -130,5 +130,5 @@ function ingredientType() {
         option.text = val.charAt(0).toUpperCase() + val.slice(1);
         select.appendChild(option);
     }
-    document.getElementById("cg_ingDups").appendChild(select);
+    document.getElementById("cg_ingClass").appendChild(select);
 }
