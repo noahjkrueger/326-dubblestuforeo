@@ -15,7 +15,7 @@ const ingredients = document.getElementsByClassName("cg_ingredients");
 
 postButton.addEventListener("click", post);
 addIng.addEventListener("click", duplicate);
-document.getElementById("cg_ingClass").addEventListener("change", ingredientType);
+document.getElementById("cg_type" + ingredientCount).addEventListener("change", ingredientType);
 
 function post() {
     let ingredient_keys = [];
@@ -54,6 +54,7 @@ function duplicate() {
     instClass.style.top = 115 * ingredientCount + 'px';
 
     ingredientCount += 1;
+    document.getElementById("cg_type" + ingredientCount).addEventListener("change", ingredientType);
 }
 
 function ingredientType() {
@@ -132,5 +133,4 @@ function ingredientType() {
         select.appendChild(option);
     }
     document.getElementById("cg_ingClass").appendChild(select);
-    let a = 0;
 }
