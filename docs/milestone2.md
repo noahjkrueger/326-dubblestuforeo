@@ -37,7 +37,7 @@ description here
 description here
 
 ### Heroku Link to Project
-https://git.heroku.com/guzzzle.git
+https://guzzzle.herokuapp.com/
 
 ### The guzzzleAPI
 Using this API allows for creation, reading, updating and deleting posts and users.
