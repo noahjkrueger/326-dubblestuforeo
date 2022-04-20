@@ -256,15 +256,44 @@ app.post('/post_create', async (request, response) => {
 app.get('/post', async (request, response) => {
   const query = request.query;
   const pid = query.pid;
-  //reload file into memeory
+  //reload file into memory
   await reloadPosts();
   //404 not found
   if (!entryExists(posts, pid)) {
-    response.status(4004).json({ error: `Post does not exist`});
+    response.status(404).json({ error: `Post '${pid}' does not exist`});
   }
   //200 found, return data
   else {
     response.status(200).json(posts[parseInt(pid)]);
+  }
+});
+
+//GET A USERS OTHER POSTS
+app.get('/otherposts', async (request, response) => {
+  const query = request.query;
+  const uid = query.uid;
+  const pid = query.pid;
+  //reload file into memory
+  await reloadUsers();
+  await reloadPosts();
+  //404 not found
+  if (!entryExists(users, uid)) {
+    response.status(404).json({ error: `User '${uid}' Not Found`});
+  }
+  //404 not found
+  else if (!entryExists(posts, pid)) {
+    response.status(404).json({ error: `Post '${pid}' does not exist`});
+  }
+  //200 found, return data
+  else {
+    let PIDs = [];
+    //get rest of pids in PID list from each user
+    users[uid].posts.forEach(post => { 
+      if (post != pid) {
+        PIDs.push(post);
+      }
+    });
+    response.status(200).json(PIDs);
   }
 });
 
@@ -469,12 +498,167 @@ app.put('/comment', async (request, response) => {
     //add comment
     posts[query.pid].comments.push({
       uid: query.uid, 
-      comment: body.comment
+      comment: body.comment,
+      likes: []
     });
     await saveFile(posts_file, posts);
     response.status(200).json(posts[query.pid]);
   }
 });
+
+//GET COMMENTS OF A POST
+app.get('/comments_get', async (request, response) => {
+  const query = request.query;
+  const pid = query.pid;
+  //reload file into memory
+  await reloadPosts();
+  //404 not found
+  if (!entryExists(posts, pid)) {
+    response.status(404).json({ error: `Post '${pid}' does not exist`});
+  }
+  //200 found, return data
+  else {
+    response.status(200).json(posts[pid].comments.sort((a, b) => b.likes.length - a.score.length));
+    // response.status(200).json(posts[pid].comments);
+  }
+});
+
+//DELETE A COMMENT OF A POST
+app.delete('/comment_delete', async (request, response) => {
+  const query = request.query;
+  const uid = query.uid;
+  const pid = query.pid;
+  const comment = query.comment;
+  //reload file into memeory
+  await reloadUsers();
+  await reloadPosts();
+  //404 not found
+  if (!entryExists(users, uid)) {
+    response.status(404).json({ error: `User '${uid}' Not Found`});
+  }
+  //404 not found
+  else if (!entryExists(posts, pid)) {
+    response.status(404).json({ error: `Post '${pid}' does not exist`});
+  }
+  //200 found, return data
+  else {
+    let newComments = [];
+    posts[pid].comments.forEach(c => {
+      if (c.comment != comment || c.uid != uid) {
+        newComments.push(c);
+      }
+    });
+    posts[pid].comments = newComments;
+    await saveFile(posts_file, posts);
+    response.status(200).json(`'${comment}' posted by '${uid}' on post '${pid}' Has been Deleted`);
+  }
+});
+
+//GET WHETHER USER HAS LIKED COMMENT
+app.get('/comment_check', async (request, response) => {
+  const query = request.query;
+  const log = query.log;
+  const uid = query.uid;
+  const pid = query.pid;
+  const comment = query.comment;
+  //reload file into memory
+  await reloadUsers();
+  await reloadPosts();
+  //404 not found
+  if (!entryExists(users, log)) {
+    response.status(404).json({ error: `User '${log}' Not Found`});
+  }
+  //404 not found
+  // else if (!entryExists(users, uid)) { // only uncomment once more users established
+  //   response.status(404).json({ error: `User '${uid}' Not Found`});
+  // }
+  //404 not found
+  else if (!entryExists(posts, pid)) {
+    response.status(404).json({ error: `Post '${pid}' does not exist`});
+  }
+  //200 found, return data
+  else {
+    let b = false
+    posts[pid].comments.forEach(c => {
+      if (c.comment === comment && c.uid === uid && log in c.likes) {
+        b = true
+      }
+    });
+    response.status(200).json({"value": b});
+  }
+});
+
+//LIKE A COMMENT
+app.put('/comment_like', async (request, response) => {
+  const query = request.query;
+  const log = query.log;
+  const uid = query.uid;
+  const pid = query.pid;
+  const comment = query.comment;
+  //reload file into memory
+  await reloadPosts();
+  //404 not found
+  if (!entryExists(users, log)) {
+    response.status(404).json({ error: `User '${log}' Not Found`});
+  }
+  // //404 not found // only uncomment once more users established
+  // else if (!entryExists(users, uid)) {
+  //   response.status(404).json({ error: `User '${uid}' Not Found`});
+  // } 
+  //404 not found
+  else if (!entryExists(posts, pid)) {
+    response.status(404).json({ error: `Post '${pid}' does not exist`});
+  }
+  //200 found, return data
+  else {
+    posts[pid].comments.forEach(c => {
+      if (c.comment === comment && c.uid === uid) {
+        c.likes.push(log)
+      }
+    });
+    await saveFile(posts_file, posts);
+    response.status(200).json(`Comment by '${uid}' liked by '${log}'`);
+  }
+});
+
+app.put('/comment_unlike', async (request, response) => {
+  const query = request.query;
+  const log = query.log;
+  const uid = query.uid;
+  const pid = query.pid;
+  const comment = query.comment;
+  //reload file into memory
+  await reloadPosts();
+  //404 not found
+  if (!entryExists(users, log)) {
+    response.status(404).json({ error: `User '${log}' Not Found`});
+  }
+  //404 not found
+  // else if (!entryExists(users, uid)) { // only uncomment once more users established
+  //   response.status(404).json({ error: `User '${uid}' Not Found`});
+  // }
+  //404 not found
+  else if (!entryExists(posts, pid)) {
+    response.status(404).json({ error: `Post '${pid}' does not exist`});
+  }
+  //200 found, return data
+  else {
+    let newLikes = [];
+    posts[pid].comments.forEach(c => {
+      if (c.comment === comment && c.uid === uid) {
+        c.likes.forEach(liker => {
+          if (liker != log) {
+            newLikes.push(liker)
+          }
+        });
+        c.likes = newLikes;
+      }
+    });
+    await saveFile(posts_file, posts);
+    response.status(200).json(`Comment by '${uid}' unliked by '${log}'`);
+  }
+});
+
 
 //GET THE FEED
 app.get('/feed', async (request, response) => {

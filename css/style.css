@@ -22,9 +22,9 @@
     padding-right: 6px;
 }
 
-.comments_Guide {
-    width: 100%;
+.comments_User {
     font-size: 14pt;
+    margin-left: 5px;
 }
 
 .cancelBtn {
@@ -38,7 +38,7 @@
     margin: 8px;
     margin-left: 0px;
 }
-
+  
 .create-guide-header {
     position: relative;
     left: 46.25%;
@@ -268,6 +268,17 @@
     border-radius: 0px;
 }
 
+.post-options-guide-button {
+    color: #000000;
+    display: inline;
+    align-items:center;
+    border-radius: 10px;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 5px;
+}
+
 .post-options-button:hover {
     background-color: #ffebd6;
 }
@@ -282,6 +293,11 @@
 
 .post-options-like {
     background-color: #fc7c7c;
+}
+
+.post-options-guide-like {
+    background-color: gray;
+    color: black;
 }
 
 .post-options-profile {
@@ -312,8 +328,15 @@
 
 
 /* S */
-.stars_Guide {
-    margin-right : 150px;
+.scrollable {
+    border: solid 2px black;
+    width: 100%;
+    background-color: white;
+    height: 300px;
+    overflow-y: auto;
+        /* float: left;
+        position: relative;
+        margin-left: -5px; */
 }
 
 .signupBtn {
@@ -339,6 +362,10 @@
     position: fixed; 
     left:350px; 
     top:150px;
+}
+
+.stars_Guide {
+    margin-right : 150px;
 }
 
 /* T */

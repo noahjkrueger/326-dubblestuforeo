@@ -230,7 +230,7 @@ export async function renderFeed(post_objects, element) {
             addClasses(comment_icon, ["bi-chat", "icon"]);
             let comment_text = createElement("span");
             addClasses(comment_text, ["button-label"]);
-            comment_text.innerText = "Comments: " + post_object.comments.length;
+            comment_text.innerText = "Comments: " + Object.keys(post_object.comments).length;
             appendChildren(comment_guide, [comment_icon, comment_text]);
         
             appendChildren(row_5, [like_guide, comment_guide, view_guide]);
