@@ -18,7 +18,7 @@
             <div class="login" id="login"></div>
             <div class="splitBar"></div>
             <div class="cancelBtn">
-                <button type="button" class="btn btn-block">Cancel</button>
+                <button type="button" onclick="location.href = 'http://localhost:3000/feed.html';" class="btn btn-block">Cancel</button>
             </div>
         </main>
             <div class="Login-side" >
@@ -31,10 +31,11 @@
                             <input type="text" id="Username" placeholder="Username" class="credentialsBox">
                         </div>
                         <div class="form-group">
-                            <input type="text" id="password" placeholder="Password" class="credentialsBox">
+                            <input type="password" id="password" placeholder="Password" class="credentialsBox">
+                            <input type="checkbox" id="checkbox3"><span class="noFlow">Show Password</span>
                         </div>
                         <div class="form-group">
-                            <button type="button" class="btn btn-block loginBtn" id="login">Login</button>
+                            <button onclick="location.href = 'http://localhost:3000/feed.html';" type="button" class="btn btn-block loginBtn" id="login">Login</button>
                         </div>
                 </form>      
             </div>
@@ -45,19 +46,22 @@
                         <span><i class="icon icon-user"></i></span>
                     </div>
                     <div class="form-group">
-                        <input type="text" id="email" placeholder="Email" class="credentialsBox">
+                        <input type="email" id="email" placeholder="Email" class="credentialsBox">
                     </div>
                     <div class="form-group">
                         <input type="text" id="UsernameSignup" placeholder="Username" class="credentialsBox">
                     </div>
                     <div class="form-group">
-                        <input type="text" id="passwordSignup" placeholder="Password" class="credentialsBox">
+                        <input type="password" id="passwordSignup" placeholder="Password" class="credentialsBox">
+                        <input type="checkbox" id="checkbox1"> <span class="noFlow">Show Password</span>
                     </div>
                     <div class="form-group">
-                        <input type="text" id="confirm_Password" placeholder="Confirm Password" class="credentialsBox">
+                        <input type="password" id="confirm_Password" placeholder="Confirm Password" class="credentialsBox">
+                        <input type="checkbox" id="checkbox2"><span class="noFlow">Show Password</span>
                     </div>
                     <div class="form-group">
                         <button type="button" class="btn btn-block signupBtn" id="signup">Sign Up</button>
+                        <p id="notice"></p>
                     </div>
                 </form>
             </div> 
