@@ -243,16 +243,28 @@ export async function renderFeed(login, uid, pid, columns) {
     let section = createElement("div");
     addClasses(section, ["scrollable"]);
 
-    Object.keys(user_post.comments).forEach(i => {
-        let comment = createElement("div");
+    let comments = await guzzzleAPI.getComments(pid);
+    comments.forEach(comment => {
+        let content = createElement("div");
         let user = createElement("b");
-        let com = createElement("p");
-        user.innerText = "urmom420: ";
-        com.innerText = "This tastes AMAZING, I would recommend anyone to give this a go,absolutely love the collision of flavors!";
-        let divide = createElement("hr");
         addClasses(user, ["comments_User"]);
-        appendChildren(comment, [user, com]);
-        appendChildren(section, [comment, divide])
+        let comm = createElement("p");
+        user.innerText = String(comment.uid) + ': ';
+        comm.innerText = comment.comment;
+        if (login === comment.uid) {
+            let button = createElement("button")
+            button.setAttribute("type", "submit");
+            button.innerText = "Delete"
+            button.addEventListener('onclick', async function(event) {
+                //implement delete feature
+            });
+            appendChildren(content, [user, comm, button]);
+        }
+        else {
+            appendChildren(content, [user, comm]);
+        }
+        let divide = createElement("hr");
+        appendChildren(section, [content, divide])
     });
 
     appendChildren(row_20, [section]);
@@ -268,11 +280,27 @@ export async function renderFeed(login, uid, pid, columns) {
     button.setAttribute("type", "submit");
     button.innerText = "Comment"
     button.addEventListener("click", async function(event) {
-        // await guzzzleAPI.commentPost()
+        if (input.value != "") {
+            let comment = createElement("div");
+            let user = createElement("b");
+            addClasses(user, ["comments_User"]);
+            let com = createElement("p");
+            user.innerText = String(login) + ': ';
+            com.innerText = input.value;
+            let del = createElement("button")
+            del.setAttribute("type", "submit");
+            del.innerText = "Delete"
+            del.addEventListener('onclick', async function(event) {
+                //implement delete feature
+            });
+            appendChildren(comment, [user, com, del]);
+            let divide = createElement("hr");
+            appendChildren(section, [comment, divide])
+            await guzzzleAPI.commentPost(login, pid, input.value)
+        }
     });
 
     appendChildren(row_20, [button]);
-// });
 
     let h2 = createElement("h3");
     h2.innerText = "Related Guides";

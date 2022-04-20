@@ -280,19 +280,20 @@ app.get('/otherposts', async (request, response) => {
   if (!entryExists(users, uid)) {
     response.status(404).json({ error: `User '${uid}' Not Found`});
   }
-  //200 found, return data
+  //404 not found
   else if (!entryExists(posts, pid)) {
     response.status(404).json({ error: `Post '${pid}' does not exist`});
   }
+  //200 found, return data
   else {
     let PIDs = [];
     //get rest of pids in PID list from each user
     users[uid].posts.forEach(post => { 
       if (post != pid) {
-        otherPosts.push(PIDs);
+        PIDs.push(post);
       }
     });
-    response.status(200).json(otherPosts);
+    response.status(200).json(PIDs);
   }
 });
 
@@ -499,6 +500,22 @@ app.put('/comment', async (request, response) => {
     });
     await saveFile(posts_file, posts);
     response.status(200).json(posts[query.pid]);
+  }
+});
+
+//GET COMMENTS OF A POST
+app.get('/getcomment', async (request, response) => {
+  const query = request.query;
+  const pid = query.pid;
+  //reload file into memeory
+  await reloadPosts();
+  //404 not found
+  if (!entryExists(posts, pid)) {
+    response.status(404).json({ error: `Post '${pid}' does not exist`});
+  }
+  //200 found, return data
+  else {
+    response.status(200).json(posts[pid].comments);
   }
 });
 

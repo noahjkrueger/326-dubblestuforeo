@@ -245,6 +245,22 @@ export async function commentPost(uid, pid, comment) {
     }
 }
 
+export async function getComments(pid) {
+    try {
+        const response = await fetch(`/getcomment?pid=${pid}`, {
+            method: 'GET',
+            headers: {
+            'Content-Type': 'application/json',
+            }
+        });
+        const data = await response.json();
+        return data;
+    } 
+    catch (err) {
+        console.log(err);
+    }
+}
+
 export async function queryPosts(ingredients) {
     try {
         let request = '/query?query=';
