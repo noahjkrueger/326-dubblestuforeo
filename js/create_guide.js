@@ -31,32 +31,37 @@ function post() {
 };
 
 function duplicate() {
+    let container = document.getElementById("cg_ingClass");
+    let p = document.createElement("p");
+    let parent = document.createElement("ing" + ingredientCount);
     //cg_type
     let originalType = document.getElementById('cg_type' + ingredientCount);
     let cloneType = originalType.cloneNode(true);
     cloneType.id = "cg_type" + (ingredientCount + 1);
-    cloneType.value = ''
-    originalType.parentNode.appendChild(cloneType);
+    cloneType.value = '';
+    parent.appendChild(cloneType);
     //cg_brand
     let originalBrand = document.getElementById('cg_brand' + ingredientCount);
     let cloneBrand = originalBrand.cloneNode(true);
     cloneBrand.id = "cg_brand" + (ingredientCount + 1);
-    cloneBrand.value = ''
-    originalBrand.parentNode.appendChild(cloneBrand);
+    cloneBrand.value = '';
+    parent.appendChild(cloneBrand);
     //cg_amount
     let originalAmount = document.getElementById('cg_amount' + ingredientCount);
     let cloneAmount = originalAmount.cloneNode(true);
     cloneAmount.id = "cg_amount" + (ingredientCount + 1);
-    cloneAmount.value = ''
-    originalAmount.parentNode.appendChild(cloneAmount);
+    cloneAmount.value = '';
+    parent.appendChild(cloneAmount);
+    //cg_ings
+    let originalIngs = document.getElementById('cg_ing' + ingredientCount);
+    let cloneIngs = originalIngs.cloneNode(false);
+    cloneIngs.id = "cg_ing" + (ingredientCount + 1);
+    cloneIngs.value = '';
+    cloneIngs.disabled = true;
+    parent.appendChild(cloneIngs);
 
-    //move down cg_btn, cg_inst, and cg_postButton
-    let postButtonClass = document.querySelector('.cg_post');
-    postButtonClass.style.bottom = 200 - ingredientCount * 150 + 'px';
-    let addButtonClass = document.querySelector('.cg_btn');
-    addButtonClass.style.top = 130 * ingredientCount + 'px';
-    let instClass = document.querySelector('.cg_inst');
-    instClass.style.top = 135 * ingredientCount + 'px';
+    p.appendChild(parent);
+    container.appendChild(p);
 
     ingredientCount += 1;
     document.getElementById("cg_type" + ingredientCount).addEventListener("change", ingredientType);
@@ -64,8 +69,6 @@ function duplicate() {
 
 function ingredientType() {
     let op = ingType[document.getElementById("cg_type" + ingredientCount).value - 1];
-    let select = document.createElement("select");
-    select.classList.add('cg_typeb');
     let ingredientDict = {
         "Booze": [
             "Brandy",
@@ -126,20 +129,18 @@ function ingredientType() {
             "Temp"
         ]
     };
-    select.id = "cg_ing" + ingredientCount;
-
     if(op !== undefined) {
-        for (const val of ingredientDict[op])
-    {
-        var option = document.createElement("option");
-        option.value = val;
-        option.text = val.charAt(0).toUpperCase() + val.slice(1);
-        select.appendChild(option);
-    }
-    document.getElementById("cg_ingClass").appendChild(select);
+        let select = document.getElementById("cg_ing" + ingredientCount);
+        select.disabled = false;
+        for (const val of ingredientDict[op]) {
+            var option = document.createElement("option");
+            option.value = val;
+            option.text = val.charAt(0).toUpperCase() + val.slice(1);
+            select.appendChild(option);
+        }
     } else {
         let oth = document.createElement("other");
         oth.innerHTML = "<input type='text' id='cg_other' placeholder='Specify ingredient' class='cg_amount'></input>"
-        document.getElementById("cg_ingClass").appendChild(oth);
+        document.getElementById("cg_ing" + ingredientCount).replaceWith(oth);
     }
 }

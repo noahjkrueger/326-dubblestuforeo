@@ -52,38 +52,22 @@
     text-align: center;
 }
 
-.cg_title {
-    position: relative;
-    width: 300px;
-    top: 15%;
-    left: 25%;
-    border-radius: 5px;
-    border: 2px solid #8400ff;
-}
-
-.cg_desc {
-    position: relative;
-    height: 90px;
-    width: 300px;
-    left: 25%;
-    bottom: 30px;
-    border-radius: 5px;
-    border: 2px solid #8400ff;
+#cg_form {
+    margin: 0 auto;
+    width: 1000px;
+    padding: 1em;
+    border: 1px solid #8400ff;
+    border-radius: 1em;
 }
 
 .cg_ingredients {
-    position: relative;
     height: 42px;
     width: 150px;
-    left: 25%;
-    bottom: 60px;
 }
 
 .cg_type {
-    position: relative;
     height: 37px;
     width: 100px;
-    bottom: 37px;
     background: #8400ff;
     border-radius: 12px;
     color: white;
@@ -92,10 +76,8 @@
 }
 
 .cg_typeb {
-    position: relative;
     height: 37px;
     width: 200px;
-    bottom: 28px;
     background: #8400ff;
     border-radius: 12px;
     color: white;
@@ -104,33 +86,19 @@
 }
 
 .cg_amount {
-    position: relative;
     height: 30px;
     width: 205px;
-    bottom: 30px;
 }
 
 .cg_inst {
-    position: relative;
     width: 800px;
-    left: 25%;
-    top: 40px;
     border-radius: 5px;
     border: 2px solid #8400ff;
 }
 
-.cg_image {
-    position: absolute;
-    left: 45%;
-    bottom: 600px;
-    width: 300px;
-}
-
 .cg_btn {
-    position: relative;
     height: 30px;
     width: 150px;
-    left: 25%;
     border: 2px solid #000000;
     background-color: #8400ff;
     border-radius: 12px;
@@ -139,11 +107,8 @@
 }
 
 .cg_post {
-    position: relative;
     height: 40px;
     width: 150px;
-    left: 25%;
-    bottom: 75px;
     border-radius: 12px;
     font-size: 20px;
     background-color: #8400ff;

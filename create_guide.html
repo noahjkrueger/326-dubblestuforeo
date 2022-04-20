@@ -27,40 +27,42 @@
     <br></br>
     <!-- Create Guide Form -->
     <form id="cg_form">
-        <div class="cg_title">
+        <p>
             <input type="text" class="form-control" id="cg_title" placeholder="Title">
-        </div>
-        <br></br>
-        <div class="cg_desc">
+        </p>
+        <p>
             <textarea class="form-control" id="cg_desc" rows="3" placeholder="Description"></textarea>
+        </p>
+        <div id="cg_ingClass">
+            <div id="ings1">
+                <p>
+                    <select class="cg_type" id="cg_type1">
+                        <option selected>Type</option>
+                        <option value="1">Booze</option>
+                        <option value="2">Juice</option>
+                        <option value="3">Garnish</option>
+                        <option value="4">Vegetable</option>
+                        <option value="5">Fruit</option>
+                        <option value="6">Other</option>
+                    </select>
+                    <input type="text" id="cg_brand1" placeholder="Brand" class="cg_amount">
+                    <input type="text" id="cg_amount1" placeholder="Amount(oz/tsp/tbs/units)" class="cg_amount">
+                    <select class="cg_typeb" id="cg_ing1" disabled></select>
+                </p>
+            </div>
         </div>
-        <br></br>
-        <br></br>
-        <div class = "cg_ingredients" id="cg_ingClass">
-            <select class="cg_type" id="cg_type1">
-                <option selected>Type</option>
-                <option value="1">Booze</option>
-                <option value="2">Juice</option>
-                <option value="3">Garnish</option>
-                <option value="4">Vegetable</option>
-                <option value="5">Fruit</option>
-                <option value="6">Other</option>
-            </select>
-            <input type="text" id="cg_brand1" placeholder="Brand" class="cg_amount">
-            <input type="text" id="cg_amount1" placeholder="Amount(oz/tsp/tbs/units)" class="cg_amount">
-        </div>
-        <button type="button" class="cg_btn" id="cg_btn">Add Ingredient</button>
-        <div class="cg_inst">
+        <p>
+            <button type="button" class="cg_btn" id="cg_btn">Add Ingredient</button>
+        </p>
+        <p>
             <textarea class="form-control" id="cg_inst" rows="9" placeholder="Instructions"></textarea>
-        </div>
-        <br></br>
-        <br></br>
-        <div class="cg_image">
+        </p>
+        <p>
             <label for="cg_image" class="form-label">Upload Image</label>
             <input class="form-control" type="file" id="cg_image">
-        </div>
-        <br></br>
-        <br></br>
-        <button class="cg_post" type="submit" id="cg_postbutton">Post Guide</button>
+        </p>
+        <p>
+            <button class="cg_post" type="submit" id="cg_postbutton">Post Guide</button>
+        </p>
     </form>
 </html>
