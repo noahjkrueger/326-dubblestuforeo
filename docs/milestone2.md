@@ -24,7 +24,8 @@ Wrote setup.md
 Login and Signup work
 Used API to correctly display the right profile when view profile is clicked
 Made it so the user must include a valid email in order to sign up and create an user that gets saved in users.json
-Got rid of the hard coded profile html and turned it into JS  
+Got rid of the hard coded profile html and turned it into JS
+Deployed app into Heroku
 
 ### Screenshots of Client Interface
 ![img](screenshots/get.jpg)
