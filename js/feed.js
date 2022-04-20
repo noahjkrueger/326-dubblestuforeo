@@ -45,7 +45,12 @@ const createElement = function (element_name) {
 };
 
 export async function renderFeed(post_objects, element) {
-    const feed = document.getElementById(element);
+    let feed = document.getElementById(element);
+    let external = false;
+    if (feed===null) {
+        feed = document.createElement("div");
+        external = true;
+    }
     feed.innerHTML = "";
     if (post_objects.length === 0) {
         feed.innerHTML = 
@@ -234,5 +239,8 @@ export async function renderFeed(post_objects, element) {
             appendChildren(post, [row_1, row_5, row_2, row_3, row_4]);
             //add this post to feed
             feed.appendChild(post);
+    }
+    if (external) {
+        return feed.innerHTML;
     }
 }

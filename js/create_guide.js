@@ -1,60 +1,147 @@
 import * as guzzzleAPI from './guzzzle-api.js'
 
 let ingredientCount = 1;
-const ingType = ['Booze', 'Juice', 'Garnish', 'Veggies', 'Fruit']
+const ingType = ['Booze', 'Juice', 'Garnish', 'Vegetable', 'Fruit'];
+window.localStorage.setItem("uid", "noah");
 
-const guide = document.getElementById("create_guide");
 const postButton = document.getElementById("cg_postbutton");
 const title = document.getElementById("cg_title");
 const desc = document.getElementById("cg_desc");
 const inst = document.getElementById("cg_inst");
 const img = document.getElementById("cg_image");
 const addIng = document.getElementById("cg_btn");
-const ingredients = document.getElementsByClassName("cg_ingredients")
 
 postButton.addEventListener("click", post);
 addIng.addEventListener("click", duplicate);
+document.getElementById("cg_type" + ingredientCount).addEventListener("change", ingredientType);
 
 function post() {
     let ingredient_keys = [];
-    let ingredientStr = "";
+    let ingredientStr = [];
     for(let i = 1; i <= ingredientCount; ++i) {
         let ing = document.getElementById("cg_ing" + i);
-        let type = document.getElementById("cg_type" + i);
         let amount = document.getElementById("cg_amount" + i);
-        ingredient_keys.push(type);
-        ingredientStr += "Ingredient " + i + ": " + ing + " " + amount;
+        let brand = document.getElementById("cg_brand" + i);
+        ingredient_keys.push(ing.value);
+        ingredientStr.push(brand.value + " " + ing.value + " " + amount.value);
     }
-    guzzzleAPI.createPost(123, title.value, img.value, desc.value, ingredient_keys, ingredientStr, inst.value);
+             //createPost(uid, title, image, ingredient_keys, ingredients, instructions, description)
+    guzzzleAPI.createPost(window.localStorage.getItem("uid"), title.value, img.value, ingredient_keys, ingredientStr, inst.value, desc.value);
+    // window.href='/post.html';
 };
 
 function duplicate() {
-    //cg_ing1
-    let originalIng = document.getElementById('cg_ing' + ingredientCount);
-    let cloneIng = originalIng.cloneNode(true);
-    cloneIng.id = "cg_ing" + (ingredientCount + 1);
-    cloneIng.value = ''
-    originalIng.parentNode.appendChild(cloneIng);
-    //cg_type1
+    let container = document.getElementById("cg_ingClass");
+    let p = document.createElement("p");
+    let parent = document.createElement("ing" + ingredientCount);
+    //cg_type
     let originalType = document.getElementById('cg_type' + ingredientCount);
     let cloneType = originalType.cloneNode(true);
     cloneType.id = "cg_type" + (ingredientCount + 1);
-    cloneType.value = ''
-    originalType.parentNode.appendChild(cloneType);
-    //cg_cg_amount1
+    cloneType.value = '';
+    parent.appendChild(cloneType);
+    //cg_brand
+    let originalBrand = document.getElementById('cg_brand' + ingredientCount);
+    let cloneBrand = originalBrand.cloneNode(true);
+    cloneBrand.id = "cg_brand" + (ingredientCount + 1);
+    cloneBrand.value = '';
+    parent.appendChild(cloneBrand);
+    //cg_amount
     let originalAmount = document.getElementById('cg_amount' + ingredientCount);
     let cloneAmount = originalAmount.cloneNode(true);
     cloneAmount.id = "cg_amount" + (ingredientCount + 1);
-    cloneAmount.value = ''
-    originalAmount.parentNode.appendChild(cloneAmount);
+    cloneAmount.value = '';
+    parent.appendChild(cloneAmount);
+    //cg_ings
+    let originalIngs = document.getElementById('cg_ing' + ingredientCount);
+    let cloneIngs = originalIngs.cloneNode(false);
+    cloneIngs.id = "cg_ing" + (ingredientCount + 1);
+    cloneIngs.value = '';
+    cloneIngs.disabled = true;
+    parent.appendChild(cloneIngs);
 
-    //move down cg_btn, cg_inst, and cg_postButton200
-    let postButtonClass = document.querySelector('.cg_post');
-    postButtonClass.style.bottom = 200 - ingredientCount * 120 + 'px';
-    let addButtonClass = document.querySelector('.cg_btn');
-    addButtonClass.style.top = 110 * ingredientCount + 'px';
-    let instClass = document.querySelector('.cg_inst');
-    instClass.style.top = 115 * ingredientCount + 'px';
+    p.appendChild(parent);
+    container.appendChild(p);
 
     ingredientCount += 1;
+    document.getElementById("cg_type" + ingredientCount).addEventListener("change", ingredientType);
+}
+
+function ingredientType() {
+    let op = ingType[document.getElementById("cg_type" + ingredientCount).value - 1];
+    let ingredientDict = {
+        "Booze": [
+            "Brandy",
+            "Gin",
+            "Rum",
+            "Tequlia",
+            "Vodka",
+            "Whiskey",
+            "Bourbon",
+            "Scotch",
+            "Liqueur",
+            "Vermouth",
+            "Red Wine",
+            "White Wine",
+            "Beer",
+            "Sake"
+        ],
+        "Juice": [
+            "Lemon Juice",
+            "Lime Juice",
+            "Orange Juice",
+            "Pineapple Juice",
+            "Cranberry Juice",
+            "Tomato Juice",
+            "Lemonade",
+            "Tonic Water",
+            "Seltzer Water",
+            "Ginger Beer"
+        ],
+        "Fruit": [
+            "Lemon",
+            "Lime",
+            "Olive",
+            "Orange",
+            "Pineapple",
+            "Strawberry",
+            "Watermelon",
+            "Marachino Cherry",
+            "Rasberry"
+        ],
+        "Vegetable": [
+            "Carrot",
+            "Celery",
+            "Pepper",
+            "Cucumber",
+            "Pickle"
+        ],
+        "Garnish": [
+            "Mint",
+            "Cinnamon",
+            "Salt",
+            "Sugar",
+            "Flowers",
+            "Nutmeg",
+            "Ginger"
+        ],
+        "Other": [
+            "Temp"
+        ]
+    };
+    if(op !== undefined) {
+        let select = document.getElementById("cg_ing" + ingredientCount);
+        select.disabled = false;
+        select.innerHTML = "<option selected>Type</option>"
+        for (const val of ingredientDict[op]) {
+            var option = document.createElement("option");
+            option.value = val;
+            option.text = val.charAt(0).toUpperCase() + val.slice(1);
+            select.appendChild(option);
+        }
+    } else {
+        let oth = document.createElement("other");
+        oth.innerHTML = "<input type='text' id='cg_other' placeholder='Specify ingredient' class='cg_amount'></input>"
+        document.getElementById("cg_ing" + ingredientCount).replaceWith(oth);
+    }
 }

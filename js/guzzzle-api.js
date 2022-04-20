@@ -123,12 +123,12 @@ export async function readPost(pid) {
     }
 }
 
-export async function updatePost(pid, newTitle, newImage, newIngredient_keys, newIngredients, newInstructions) {
+export async function updatePost(pid, newTitle, newImage, newIngredient_keys, newIngredients, newInstructions, newDescription) {
     try {
         const response = await fetch(`/post_update?pid=${pid}`, {
             method: 'PUT',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({title: newTitle, image: newImage, ingredient_keys: newIngredient_keys, ingredients: newIngredients, instructions: newInstructions})
+            body: JSON.stringify({title: newTitle, image: newImage, ingredient_keys: newIngredient_keys, ingredients: newIngredients, description: newDescription, instructions: newInstructions})
         });
         const data = await response.json();
         return data;
