@@ -132,6 +132,7 @@ function ingredientType() {
     if(op !== undefined) {
         let select = document.getElementById("cg_ing" + ingredientCount);
         select.disabled = false;
+        select.innerHTML = "<option selected>Type</option>"
         for (const val of ingredientDict[op]) {
             var option = document.createElement("option");
             option.value = val;
