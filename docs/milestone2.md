@@ -27,13 +27,13 @@ Made it so the user must include a valid email in order to sign up and create an
 Got rid of the hard coded profile html and turned it into JS  
 
 ### Screenshots of Client Interface
-![img](imgsrc)
+![img](screenshots/get.jpg)
 description here
-![img](imgsrc)
+![img](screenshots/post.jpg)
 description here
-![img](imgsrc)
+![img](screenshots/put.jpg)
 description here
-![img](imgsrc)
+![img](screenshots/delete.jpg)
 description here
 
 ### Heroku Link to Project
