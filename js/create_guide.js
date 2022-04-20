@@ -1,7 +1,7 @@
 import * as guzzzleAPI from './guzzzle-api.js'
 
 let ingredientCount = 1;
-const ingType = ['Booze', 'Juice', 'Garnish', 'Veggies', 'Fruit'];
+const ingType = ['Booze', 'Juice', 'Garnish', 'Vegetable', 'Fruit'];
 window.localStorage.setItem("uid", "noah");
 
 const postButton = document.getElementById("cg_postbutton");
@@ -52,11 +52,11 @@ function duplicate() {
 
     //move down cg_btn, cg_inst, and cg_postButton
     let postButtonClass = document.querySelector('.cg_post');
-    postButtonClass.style.bottom = 200 - ingredientCount * 120 + 'px';
+    postButtonClass.style.bottom = 200 - ingredientCount * 150 + 'px';
     let addButtonClass = document.querySelector('.cg_btn');
-    addButtonClass.style.top = 110 * ingredientCount + 'px';
+    addButtonClass.style.top = 130 * ingredientCount + 'px';
     let instClass = document.querySelector('.cg_inst');
-    instClass.style.top = 115 * ingredientCount + 'px';
+    instClass.style.top = 135 * ingredientCount + 'px';
 
     ingredientCount += 1;
     document.getElementById("cg_type" + ingredientCount).addEventListener("change", ingredientType);
@@ -64,7 +64,7 @@ function duplicate() {
 
 function ingredientType() {
     let op = ingType[document.getElementById("cg_type" + ingredientCount).value - 1];
-    var select = document.createElement("select");
+    let select = document.createElement("select");
     select.classList.add('cg_typeb');
     let ingredientDict = {
         "Booze": [
@@ -127,8 +127,9 @@ function ingredientType() {
         ]
     };
     select.id = "cg_ing" + ingredientCount;
- 
-    for (const val of ingredientDict[op])
+
+    if(op !== undefined) {
+        for (const val of ingredientDict[op])
     {
         var option = document.createElement("option");
         option.value = val;
@@ -136,4 +137,9 @@ function ingredientType() {
         select.appendChild(option);
     }
     document.getElementById("cg_ingClass").appendChild(select);
+    } else {
+        let oth = document.createElement("other");
+        oth.innerHTML = "<input type='text' id='cg_other' placeholder='Specify ingredient' class='cg_amount'></input>"
+        document.getElementById("cg_ingClass").appendChild(oth);
+    }
 }
