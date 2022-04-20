@@ -50,7 +50,7 @@ export async function renderFeed(post_objects, element) {
     if (post_objects.length === 0) {
         feed.innerHTML = 
         "<img class =\"empty-feed-img\" src=\"https://atlas-content-cdn.pixelsquid.com/stock-images/empty-beer-mug-glass-oJvMKWB-600.jpg\">" +
-        "<h2 style=\'text-align: center\'>Your feed is empty. Search some guides and follow your friends!</h2>";
+        "<h2 style=\'text-align: center\'>Your feed or search has no posts. Search some guides and follow your friends!</h2>";
     }
     for (const post_object of post_objects) {
             //get the user that posted it
