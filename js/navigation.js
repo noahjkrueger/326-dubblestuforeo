@@ -21,7 +21,11 @@ const data = [
             "Bourbon",
             "Scotch",
             "Liqueur",
-            "Vermouth"
+            "Vermouth",
+            "Red Wine",
+            "White Wine",
+            "Beer",
+            "Sake"
         ]
     },
     {
@@ -33,6 +37,7 @@ const data = [
             "Orange Juice",
             "Pineapple Juice",
             "Cranberry Juice",
+            "Tomato Juice",
             "Lemonade",
             "Tonic Water",
             "Seltzer Water",
@@ -62,6 +67,7 @@ const data = [
             "Celery",
             "Pepper",
             "Cucumber",
+            "Pickle"
         ]
     },
     {
@@ -116,7 +122,7 @@ await fetch(navbar_src).then((response) => response.text()).then((html) => {
     user_profile.addEventListener('click', event => {
         window.localStorage.setItem("user-info", JSON.stringify({uid: loggedin_user.uid}));
     });
-    if (loggedin_user === null) {
+    if (loggedin_user.hasOwnProperty("error")) {
         user_profile.innerText = "Login/Signup";
         user_profile.href = "/login.html";
     }
