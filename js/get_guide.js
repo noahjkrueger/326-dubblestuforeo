@@ -153,6 +153,7 @@ export async function renderFeed(login, uid, pid, columns) {
 
     let like_text = createElement("span");
     like_text.innerText = user_post.likes;
+    addClasses(like_text, ['count'])
 
     like.addEventListener("click", async function(event) {
         if (like_icon.classList.contains("bi-balloon-heart")) {
@@ -244,7 +245,8 @@ export async function renderFeed(login, uid, pid, columns) {
     addClasses(section, ["scrollable"]);
 
     let comments = await guzzzleAPI.getComments(pid);
-    comments.forEach(comment => {
+    comments.forEach(async function(comment) {
+        let wrapper = createElement("span")
         let content = createElement("div");
         let user = createElement("b");
         addClasses(user, ["comments_User"]);
@@ -255,16 +257,21 @@ export async function renderFeed(login, uid, pid, columns) {
             let button = createElement("button")
             button.setAttribute("type", "submit");
             button.innerText = "Delete"
-            button.addEventListener('onclick', async function(event) {
+            button.addEventListener('click', async function(event) {
                 //implement delete feature
+                wrapper.innerHTML = '';
+                await guzzzleAPI.commentDelete(login, pid, comment.comment);
             });
             appendChildren(content, [user, comm, button]);
+            let divide = createElement("hr");
+            appendChildren(wrapper, [content, divide])
         }
         else {
             appendChildren(content, [user, comm]);
+            let divide = createElement("hr");
+            appendChildren(wrapper, [content, divide])
         }
-        let divide = createElement("hr");
-        appendChildren(section, [content, divide])
+        appendChildren(section, [wrapper]);
     });
 
     appendChildren(row_20, [section]);
@@ -280,7 +287,9 @@ export async function renderFeed(login, uid, pid, columns) {
     button.setAttribute("type", "submit");
     button.innerText = "Comment"
     button.addEventListener("click", async function(event) {
-        if (input.value != "") {
+        if (input.value != "" && login != uid) {
+            const message = input.value
+            let wrapper = createElement("span")
             let comment = createElement("div");
             let user = createElement("b");
             addClasses(user, ["comments_User"]);
@@ -290,13 +299,17 @@ export async function renderFeed(login, uid, pid, columns) {
             let del = createElement("button")
             del.setAttribute("type", "submit");
             del.innerText = "Delete"
-            del.addEventListener('onclick', async function(event) {
-                //implement delete feature
-            });
-            appendChildren(comment, [user, com, del]);
             let divide = createElement("hr");
-            appendChildren(section, [comment, divide])
-            await guzzzleAPI.commentPost(login, pid, input.value)
+            appendChildren(comment, [user, com, del]);
+            appendChildren(wrapper, [comment, divide])
+            appendChildren(section, [wrapper])
+            del.addEventListener('click', async function(event) {
+                // delete comment
+                wrapper.innerHTML = ''
+                await guzzzleAPI.commentDelete(login, pid, message)
+            });
+            await guzzzleAPI.commentPost(login, pid, message)
+            input.value = "";
         }
     });
 

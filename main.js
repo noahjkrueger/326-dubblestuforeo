@@ -504,7 +504,7 @@ app.put('/comment', async (request, response) => {
 });
 
 //GET COMMENTS OF A POST
-app.get('/getcomment', async (request, response) => {
+app.get('/comments_get', async (request, response) => {
   const query = request.query;
   const pid = query.pid;
   //reload file into memeory
@@ -516,6 +516,37 @@ app.get('/getcomment', async (request, response) => {
   //200 found, return data
   else {
     response.status(200).json(posts[pid].comments);
+  }
+});
+
+//DELETE A COMMENT OF A POST
+app.delete('/comment_delete', async (request, response) => {
+  const query = request.query;
+  const uid = query.uid;
+  const pid = query.pid;
+  const comment = query.comment;
+  //reload file into memeory
+  await reloadUsers();
+  await reloadPosts();
+  //404 not found
+  if (!entryExists(users, uid)) {
+    response.status(404).json({ error: `User '${uid}' Not Found`});
+  }
+  //404 not found
+  else if (!entryExists(posts, pid)) {
+    response.status(404).json({ error: `Post '${pid}' does not exist`});
+  }
+  //200 found, return data
+  else {
+    let newComments = [];
+    posts[pid].comments.forEach(c => {
+      if (c.comment != comment || c.uid != uid) {
+        newComments.push(c);
+      }
+    });
+    posts[pid].comments = newComments;
+    await saveFile(posts_file, posts);
+    response.status(200).json(`'${comment}' posted by '${uid}' on post '${pid}' Has been Deleted`);
   }
 });
 
