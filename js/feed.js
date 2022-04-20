@@ -1,23 +1,32 @@
 import * as guzzzleAPI from './guzzzle-api.js'
 
-await guzzzleAPI.login("noah", "1234");
-
 const cookie_uid = JSON.parse(window.localStorage.getItem("uid"));
-
 const this_user = await guzzzleAPI.readUser(cookie_uid);
 
-let feed_pids = await guzzzleAPI.getFeed(cookie_uid);
-let post_objects = [];
-for(const pid of feed_pids) {
-    post_objects.push(await guzzzleAPI.readPost(pid));
+if (cookie_uid !== null) {
+    let feed_pids = await guzzzleAPI.getFeed(cookie_uid);
+    let post_objects = [];
+    for(const pid of feed_pids) {
+        post_objects.push(await guzzzleAPI.readPost(pid));
+    }
+    post_objects = post_objects.sort((a, b) => {
+        let a_split = a.date.split("/");
+        let b_split = b.date.split("/");
+        return (100 *(a_split[2] - b_split[2]) + 10 * (a_split[0] - b_split[0]) + a_split[1] - b_split[1]);
+    });
+    renderFeed(post_objects, "feed");
 }
-post_objects = post_objects.sort((a, b) => {
-    let a_split = a.date.split("/");
-    let b_split = b.date.split("/");
-    return (100 *(a_split[2] - b_split[2]) + 10 * (a_split[0] - b_split[0]) + a_split[1] - b_split[1]);
-});
-
-renderFeed(post_objects, "feed");
+else {
+    const default_feed = [0, 1, 2];
+    let post_objects = [];
+    for (const pid in default_feed) {
+        post_objects.push(await guzzzleAPI.readPost(pid));
+    }
+    post_objects = post_objects.sort((a, b) => {
+        return b.likes - a.likes;
+    });
+    renderFeed(post_objects, "feed");
+}
 
 const appendChildren = function (element, children) {
     children.forEach(child => {
@@ -36,7 +45,18 @@ const createElement = function (element_name) {
 };
 
 export async function renderFeed(post_objects, element) {
-    const feed = document.getElementById(element);
+    let feed = document.getElementById(element);
+    let external = false;
+    if (feed===null) {
+        feed = document.createElement("div");
+        external = true;
+    }
+    feed.innerHTML = "";
+    if (post_objects.length === 0) {
+        feed.innerHTML = 
+        "<img class =\"empty-feed-img\" src=\"https://atlas-content-cdn.pixelsquid.com/stock-images/empty-beer-mug-glass-oJvMKWB-600.jpg\">" +
+        "<h2 style=\'text-align: center\'>Your feed or search has no posts. Search some guides and follow your friends!</h2>";
+    }
     for (const post_object of post_objects) {
             //get the user that posted it
             let posting_user = await guzzzleAPI.readUser(post_object.uid);
@@ -73,13 +93,22 @@ export async function renderFeed(post_objects, element) {
             addClasses(follow_bar, ["col", "btn", "post-options-button", "post-options-follow"]);
             let follow_icon = createElement("i");
             follow_icon.id = "follow-icon";
-            addClasses(follow_icon, ["bi-person-check-fill", "icon"]);
             let follow_text = createElement("span");
             addClasses(follow_text, ["button-label"]);
-            follow_text.innerText = "Following";
+            if (!this_user.hasOwnProperty("error") && this_user.following.includes(post_object.uid)) {
+                addClasses(follow_icon, ["bi-person-check-fill", "icon"]);
+                follow_text.innerText = "Following";
+            }
+            else {
+                addClasses(follow_icon, ["bi-person-plus", "icon"]);
+                follow_text.innerText = "Follow";
+            }
             //add event listener for following from feed
             follow_bar.addEventListener("click", async function(event) {
-                if (follow_icon.classList.contains("bi-person-plus")) {
+                if (cookie_uid === null) {
+                    window.location.href = "./login.html";
+                }
+                else if (follow_icon.classList.contains("bi-person-plus")) {
                     follow_icon.classList.remove("bi-person-plus");
                     addClasses(follow_icon, ["bi-person-check-fill"]);
                     //follow user
@@ -159,7 +188,7 @@ export async function renderFeed(post_objects, element) {
             let like_guide = createElement("a");
             addClasses(like_guide, ["col", "btn", "post-options-button", "post-options-like"]);
             let like_icon = createElement("i");
-            if (post_object.pid in this_user.likes) {
+            if (!this_user.hasOwnProperty("error") && this_user.likes.includes(String(post_object.pid))) {
                 addClasses(like_icon, ["bi-balloon-heart-fill", "icon"]);
             }
             else {
@@ -169,19 +198,21 @@ export async function renderFeed(post_objects, element) {
             addClasses(like_text, ["button-label"]);
             like_text.innerText = "Likes: " + post_object.likes;
             like_guide.addEventListener("click", async function(event) {
-                if (like_icon.classList.contains("bi-balloon-heart")) {
+                if (cookie_uid === null) {
+                    window.location.href = "./login.html";
+                }
+                else if (like_icon.classList.contains("bi-balloon-heart")) {
                     like_icon.classList.remove("bi-balloon-heart");
                     addClasses(like_icon, ["bi-balloon-heart-fill"]);
                     //like post
-                    await guzzzleAPI.likePost(cookie_uid, pid);
+                    await guzzzleAPI.likePost(cookie_uid, post_object.pid);
                 }
                 else {
                     like_icon.classList.remove("bi-balloon-heart-fill")
                     //unlike post
                     addClasses(like_icon, ["bi-balloon-heart"]);
-                    await guzzzleAPI.unlikePost(cookie_uid, pid);
+                    await guzzzleAPI.unlikePost(cookie_uid, post_object.pid);
                 }
-                event.preventDefault();
             });
             appendChildren(like_guide, [like_icon, like_text]);
         
@@ -208,5 +239,8 @@ export async function renderFeed(post_objects, element) {
             appendChildren(post, [row_1, row_5, row_2, row_3, row_4]);
             //add this post to feed
             feed.appendChild(post);
+    }
+    if (external) {
+        return feed.innerHTML;
     }
 }

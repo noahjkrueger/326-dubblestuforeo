@@ -375,6 +375,7 @@ app.get('/query', async (request, response) => {
   query.split(" ").forEach(key => {
     //API replaces spaces in query with undescore, replace them back
     key = key.replace("_"," ");
+    console.log(key);
     //if key is in index
     if (key in index) {
       //push each pid into posts
@@ -393,6 +394,7 @@ app.get('/query', async (request, response) => {
     response.status(404).json({error: "No matching posts"});
   }
   //200 posts found, reutrn object of PID->(count of ingred matches)
+  console.log(posts);
   response.status(200).json(posts);
 });
 
