@@ -12,26 +12,6 @@ let checkBox1 = document.getElementById('checkbox1');
 let checkBox2 = document.getElementById('checkbox2');
 let checkBox3 = document.getElementById('checkbox3');
 
-
-
-// userLogin.addEventListener('input', function(){
-//     const uid = guzzzleAPI.login(userLogin.value, passLogin.value);
-//     if(uid != null) {
-//         logBtn.setAttribute('onClick', "location.href = 'http://localhost:3000/feed.html';");
-//     } else {
-//         logBtn.setAttribute('onClick', "location.href = 'http://localhost:3000/login.html';");
-//     }
-// });
-
-// passLogin.addEventListener('input', function(){
-//     const uid = guzzzleAPI.login(userLogin.value, passLogin.value);
-//     if(window.localStorage.getItem("uid") != null) {
-//         logBtn.setAttribute('onClick', "location.href = 'http://localhost:3000/feed.html';");
-//     } else {
-//         logBtn.setAttribute('onClick', "location.href = 'http://localhost:3000/login.html';");
-//     }
-// });
-
 checkBox1.addEventListener("click", function visible() {
     let x = passSignup;
     if(x.type === "password") {
@@ -62,12 +42,6 @@ checkBox3.addEventListener("click", function visible() {
 logBtn.addEventListener("click", function() {
     const uid = guzzzleAPI.login(userLogin.value, passLogin.value);
     let user = guzzzleAPI.readUser(uid);
-    if (window.localStorage.getItem("uid") != null) {
-        window.localStorage.setItem("uid", uid); 
-        window.location('http://localhost:3000/feed.html');
-    } else {
-        window.location('http://localhost:3000/login.html');
-    }
     console.log("Username: " + userLogin.value + "Password: " + passLogin.value);
 });
 
@@ -91,10 +65,3 @@ signBtn.addEventListener("click", function() {
         return false;
     }
 });
-
-// if (passSignup.value === confirmP.value) {
-//     notice.innerText = "";
-//     const uid = guzzzleAPI.createUser(userSignup.value, passSignup.value, "https://i.guim.co.uk/img/media/a1b7129c950433c9919f5670c92ef83aa1c682d9/55_344_1971_1183/master/1971.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=88ba2531f114b9b58b9cb2d8e723abe1", "");    
-// } else {
-//     notice.innerText = "*passwords must match*";
-// }
