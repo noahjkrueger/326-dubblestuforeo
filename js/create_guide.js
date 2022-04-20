@@ -26,7 +26,9 @@ function post() {
         ingredientStr.push(brand.value + " " + ing.value + " " + amount.value);
     }
              //createPost(uid, title, image, ingredient_keys, ingredients, instructions, description)
-    guzzzleAPI.createPost(window.localStorage.getItem("uid"), title.value, img.value, ingredient_keys, ingredientStr, inst.value, desc.value);
+    let newPost = await guzzzleAPI.createPost(window.localStorage.getItem("uid"), title.value, img.value, ingredient_keys, ingredientStr, inst.value, desc.value);
+    let a = 0;
+    // window.localStorage.setItem("guide-info", )
     // window.href='/post.html';
 };
 
