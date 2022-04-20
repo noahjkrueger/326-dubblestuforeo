@@ -15,10 +15,11 @@ Other styling work
 #### Diganta Mainali
 here is what I did
 #### Kenneth Drewry
-Updated and polished create guide page
+Complete overhaul of create guide page
 Added API call to createPost when creating a new post
 Edited createPost and updatePost APIs
 Created and added master ingredient list to navigation bar
+Wrote setup.md
 #### Piyush Makkapati
 here is what I did
 
