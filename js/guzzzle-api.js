@@ -15,6 +15,7 @@ export async function login(uid, password) {
         else {
             window.localStorage.setItem("uid", JSON.stringify(data.uid));
         }
+        return data;
     }
     catch(err) {
         console.log(err);
