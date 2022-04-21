@@ -90,9 +90,9 @@ export async function renderFeed(login, uid, pid, columns) {
     let user_post = await guzzzleAPI.readPost(pid);
     let log = await guzzzleAPI.readUser(login);
 
-    const col1 = columns[0]
-    const col2 = columns[1]
-    const col3 = columns[2]
+    const col1 = columns[0];
+    const col2 = columns[1];
+    const col3 = columns[2];
 
 // content1.forEach(col1_content => {
 

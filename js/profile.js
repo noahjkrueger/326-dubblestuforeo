@@ -17,7 +17,7 @@ const createElement = function (element_name) {
     return document.createElement(element_name);
 };
     
-let userProfile = document.getElementById('user-profile');
+let userProfile = document.getElementById('user_profile');
 let userFeed = document.getElementById('user_feed');
 
 const cookie_uid = JSON.parse(window.localStorage.getItem("user-info"));
@@ -42,4 +42,4 @@ for (const pid in user_feed_pids) {
     post_objects.push(await guzzzleAPI.readPost(pid));
 }
 
-userFeed.innerHTML = await feed.renderFeed(post_objects, null);
+await feed.renderFeed(post_objects, 'user-feed');

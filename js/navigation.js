@@ -173,7 +173,6 @@ await fetch(navbar_src).then((response) => response.text()).then((html) => {
         for (const pid in result_order) {
             post_objects.push(await guzzzleAPI.readPost(pid));
         }
-        console.log(post_objects);
         feed.renderFeed(post_objects, "results");
         event.preventDefault();
     });

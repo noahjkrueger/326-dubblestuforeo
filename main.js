@@ -14,7 +14,7 @@ const index_file = './data/index.json';
 
 //app and port
 const app = express();
-const port = 3000;
+const port = 8080;
 
 //middlware, static
 app.use(logger('dev'));
