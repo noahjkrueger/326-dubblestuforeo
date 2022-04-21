@@ -292,7 +292,6 @@ async function renderNav(element) {
             renderFeed(post_objects, "results");
             event.preventDefault();
         });
-
         const searchBox = document.getElementById("searchBox");
         const serachBoxSubmit = document.getElementById("serachBoxSubmit");
         serachBoxSubmit.addEventListener("click", async function (event){
