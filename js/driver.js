@@ -82,8 +82,26 @@ let cookie_uid = null;
 let this_user = null;
 
 async function refreshCookie() {
-    cookie_uid = JSON.parse(window.localStorage.getItem("uid"));
-    this_user = await guzzzleAPI.readUser(cookie_uid);
+    const info = JSON.parse(window.localStorage.getItem("cookie"));
+    if (info === null) {
+        cookie_uid = null;
+        this_user = null;
+        return;
+    }
+    const d = new Date;
+    const date = d.getDate();
+    const month = d.getMonth();
+    const year = d.getFullYear();
+    const cookie_date = info.expires.split();
+    if (month > cookie_date[0] || date > cookie_date[1] || year > cookie_date[2]) {
+        window.localStorage.removeItem("cookie");
+        cookie_uid = null;
+        this_user = null;
+    }
+    else {
+        cookie_uid = info.uid;
+        this_user = await guzzzleAPI.readUser(cookie_uid);
+    }
 }
 
 renderFeed(null, "content");
@@ -175,7 +193,6 @@ async function renderLogin(element) {
 }
 
 async function renderNav(element) {
-    await refreshCookie();
     const nav = document.getElementById(element);
     await fetch("../templates/navbar.html").then((response) => response.text()).then((html) => {
         nav.innerHTML = html;
@@ -250,6 +267,7 @@ async function renderNav(element) {
                 });
             });
         });
+        
         const ingredientQuerySubmit = document.getElementById("ingredientQuerySubmit");
         ingredientQuerySubmit.addEventListener("click", async function (event){
             let formInfo = [];
@@ -336,7 +354,7 @@ async function renderFeed(post_objects, element) {
     renderNav("nav");
     const feed = document.getElementById(element);
     feed.innerHTML = "";
-    if (post_objects === null && cookie_uid !== null) {
+    if (post_objects === null && cookie_uid != null) {
         post_objects = [];
         let feed_pids = await guzzzleAPI.getFeed(cookie_uid);
         for(const pid of feed_pids) {
@@ -348,7 +366,7 @@ async function renderFeed(post_objects, element) {
             return (2000 *(a_split[2] - b_split[2]) + 100 * (a_split[0] - b_split[0]) + a_split[1] - b_split[1]);
         });
     }
-    else if (post_objects === null) {
+    else if (post_objects === null && cookie_uid === null) {
         post_objects = [];  
         const default_feed = [0, 1, 2];
         for (const pid in default_feed) {
@@ -362,6 +380,7 @@ async function renderFeed(post_objects, element) {
         feed.innerHTML = 
         "<img class =\"empty-feed-img\" src=\"https://atlas-content-cdn.pixelsquid.com/stock-images/empty-beer-mug-glass-oJvMKWB-600.jpg\">" +
         "<h2 style=\'text-align: center\'>Your feed or search has no posts. Search some guides and follow your friends!</h2>";
+        return;
     }
     for (const post_object of post_objects) {
             //get the user that posted it
@@ -379,6 +398,7 @@ async function renderFeed(post_objects, element) {
             let user_bar = createElement("a");
             user_bar.addEventListener('click', event => {
                 renderProfile(post_object.uid, "content");
+                event.preventDefault();
             });
             addClasses(user_bar, ["col-12", "col-sm-10", "btn", "post-options-button", "post-options-profile"]);
             let user_pfp = createElement("img");

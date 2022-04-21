@@ -13,7 +13,8 @@ export async function login(uid, password) {
         }
         //create cookie for good login
         else {
-            window.localStorage.setItem("uid", JSON.stringify(data.uid));
+            const d = new Date;
+            window.localStorage.setItem("cookie", JSON.stringify({uid: data.uid, expires: `${d.getMonth()}/${d.getDate() + 1}/${d.getFullYear}`}));
         }
         return data;
     }
@@ -29,7 +30,7 @@ export async function logout() {
         });
         const data = await response.json();
         //delete cookie
-        window.localStorage.removeItem("uid");
+        window.localStorage.removeItem("cookie");
         return data;
     }
     catch(err) {
