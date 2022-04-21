@@ -32,15 +32,15 @@ Got rid of the hard coded profile html and turned it into JS
 Deployed app into Heroku
 
 ### Screenshots of Client Interface
-![img](screenshots/Client_login.jpg)
+![img](screenshots/Client_login.JPG)
 This is the login screen, where users can sign up and log in using their newly created username and password.
-![img](screenshots/Client_create_guide.jpg)
+![img](screenshots/Client_create_guide.JPG)
 This is the form to fill out if you want to make a post about a recipe. You can post the guides for other users to interact with it.
-![img](screenshots/Client_feed.jpg)
+![img](screenshots/Client_feed.JPG)
 This is the main feed, made up of posts that you can comment on, like and users you can follow. The feed is primarily based off of the users you follow, and you can view each post in the feed.
-![img](screenshots/Client_guide.jpg)
+![img](screenshots/Client_guide.JPG)
 This is the main page for a specific post, you can add comments, delete comments, like comments, like the post itself, follow the ingredients and instructions to make the drink or browse through related guides.
-![img](screenshots/Client_profile.jpg)
+![img](screenshots/Client_profile.JPG)
 This is the user profile, which consists of profile picture, username, a biography about the user and a stream of all guides the user has ever made and posted.
 
 ### Heroku Link to Project
