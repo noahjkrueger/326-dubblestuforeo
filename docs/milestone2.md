@@ -28,7 +28,8 @@ Wrote setup.md
 Login and Signup work
 Used API to correctly display the right profile when view profile is clicked
 Made it so the user must include a valid email in order to sign up and create an user that gets saved in users.json
-Got rid of the hard coded profile html and turned it into JS  
+Got rid of the hard coded profile html and turned it into JS
+Deployed app into Heroku
 
 ### Screenshots of Client Interface
 ![img](screenshots/post.jpg)
@@ -41,7 +42,7 @@ description here
 description here
 
 ### Heroku Link to Project
-https://git.heroku.com/guzzzle.git
+https://guzzzle.herokuapp.com/
 
 ### The guzzzleAPI
 Using this API allows for creation, reading, updating and deleting posts and users.
