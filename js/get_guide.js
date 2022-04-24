@@ -1,8 +1,8 @@
 import * as guzzzleAPI from './guzzzle-api.js'
 
-const column1 = document.getElementById('col1')
-const column2 = document.getElementById('col2')
-const column3 = document.getElementById('col3')
+const column1 = document.getElementById('col1');
+const column2 = document.getElementById('col2');
+const column3 = document.getElementById('col3');
 // const content1 = [
 //     {
 //         "title": "Bloody Mary",
@@ -79,9 +79,9 @@ const createElement = function (element_name) {
 };
 
 const cookie_guide_info = JSON.parse(window.localStorage.getItem("guide-info"));
-const cookie_login_uid = JSON.parse(window.localStorage.getItem("uid"));
-const cookie_uid = cookie_guide_info.uid
-const cookie_pid = cookie_guide_info.pid
+const cookie_login_uid = guzzzleAPI.checkCookie();
+const cookie_uid = cookie_guide_info.uid;   
+const cookie_pid = cookie_guide_info.pid;
 
 renderFeed(cookie_login_uid, cookie_uid, cookie_pid, [column1, column2, column3]);
 
@@ -101,6 +101,10 @@ export async function renderFeed(login, uid, pid, columns) {
 
     //create username and profile
     let user_pfp = createElement("img");
+    user_pfp.addEventListener("click", event => {
+        window.localStorage.setItem("user-info", JSON.stringify({uid: cookie_uid}));
+        window.location.href="../guzzzler";
+    });
     user_pfp.src = posting_user.profileImage;
     addClasses(user_pfp, ["rounded-circle", "user-pfp",]);
     let user_name = createElement("span");
@@ -144,7 +148,7 @@ export async function renderFeed(login, uid, pid, columns) {
     addClasses(like, ["btn", "post-options-guide-button", "post-options-guide-like", "stars_Guide"]);
 
     let like_icon = createElement("i");
-    if (user_post.pid in log.likes) {
+    if (!log.hasOwnProperty("error") && log.likes.includes(String(user_post.pid))) {
         addClasses(like_icon, ["bi-balloon-heart-fill", "icon"]);
     }
     else {
@@ -155,7 +159,10 @@ export async function renderFeed(login, uid, pid, columns) {
     like_text.innerText = user_post.likes;
 
     like.addEventListener("click", async function(event) {
-        if (like_icon.classList.contains("bi-balloon-heart")) {
+        if (log.hasOwnProperty("error")) {
+            window.location.href="../guzzzlegate";
+        }
+        else if (like_icon.classList.contains("bi-balloon-heart")) {
             like_icon.classList.remove("bi-balloon-heart");
             addClasses(like_icon, ["bi-balloon-heart-fill"]);
             //like post
@@ -306,7 +313,10 @@ export async function renderFeed(login, uid, pid, columns) {
     button.setAttribute("type", "submit");
     button.innerText = "Comment"
     button.addEventListener("click", async function(event) {
-        if (input.value != "" && login != uid) {
+        if (log.hasOwnProperty("error")) {
+            window.location.href="../guzzzlegate";
+        }
+        else if (input.value != "" && login != uid) {
             const message = input.value
             let wrapper = createElement("span")
             let comment = createElement("div");
@@ -341,6 +351,9 @@ export async function renderFeed(login, uid, pid, columns) {
 
 
     let login_following_pids = await guzzzleAPI.getFeed(login); // check to make sure users current post not here and duplicates
+    if (login_following_pids.hasOwnProperty("error")) {
+        login_following_pids = await guzzzleAPI.readOtherPosts(uid, pid);
+    }
     let user_following_pids = await guzzzleAPI.getFeed(uid); // check to make sure login's posts not here and duplicates
     let other_user_pids = await guzzzleAPI.readOtherPosts(uid, pid); // already filtered current post, check for duplicates
     let total_pids = [];
@@ -364,7 +377,11 @@ export async function renderFeed(login, uid, pid, columns) {
         const related_post_info = await guzzzleAPI.readPost(post)
         const related_user_info = await guzzzleAPI.readUser(related_post_info.uid)
         let p = createElement("div");
-        addClasses(p, ['border_Related'])
+        p.addEventListener("click", event => {
+            window.localStorage.setItem("guide-info", JSON.stringify({uid: related_user_info.uid, pid: post}));
+            window.location.href="../guzzzleguide";
+        });
+        addClasses(p, ['border_Related']);
         let related_user_pfp = createElement("img");
         related_user_pfp.src = related_user_info.profileImage;
         addClasses(related_user_pfp, ["rounded-circle", "user-pfp",]);

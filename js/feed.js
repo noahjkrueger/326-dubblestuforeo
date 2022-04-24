@@ -1,6 +1,6 @@
 import * as guzzzleAPI from './guzzzle-api.js'
 
-const cookie_uid = JSON.parse(window.localStorage.getItem("uid"));
+const cookie_uid = guzzzleAPI.checkCookie();
 const this_user = await guzzzleAPI.readUser(cookie_uid);
 
 if (cookie_uid !== null) {
@@ -46,12 +46,9 @@ const createElement = function (element_name) {
 
 export async function renderFeed(post_objects, element) {
     let feed = document.getElementById(element);
-    let external = false;
-    if (feed===null) {
-        feed = document.createElement("div");
-        external = true;
+    if (feed != null) {
+        feed.innerHTML = "";
     }
-    feed.innerHTML = "";
     if (post_objects.length === 0) {
         feed.innerHTML = 
         "<img class =\"empty-feed-img\" src=\"https://atlas-content-cdn.pixelsquid.com/stock-images/empty-beer-mug-glass-oJvMKWB-600.jpg\">" +
@@ -77,7 +74,7 @@ export async function renderFeed(post_objects, element) {
                 }));
             });
             addClasses(user_bar, ["col-12", "col-sm-10", "btn", "post-options-button", "post-options-profile"]);
-            user_bar.href = "./profile.html"; //FIX THIS
+            user_bar.href = "../guzzzler"; //FIX THIS
             let user_pfp = createElement("img");
             //set pfp from posting_user
             user_pfp.src = posting_user.profileImage;
@@ -106,7 +103,7 @@ export async function renderFeed(post_objects, element) {
             //add event listener for following from feed
             follow_bar.addEventListener("click", async function(event) {
                 if (cookie_uid === null) {
-                    window.location.href = "./login.html";
+                    window.location.href = "../guzzzlegate";
                 }
                 else if (follow_icon.classList.contains("bi-person-plus")) {
                     follow_icon.classList.remove("bi-person-plus");
@@ -175,7 +172,7 @@ export async function renderFeed(post_objects, element) {
                     pid: post_object.pid
                 }));
             });
-            view_guide.href = "./guide.html";
+            view_guide.href = "../guzzzleguide";
             addClasses(view_guide, ["col-sm-8", "col-12", "btn", "post-options-button", "post-options-view"]);
             let view_icon = createElement("i");
             addClasses(view_icon, ["bi-cup-straw", "icon"]);
@@ -199,7 +196,7 @@ export async function renderFeed(post_objects, element) {
             like_text.innerText = "Likes: " + post_object.likes;
             like_guide.addEventListener("click", async function(event) {
                 if (cookie_uid === null) {
-                    window.location.href = "./login.html";
+                    window.location.href = "../guzzzlegate";
                 }
                 else if (like_icon.classList.contains("bi-balloon-heart")) {
                     like_icon.classList.remove("bi-balloon-heart");
@@ -224,7 +221,7 @@ export async function renderFeed(post_objects, element) {
                     pid: post_object.pid
                 }));
             });
-            comment_guide.href="./guide.html#comments";
+            comment_guide.href="../guzzzleguide";
             addClasses(comment_guide, ["col", "btn", "post-options-button", "post-options-comment"]);
             let comment_icon = createElement("i");
             addClasses(comment_icon, ["bi-chat", "icon"]);
@@ -238,9 +235,8 @@ export async function renderFeed(post_objects, element) {
             //place all rows in container
             appendChildren(post, [row_1, row_5, row_2, row_3, row_4]);
             //add this post to feed
-            feed.appendChild(post);
-    }
-    if (external) {
-        return feed.innerHTML;
+            if (feed != null) {
+                feed.appendChild(post);
+            }
     }
 }

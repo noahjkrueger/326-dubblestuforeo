@@ -9,6 +9,7 @@
     width: 90%;
     border : solid 2px black;
     background-color: lightgray;
+    cursor: pointer;
 }
 
 .button-label {
@@ -118,9 +119,7 @@
 /* D */
 .dividerLine {
     display: block;
-    margin-bottom: 50px;
-    margin-left: 15px;
-    margin-right: 80px;
+    margin: 50px;
     border-style: inset;
     border-width: 1px;
 }
@@ -130,6 +129,7 @@
     display: block;
     margin-left: auto;
     margin-right: auto;
+    width: 60%;
 }
 
 
@@ -144,10 +144,6 @@
     .feed {
         margin-top: 15%;
     }
-}
-
-.feed_page {
-    background-color: #ffffff;
 }
 
 /* G */
@@ -384,14 +380,22 @@
     font-size: 15px; 
     margin-right: 400px;
 }
+
 .userPage {
-    margin-top: 100px;
-    margin-left: 100px;
+    width: 75%;
+    margin: auto;
 }
+
 .user-pfp {
     width: 32px;
     height: 32px;
+    cursor: pointer;
 }
+
+.user-profile {
+    margin-top: 7.5%;
+}
+
 .user_Name {
     display: inline-flex;
 }
