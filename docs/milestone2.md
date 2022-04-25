@@ -13,27 +13,38 @@ API for posts and users CRUD operations
 Indexing posts for search
 Other styling work
 #### Diganta Mainali
-here is what I did
+Transferred from constant based rendering to rendering based off of nodeJS server requests in guide page
+Utilized API calls for posts and users to recieve information needed for automating the rendering
+Wrote all API CRUD calls pertaining to comments alongside one to read a user's and user's follower's posts other than the viewed
+Wrote descriptions of all the API CRUD operations I implemented
+Added in screenshots of client Interface as well as descriptions
 #### Kenneth Drewry
-Updated and polished create guide page
+Complete overhaul of create guide page
 Added API call to createPost when creating a new post
 Edited createPost and updatePost APIs
 Created and added master ingredient list to navigation bar
+Wrote setup.md
 #### Piyush Makkapati
-here is what I did
+Login and Signup work
+Used API to correctly display the right profile when view profile is clicked
+Made it so the user must include a valid email in order to sign up and create an user that gets saved in users.json
+Got rid of the hard coded profile html and turned it into JS
+Deployed app into Heroku
 
 ### Screenshots of Client Interface
-![img](imgsrc)
-description here
-![img](imgsrc)
-description here
-![img](imgsrc)
-description here
-![img](imgsrc)
-description here
+![img](screenshots/Client_login.JPG)
+This is the login screen, where users can sign up and log in using their newly created username and password.
+![img](screenshots/Client_create_guide.JPG)
+This is the form to fill out if you want to make a post about a recipe. You can post the guides for other users to interact with it.
+![img](screenshots/Client_feed.JPG)
+This is the main feed, made up of posts that you can comment on, like and users you can follow. The feed is primarily based off of the users you follow, and you can view each post in the feed.
+![img](screenshots/Client_guide.JPG)
+This is the main page for a specific post, you can add comments, delete comments, like comments, like the post itself, follow the ingredients and instructions to make the drink or browse through related guides.
+![img](screenshots/Client_profile.JPG)
+This is the user profile, which consists of profile picture, username, a biography about the user and a stream of all guides the user has ever made and posted.
 
 ### Heroku Link to Project
-(not deployed, not included)
+https://guzzzle.herokuapp.com/
 
 ### The guzzzleAPI
 Using this API allows for creation, reading, updating and deleting posts and users.
@@ -178,6 +189,14 @@ A post object includes:
 - comments, a list of objects (UID, comment values)
 - date, the date the post was created
 This function returns the post object that was updated as it is stored in posts.json.
+##### Read Other Posts
+    guzzzleAPI.readOtherPosts(uid, pid)
+Will send a GET request to the server to read and collect multiple posts.
+If the UID does not exist, the server will respond with status 404 and a message that UID does not exist.
+If the PID does not exist, the server will respond with status 404 and a message that PID does not exist.
+This function returns post objects which are by the same author (UID) except for the current post(PID)
+This acts as one of the components that factors into the algoritm for finding related Guides for the guide page
+
 ##### Update a Post
     guzzzleAPI.updatePost(pid, newTitle, newImage, newIngredient_keys, newIngredients, newInstructions)
 Will send a PUT request to the server to update a post. 
@@ -212,6 +231,8 @@ If the PID does not exist, the server will respond with status 404 and a message
 Otherwise, the posts.json file will update the entry so that within the post object the likes decrease by 1.
 The user object tied to UID will have the like recorded.
 This function returns the post object that was updated as it is stored in posts.json.
+
+#### Comments
 ##### Comment on a Post
     guzzzleAPI.commentPost(uid, pid, comment)
 Will send a PUT request to the server to update the likes on a post.
@@ -220,3 +241,37 @@ If the UID does not exist, the server will respond with status 400 and a message
 Otherwise, the posts.json file will update the entry so that within the post object the comments include the comment.
 There is no functionality to update or delete a comment in the current version.
 This function returns the post object that was updated as it is stored in posts.json.
+
+##### Get Comments of a Post
+    guzzzleAPI.getComments(pid)
+Will send a GET request to the server to read all the comments on a particular post.
+If the PID does not exist, the server will respond with status 404 and a message that PID does not exist.
+Otherwise, the comments are sorted by the amount of likes gotten by it, and returned to display in the browser with the highest liked at the top down to the lowest at the bottom.
+
+
+##### Delete a Comment
+    guzzzleAPI.commentDelete(uid, pid, comment)
+If the PID does not exist, the server will respond with status 404 and a message that PID does not exist.
+If the UID does not exist, the server will respond with status 404 and a message that UID does not exist.
+Otherwise, the comments of the corresponding pid are looped through and any that didn't match the comment to delete is appended to a new list. At the end this list is set to be the new comment list and the posts are saved.
+
+##### Check if Comment Liked
+    guzzzleAPI.checkCommentLike(log, uid, pid, comment)
+Ensure the logged in user's UID exists, if not, return a 404 and a message that it does not exist.
+If the PID does not exist, the server will respond with status 404 and a message that PID does not exist.
+If the UID does not exist, the server will respond with status 404 and a message that UID does not exist.
+Otherwise, the comments like's are iterated through to see if the logged in user has liked it, as a result a boolean is sent back indicating whether the like button is activated or not.
+
+##### Like a Comment
+    guzzzleAPI.likeComment(log, uid, pid, comment)
+Ensure the logged in user's UID exists, if not, return a 404 and a message that it does not exist.
+If the PID does not exist, the server will respond with status 404 and a message that PID does not exist.
+If the UID does not exist, the server will respond with status 404 and a message that UID does not exist.
+Otherwise, loop through the current post's comments until reaching the one find the one which corresponds to the one to be liked. Append the logged in users name to the likes array of the comment.
+
+##### Unlike a Comment
+    guzzzleAPI.unlikeComment(log, uid, pid, comment)
+Ensure the logged in user's UID exists, if not, return a 404 and a message that it does not exist.
+If the PID does not exist, the server will respond with status 404 and a message that PID does not exist.
+If the UID does not exist, the server will respond with status 404 and a message that UID does not exist.
+Otherwise, loop through the current post's comments until reaching the one find the one which corresponds to the one to be liked. Loop through the likes of the comment and append every like except the logged in users to a new list. Set the list to be the new likes for the comment, essentially removing the like.

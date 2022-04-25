@@ -2,7 +2,6 @@ import * as guzzzleAPI from './guzzzle-api.js'
 
 let ingredientCount = 1;
 const ingType = ['Booze', 'Juice', 'Garnish', 'Vegetable', 'Fruit'];
-window.localStorage.setItem("uid", "noah");
 
 const postButton = document.getElementById("cg_postbutton");
 const title = document.getElementById("cg_title");
@@ -26,11 +25,11 @@ function post() {
         ingredientStr.push(brand.value + " " + ing.value + " " + amount.value);
     }
              //createPost(uid, title, image, ingredient_keys, ingredients, instructions, description)
-    let newPost = await guzzzleAPI.createPost(window.localStorage.getItem("uid"), title.value, img.value, ingredient_keys, ingredientStr, inst.value, desc.value);
-    let a = 0;
-    // window.localStorage.setItem("guide-info", )
+    guzzzleAPI.createPost(guzzzleAPI.checkCookie(), title.value, img.value, ingredient_keys, ingredientStr, inst.value, desc.value);
     // window.href='/post.html';
 };
+
+// pid of post -> read post -> fill title, etc , for ingred for ingred in ingreds (-> call duplicate)
 
 function duplicate() {
     let container = document.getElementById("cg_ingClass");

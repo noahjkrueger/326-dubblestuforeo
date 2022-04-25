@@ -2,9 +2,9 @@ import * as guzzzleAPI from './guzzzle-api.js'
 import * as feed from './feed.js';
 
 const nav_bar = document.getElementById("navigation");
-const navbar_src = "navbar.html";
+const navbar_src = "../templates/navbar.html";
 
-const cookie_uid = JSON.parse(window.localStorage.getItem("uid"));
+const cookie_uid = guzzzleAPI.checkCookie();
 const loggedin_user = await guzzzleAPI.readUser(cookie_uid);
 
 const data = [
@@ -120,13 +120,16 @@ await fetch(navbar_src).then((response) => response.text()).then((html) => {
 
     const user_profile = document.getElementById("user_profile");
     user_profile.addEventListener('click', event => {
-        window.localStorage.setItem("user-info", JSON.stringify({uid: loggedin_user.uid}));
+        if (!loggedin_user.hasOwnProperty("error")) {
+            window.localStorage.setItem("user-info", JSON.stringify({uid: loggedin_user.uid}));
+        }
     });
     if (loggedin_user.hasOwnProperty("error")) {
         user_profile.innerText = "Login/Signup";
-        user_profile.href = "/login.html";
+        user_profile.href = "../guzzzlegate";
     }
     else {
+        //add here
         let pfp_img = document.createElement("img");
         pfp_img.src = loggedin_user.profileImage;
         pfp_img.alt ="user-profile";
@@ -134,7 +137,7 @@ await fetch(navbar_src).then((response) => response.text()).then((html) => {
         pfp_img.width = "32";
         pfp_img.height = "32";
         user_profile.appendChild(pfp_img);
-        user_profile.href ="/profile.html";
+        user_profile.href ="../guzzzler";
     }
 
     data.forEach(entry => {
@@ -163,17 +166,15 @@ await fetch(navbar_src).then((response) => response.text()).then((html) => {
             });
         });
         const results = await guzzzleAPI.queryPosts(formInfo);
-        console.log(results);
         let result_order = [];
         for (const result of Object.keys(results)) {
             result_order.push(result);
         }
         result_order = result_order.sort((a, b) => results[b] - results[a]);
         let post_objects = [];
-        for (const pid in result_order) {
+        for (const pid of result_order) {
             post_objects.push(await guzzzleAPI.readPost(pid));
         }
-        console.log(post_objects);
         feed.renderFeed(post_objects, "results");
         event.preventDefault();
     });
@@ -187,7 +188,7 @@ await fetch(navbar_src).then((response) => response.text()).then((html) => {
         }
         else {
             window.localStorage.setItem("user-info", JSON.stringify({uid: result.uid}));
-            window.location.href = "./profile.html";
+            window.location.href = "../guzzzler";
         }
     });
 });
