@@ -13,7 +13,7 @@ postButton.addEventListener("click", post);
 addIng.addEventListener("click", duplicate);
 document.getElementById("cg_type" + ingredientCount).addEventListener("change", ingredientType);
 
-function post() {
+async function post() {
     let ingredient_keys = [];
     let ingredientStr = [];
     for(let i = 1; i <= ingredientCount; ++i) {
@@ -23,7 +23,7 @@ function post() {
         ingredient_keys.push(ing.value);
         ingredientStr.push(brand.value + " " + ing.value + " " + amount.value);
     }
-    guzzzleAPI.createPost(guzzzleAPI.checkCookie(), title.value, img.value, ingredient_keys, ingredientStr, inst.value, desc.value);
+    await guzzzleAPI.createPost(title.value, img.value, ingredient_keys, ingredientStr, inst.value, desc.value);
 };
 
 // pid of post -> read post -> fill title, etc , for ingred for ingred in ingreds (-> call duplicate)

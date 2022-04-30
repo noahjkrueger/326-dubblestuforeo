@@ -71,6 +71,7 @@ export class GuzzzleDatabase {
                 uid: uid
             }
         );
+        //Once unfollow function complete
         // unfollow following, have followers unfollow, remove posts
         return result.deletedCount === 1 ? true : false;
     }
@@ -222,5 +223,58 @@ export class GuzzzleDatabase {
     async defaultFeed() {
         const default_follow = ["noah", "hi"]; //change this to our accounts
         return this.feedHelper(default_follow);
+    }
+
+    async likePost(uid, pid) {
+        //get original post by calling getPost
+        //update post to inciment like count
+        //see updateUser -> $set
+        //add pid to uid like list via updateOne, $push (see createPost)
+    }
+
+    async unlikePost(pid) {
+        //reverse of likePost
+        //rm pid from uid like list via updateOne, $pull (see deletePost)
+    }
+
+    async follow(uid_to, uid_from) {
+        //update uid_to follow list
+        //update uid_from following list
+        //use updateOne, $push for each user
+    }
+
+    async unfollow(uid_to, uid_from) {
+        //reverse of follow
+        //use updateOne, $pull for each user
+    }
+
+    //Should probably restructure the commments. Include a comment ID (cid) for each comment obj within a post.
+    //comment object = {uid: (who posted), 
+    //                  cid: (comment ID - see createPost for getting new cid (keep in mind this is nested))
+    //                  comment: (String, the actual comment)
+    //                  likes: (Array<String> -> list of uids?) or (Int, keep list of liked comments in user DB ?)
+    //}
+    async createComment(pid, uid, comment) {
+
+    }
+
+    async getComments(pid) {
+        //return the comments attribute of post
+    }
+
+    async updateComment(pid, cid, comment) {
+        //update comment cid on post pid
+    }
+
+    async deleteComment(pid, cid) {
+        //remove comment cid on post pid
+    }
+
+    async likeComment(uid, pid, cid) {
+
+    }
+
+    async unlikeComment(uid, pid, cid) {
+        
     }
 }

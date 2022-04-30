@@ -1,30 +1,7 @@
 import * as guzzzleAPI from './guzzzle-api.js'
 
-const cookie_uid = guzzzleAPI.checkCookie();
-const this_user = await guzzzleAPI.readUser(cookie_uid);
-
-if (cookie_uid !== null) {
-    renderFeed(await guzzzleAPI.getFeed(cookie_uid), "feed");
-}
-else {
-    renderFeed(await guzzzleAPI.defaultFeed(), "feed");
-}
-
-const appendChildren = function (element, children) {
-    children.forEach(child => {
-        element.appendChild(child);
-    });
-};
-
-const addClasses = function (element, classlist) {
-    classlist.forEach(class_name => {
-        element.classList.add(class_name);
-    });
-};
-
-const createElement = function (element_name) {
-    return document.createElement(element_name);
-};
+const this_user = await guzzzleAPI.currentUser();
+renderFeed(await guzzzleAPI.getFeed(), "feed");
 
 export async function renderFeed(post_objects, element) {
     let feed = document.getElementById(element);
@@ -75,7 +52,7 @@ export async function renderFeed(post_objects, element) {
             follow_icon.id = "follow-icon";
             let follow_text = createElement("span");
             addClasses(follow_text, ["button-label"]);
-            if (!this_user.hasOwnProperty("error") && this_user.following.includes(post_object.uid)) {
+            if (this_user != null && this_user.following.includes(post_object.uid)) {
                 addClasses(follow_icon, ["bi-person-check-fill", "icon"]);
                 follow_text.innerText = "Following";
             }
@@ -168,7 +145,7 @@ export async function renderFeed(post_objects, element) {
             let like_guide = createElement("a");
             addClasses(like_guide, ["col", "btn", "post-options-button", "post-options-like"]);
             let like_icon = createElement("i");
-            if (!this_user.hasOwnProperty("error") && this_user.likes.includes(String(post_object.pid))) {
+            if (this_user != null && this_user.likes.includes(String(post_object.pid))) {
                 addClasses(like_icon, ["bi-balloon-heart-fill", "icon"]);
             }
             else {
@@ -178,20 +155,20 @@ export async function renderFeed(post_objects, element) {
             addClasses(like_text, ["button-label"]);
             like_text.innerText = "Likes: " + post_object.likes;
             like_guide.addEventListener("click", async function(event) {
-                if (cookie_uid === null) {
+                if (this_user === null) {
                     window.location.href = "../guzzzlegate";
                 }
                 else if (like_icon.classList.contains("bi-balloon-heart")) {
                     like_icon.classList.remove("bi-balloon-heart");
                     addClasses(like_icon, ["bi-balloon-heart-fill"]);
                     //like post
-                    await guzzzleAPI.likePost(cookie_uid, post_object.pid);
+                    await guzzzleAPI.likePost(post_object.pid);
                 }
                 else {
                     like_icon.classList.remove("bi-balloon-heart-fill")
                     //unlike post
                     addClasses(like_icon, ["bi-balloon-heart"]);
-                    await guzzzleAPI.unlikePost(cookie_uid, post_object.pid);
+                    await guzzzleAPI.unlikePost(post_object.pid);
                 }
             });
             appendChildren(like_guide, [like_icon, like_text]);
@@ -223,3 +200,19 @@ export async function renderFeed(post_objects, element) {
             }
     }
 }
+
+const appendChildren = function (element, children) {
+    children.forEach(child => {
+        element.appendChild(child);
+    });
+};
+
+const addClasses = function (element, classlist) {
+    classlist.forEach(class_name => {
+        element.classList.add(class_name);
+    });
+};
+
+const createElement = function (element_name) {
+    return document.createElement(element_name);
+};

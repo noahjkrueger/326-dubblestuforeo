@@ -79,7 +79,7 @@ const createElement = function (element_name) {
 };
 
 const cookie_guide_info = JSON.parse(window.localStorage.getItem("guide-info"));
-const cookie_login_uid = guzzzleAPI.checkCookie();
+const cookie_login_uid = await guzzzleAPI.currentUser().uid;
 const cookie_uid = cookie_guide_info.uid;   
 const cookie_pid = cookie_guide_info.pid;
 

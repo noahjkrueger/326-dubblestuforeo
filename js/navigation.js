@@ -4,8 +4,7 @@ import * as feed from './feed.js';
 const nav_bar = document.getElementById("navigation");
 const navbar_src = "../templates/navbar.html";
 
-const cookie_uid = guzzzleAPI.checkCookie();
-const loggedin_user = await guzzzleAPI.readUser(cookie_uid);
+const loggedin_user = await guzzzleAPI.currentUser();
 
 const data = [
     {
@@ -124,7 +123,7 @@ await fetch(navbar_src).then((response) => response.text()).then((html) => {
             window.localStorage.setItem("user-info", JSON.stringify({uid: loggedin_user.uid}));
         }
     });
-    if (loggedin_user.hasOwnProperty("error")) {
+    if (loggedin_user === null) {
         user_profile.innerText = "Login/Signup";
         user_profile.href = "../guzzzlegate";
     }

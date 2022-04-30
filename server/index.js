@@ -25,6 +25,15 @@ class GuzzzleServer {
   async initRoutes() {
     const self = this;
 
+    this.app.get('/currentuser', async (request, response) => {
+      try {
+        response.status(200).json(await self.db.getUser(request.session.uid));
+      }
+      catch (err) {
+        response.status(500).send(err);
+      }
+    });
+
     //LOGIN
     this.app.get('/login', async (request, response) => {
       try {
@@ -47,7 +56,6 @@ class GuzzzleServer {
 
     //LOGOUT
     this.app.get('/logout', async (request, response) => {
-      //200 for success (cookie deleted in API)
       request.session.destroy();
       response.status(200).json({status: "Logout Success"});
     });
@@ -55,19 +63,19 @@ class GuzzzleServer {
     //CREATE A USER
     this.app.post('/user_create', async (request, response) => {
       try {
-        const query = request.query;
         const body = request.body;
-        const not_available = await self.db.getUser(query.uid);
+        const not_available = await self.db.getUser(body.uid);
         if (not_available) {
-          response.status(400).json({error: `Username '${query.uid}' is already taken`});
+          response.status(400).json({error: `Username '${body.uid}' is already taken`});
         }
         else {
           const new_user = await self.db.createUser(
-            query.uid,
+            body.uid,
             body.email,
             body.password,
             body.pfp
           );
+          request.session.uid = body.uid;
           response.status(200).json(new_user);
         }
       }
@@ -96,7 +104,7 @@ class GuzzzleServer {
     //UPDATE A USER
     this.app.put('/user_update', async (request, response) => {
       try {
-        const uid = request.query.uid;
+        const uid = request.session.uid;
         const password = request.query.password;
         const check = await self.db.getUser(uid);
         if (check === null || check.password != password) {
@@ -119,7 +127,7 @@ class GuzzzleServer {
     //DELETE A USER
     this.app.delete('/user_delete', async (request, response) => {
       try {
-        const uid = request.query.uid;
+        const uid = request.session.uid;
         const password = request.query.password;
         const check = await self.db.getUser(uid);
         if (check === null || check.password != password) {
@@ -141,7 +149,7 @@ class GuzzzleServer {
     //CREATE A POST
     this.app.post('/post_create', async (request, response) => {
       try {
-        const uid = request.query.uid;
+        const uid = request.session.uid;
         const body = request.body;
         const not_available = await self.db.getUser(uid);
         if (!not_available) {
@@ -164,7 +172,6 @@ class GuzzzleServer {
         }
       }
       catch (err) {
-        console.log(err);
         response.status(500).send(err);
       }
     });
@@ -191,20 +198,26 @@ class GuzzzleServer {
       try {
         const pid = request.query.pid;
         const body = request.body;
-        const result = await self.db.updatePost(
-          pid,
-          body.title,
-          body.image,
-          body.ingredient_keys,
-          body.ingredients,
-          body.instructions,
-          body.description
-        );
-        if (!result) {
-          response.status(400).json({ error: `Error updating post`});
+        const post = await self.db.getPost(pid);
+        if (post.uid != request.session.uid) {
+          response.status(400).json({erroe: "You must own this post to update."})
         }
         else {
-          response.status(200).json(result);
+          const result = await self.db.updatePost(
+            pid,
+            body.title,
+            body.image,
+            body.ingredient_keys,
+            body.ingredients,
+            body.instructions,
+            body.description
+          );
+          if (!result) {
+            response.status(400).json({ error: `Error updating post`});
+          }
+          else {
+            response.status(200).json(result);
+          }
         }
       }
       catch (err) {
@@ -216,18 +229,18 @@ class GuzzzleServer {
     this.app.delete('/post_delete', async (request, response) => {
       try {
         const pid = parseInt(request.query.pid);
-        const uid = request.query.uid;
-        const password = request.query.password;
-        const check = await self.db.getUser(uid);
-        if (check === null || check.password != password) {
-          response.status(400).json({error: "You must be the owner of the post to delete!"});
-        }
-        const result = await self.db.deletePost(pid);
-        if (!result) {
-          response.status(400).json({ error: `Error deleting post`});
+        const post = await self.db.getPost(pid);
+        if (post.uid != request.session.uid) {
+          response.status(400).json({error: "You must own the post to delete it."});
         }
         else {
-          response.status(200).send("success");
+          const result = await self.db.deletePost(pid);
+          if (!result) {
+            response.status(400).json({ error: `Error deleting post`});
+          }
+          else {
+            response.status(200).send("success");
+          }
         }
       }
       catch (err) {
@@ -258,20 +271,15 @@ class GuzzzleServer {
     //GET THE FEED
     this.app.get('/feed', async (request, response) => {
       try {
-        const uid = request.query.uid;
-        if (!uid) {
+        const uid = request.session.uid;
+        const user = await self.db.getUser(uid);
+        if (!uid || !user) {
           const defaultFeed = await self.db.defaultFeed();
           response.status(200).json(defaultFeed);
         }
         else {
-          const user = await self.db.getUser(uid);
-          if (!user) {
-            response.status(404).json({ error: `User '${uid}' does not exist`});
-          }
-          else {
-            const posts = await self.db.feed(uid);
-            response.status(200).json(posts);
-          }
+          const posts = await self.db.feed(uid);
+          response.status(200).json(posts);
         }
       }
       catch (err) {
