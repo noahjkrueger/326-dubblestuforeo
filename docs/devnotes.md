@@ -77,7 +77,7 @@ Change this to be more descriptive. Include npm install and .env setup.
 - since comment functions have not yet been implimented, not entirely sure how much needs to be changed here.
 
 # Work to be done (MS3)
-[MS3 Instructions](https://link-url-here.org)https://docs.google.com/document/d/1-2zJJM-6HB0Xd9fPTUu4u-nnM-hNadf2pltNm-MKE8s/edit)
+[MS3 Instructions](https://docs.google.com/document/d/1-2zJJM-6HB0Xd9fPTUu4u-nnM-hNadf2pltNm-MKE8s/edit)
 ## Code Cleanup
 - remove unused code / comments
 - check spelling in docs/
