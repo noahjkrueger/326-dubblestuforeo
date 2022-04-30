@@ -80,7 +80,7 @@ Change this to be more descriptive. Include npm install and .env setup.
 we'll reset the DB, each create an account, add the acc names in defaultFeed() (guzzzle-db.js), and each create 2 posts.
 
 # Work to be done (MS3)
-[MS3 Instructions](https://link-url-here.org)https://docs.google.com/document/d/1-2zJJM-6HB0Xd9fPTUu4u-nnM-hNadf2pltNm-MKE8s/edit)
+[MS3 Instructions](https://docs.google.com/document/d/1-2zJJM-6HB0Xd9fPTUu4u-nnM-hNadf2pltNm-MKE8s/edit)
 ## Code Cleanup
 - remove unused code / comments
 - check spelling in docs/
