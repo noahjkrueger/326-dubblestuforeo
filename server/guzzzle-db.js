@@ -94,6 +94,18 @@ export class GuzzzleDatabase {
             pid = res.pid > pid ? res.pid : pid;
         });
         pid += 1;
+        this.collection = this.db.collection('users');
+        await this.collection.updateOne(
+            {
+                uid: uid
+            },
+            {
+                $push: {
+                    "posts": pid
+                } 
+            }
+        );
+        this.collection = this.db.collection('posts');
         await this.collection.insertOne(
             {
                 pid: pid,
@@ -107,17 +119,6 @@ export class GuzzzleDatabase {
                 instructions: instructions, 
                 description : description, 
                 comments: [], 
-            }
-        );
-        this.collection = this.db.collection('users');
-        await this.collection.updateOne(
-            {
-                uid: uid
-            },
-            {
-                $push: {
-                    "posts": pid
-                } 
             }
         );
         return self.getPost(pid);
@@ -275,6 +276,6 @@ export class GuzzzleDatabase {
     }
 
     async unlikeComment(uid, pid, cid) {
-        
+
     }
 }

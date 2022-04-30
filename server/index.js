@@ -10,8 +10,9 @@ class GuzzzleServer {
     this.app = express();
     this.app.use(logger('dev'));
     this.app.use(express.static('./'));
-    this.app.use(express.urlencoded({extended: false}));
-    this.app.use(express.json());
+    this.app.use(express.json({limit: "10 mb"}));
+    //THIS NEEDS TO GO AFTER JSON (do not change)
+    this.app.use(express.urlencoded({limit: "10mb", extended: true}));
     var sess = {
       secret: process.env.SECRET,
       resave: false,

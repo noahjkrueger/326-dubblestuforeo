@@ -21,6 +21,12 @@ Config vars have already been set on Heroku.
 - IMPORTANT: add .env to .gitignore
 
 # Changes
+## Image Storage w/in DB (THIS SUCKED)
+this was hard asf bruh I am burnt out but it works now. in create_guide.js, the uploaded image
+is converted to base64 and sent over HTTP and finally into the DB. Images then display normally.
+For updte profile, copy this code.
+DO NOT CHANGE THE ORDER of this.app.use(....) in index.js. If you need to add any more, do so after
+the current things. 
 ## index.js
 - uses express-session / cookieParser
     - no more cookie hijacking! we have real cookies!
@@ -42,12 +48,7 @@ Config vars have already been set on Heroku.
         - docs for this needs to be re written. see work to be done.
 
 # Work to be done (Programming)
-keep the Atlas database as non-malformed as possible, otherwise there might be errors.
-## Image Storage w/in DB
-Right now, we can only display images hosted elsewhere via links. I have tried the Base64 thing with no luck.
-I will continue trying, otherwise, we might use Mongoose. Worst comes to worst, we'll have image uploads be links
-to externally hosted images.
-this is hard bruh
+keep the Atlas database as non-malformed as possible, otherwise there might be errors
 ## Secure login
 look into hash pws
 ## doc/
@@ -75,6 +76,8 @@ Change this to be more descriptive. Include npm install and .env setup.
 - copy code where you can lol
 ## get_guide.js
 - since comment functions have not yet been implimented, not entirely sure how much needs to be changed here.
+## After
+we'll reset the DB, each create an account, add the acc names in defaultFeed() (guzzzle-db.js), and each create 2 posts.
 
 # Work to be done (MS3)
 [MS3 Instructions](https://link-url-here.org)https://docs.google.com/document/d/1-2zJJM-6HB0Xd9fPTUu4u-nnM-hNadf2pltNm-MKE8s/edit)

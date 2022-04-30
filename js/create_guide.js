@@ -23,7 +23,15 @@ async function post() {
         ingredient_keys.push(ing.value);
         ingredientStr.push(brand.value + " " + ing.value + " " + amount.value);
     }
-    await guzzzleAPI.createPost(title.value, img.value, ingredient_keys, ingredientStr, inst.value, desc.value);
+    const toBase64 = file => new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+    });
+    const files = img.files;
+    const img64 = await toBase64(files[0]);
+    await guzzzleAPI.createPost(title.value, img64, ingredient_keys, ingredientStr, inst.value, desc.value);
 };
 
 // pid of post -> read post -> fill title, etc , for ingred for ingred in ingreds (-> call duplicate)
