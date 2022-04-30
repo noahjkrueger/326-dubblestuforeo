@@ -49,7 +49,7 @@ the current things.
 
 # Work to be done (Programming)
 keep the Atlas database as non-malformed as possible, otherwise there might be errors
-## Secure login
+## Secure login (this will suck)
 look into hash pws
 ## doc/
 ### milestone3.md
