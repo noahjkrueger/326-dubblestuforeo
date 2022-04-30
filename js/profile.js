@@ -40,4 +40,4 @@ let post_objects = [];
 for (let post_pid of user_feed_pids) {
     post_objects.push(await guzzzleAPI.readPost(post_pid));
 }
-feed.renderFeed(post_objects, 'user_feed');
+feed.renderFeed(post_objects.reverse(), 'user_feed');

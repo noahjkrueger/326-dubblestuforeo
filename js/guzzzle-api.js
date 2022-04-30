@@ -14,10 +14,11 @@ export async function login(uid, password) {
             const d = new Date;
             const cookie = {
                 "uid": data.uid,
-                "expires": `${d.getMonth()}/${d.getDate() + 1}/${d.getFullYear()}`
+                "expires": `${d.getMonth() + 1}/${d.getDate() + 1}/${d.getFullYear()}`
             }
             window.localStorage.setItem("cookie", JSON.stringify(cookie));
         }
+        return data;
     }
     catch(err) {
         console.log(err);
@@ -51,30 +52,22 @@ export function checkCookie() {
     const year = d.getFullYear();
     const month = d.getMonth();
     const expire = cookie.expires.split('/');
-    if (year > expire[2]) {
-        window.localStorage.removeItem("cookie");
-        return null;
-    }
-    if (month > expire[0]) {
-        window.localStorage.removeItem("cookie");
-        return null;
-    }
-    if (date >= expire[1]) {
+    if (year > expire[2] || month > expire[0] || date >= expire[1]) {
         window.localStorage.removeItem("cookie");
         return null;
     }
     return cookie.uid;
 }
 
-export async function createUser(uid, password, profileImage, biography) {
+export async function createUser(uid, email, password, pfp) {
     try {
         const response = await fetch(`/user_create?uid=${uid}`, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({password: password, profileImage: profileImage, biography: biography})
+            body: JSON.stringify({password: password, email: email, pfp: pfp})
         });
         const data = await response.json();
-        return data;
+        return login(data.uid, data.password);
     }
     catch(err) {
         console.log(err);
@@ -95,9 +88,9 @@ export async function readUser(uid) {
     }
 }
   
-export async function updateUser(uid, newPassword, newProfileImage, newBiography) {
+export async function updateUser(uid, password, newPassword, newProfileImage, newBiography) {
     try {
-        const response = await fetch(`/user_update?uid=${uid}`, {
+        const response = await fetch(`/user_update?uid=${uid}&password=${password}`, {
             method: 'PUT',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({newpassword: newPassword, profileImage: newProfileImage, biography: newBiography})
@@ -110,9 +103,9 @@ export async function updateUser(uid, newPassword, newProfileImage, newBiography
     }
 }
   
-export async function deleteUser(uid) {
+export async function deleteUser(uid, password) {
     try {
-        const response = await fetch(`/user_delete?uid=${uid}`, {
+        const response = await fetch(`/user_delete?uid=${uid}&password=${password}`, {
             method: 'DELETE',
             headers: {'Content-Type': 'application/json'},
         });
@@ -166,9 +159,9 @@ export async function readOtherPosts(uid, pid) {
     }
 }
 
-export async function updatePost(pid, newTitle, newImage, newIngredient_keys, newIngredients, newInstructions, newDescription) {
+export async function updatePost(pid, password, newTitle, newImage, newIngredient_keys, newIngredients, newInstructions, newDescription) {
     try {
-        const response = await fetch(`/post_update?pid=${pid}`, {
+        const response = await fetch(`/post_update?pid=${pid}&password=${password}`, {
             method: 'PUT',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({title: newTitle, image: newImage, ingredient_keys: newIngredient_keys, ingredients: newIngredients, description: newDescription, instructions: newInstructions})
@@ -181,9 +174,9 @@ export async function updatePost(pid, newTitle, newImage, newIngredient_keys, ne
     }
 }
   
-export async function deletePost(pid) {
+export async function deletePost(pid, uid, password) {
     try {
-        const response = await fetch(`/post_delete?pid=${pid}`, {
+        const response = await fetch(`/post_delete?pid=${pid}&uid=${uid}&password=${password}`, {
             method: 'DELETE',
             headers: {'Content-Type': 'application/json'},
         });
@@ -364,6 +357,20 @@ export async function queryPosts(ingredients) {
 export async function getFeed(uid) {
     try {
         const response = await fetch(`/feed?uid=${uid}`, {
+            method: 'GET',
+            headers: {'Content-Type': 'application/json'}
+        });
+        const data = await response.json();
+        return data;
+    }
+    catch(err) {
+        console.log(err);
+    }
+}
+
+export async function defaultFeed() {
+    try {
+        const response = await fetch(`/feed`, {
             method: 'GET',
             headers: {'Content-Type': 'application/json'}
         });

@@ -4,28 +4,10 @@ const cookie_uid = guzzzleAPI.checkCookie();
 const this_user = await guzzzleAPI.readUser(cookie_uid);
 
 if (cookie_uid !== null) {
-    let feed_pids = await guzzzleAPI.getFeed(cookie_uid);
-    let post_objects = [];
-    for(const pid of feed_pids) {
-        post_objects.push(await guzzzleAPI.readPost(pid));
-    }
-    post_objects = post_objects.sort((a, b) => {
-        let a_split = a.date.split("/");
-        let b_split = b.date.split("/");
-        return (100 *(a_split[2] - b_split[2]) + 10 * (a_split[0] - b_split[0]) + a_split[1] - b_split[1]);
-    });
-    renderFeed(post_objects, "feed");
+    renderFeed(await guzzzleAPI.getFeed(cookie_uid), "feed");
 }
 else {
-    const default_feed = [0, 1, 2];
-    let post_objects = [];
-    for (const pid in default_feed) {
-        post_objects.push(await guzzzleAPI.readPost(pid));
-    }
-    post_objects = post_objects.sort((a, b) => {
-        return b.likes - a.likes;
-    });
-    renderFeed(post_objects, "feed");
+    renderFeed(await guzzzleAPI.defaultFeed(), "feed");
 }
 
 const appendChildren = function (element, children) {
@@ -46,6 +28,7 @@ const createElement = function (element_name) {
 
 export async function renderFeed(post_objects, element) {
     let feed = document.getElementById(element);
+    if (feed == null) return;
     if (feed != null) {
         feed.innerHTML = "";
     }

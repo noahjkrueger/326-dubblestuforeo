@@ -1,5 +1,4 @@
 import * as guzzzleAPI from './guzzzle-api.js'
-
 let ingredientCount = 1;
 const ingType = ['Booze', 'Juice', 'Garnish', 'Vegetable', 'Fruit'];
 
@@ -24,9 +23,7 @@ function post() {
         ingredient_keys.push(ing.value);
         ingredientStr.push(brand.value + " " + ing.value + " " + amount.value);
     }
-             //createPost(uid, title, image, ingredient_keys, ingredients, instructions, description)
     guzzzleAPI.createPost(guzzzleAPI.checkCookie(), title.value, img.value, ingredient_keys, ingredientStr, inst.value, desc.value);
-    // window.href='/post.html';
 };
 
 // pid of post -> read post -> fill title, etc , for ingred for ingred in ingreds (-> call duplicate)

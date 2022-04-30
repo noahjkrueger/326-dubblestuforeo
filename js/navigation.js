@@ -165,17 +165,8 @@ await fetch(navbar_src).then((response) => response.text()).then((html) => {
                 }
             });
         });
-        const results = await guzzzleAPI.queryPosts(formInfo);
-        let result_order = [];
-        for (const result of Object.keys(results)) {
-            result_order.push(result);
-        }
-        result_order = result_order.sort((a, b) => results[b] - results[a]);
-        let post_objects = [];
-        for (const pid of result_order) {
-            post_objects.push(await guzzzleAPI.readPost(pid));
-        }
-        feed.renderFeed(post_objects, "results");
+        const posts = await guzzzleAPI.queryPosts(formInfo);
+        feed.renderFeed(posts, "results");
         event.preventDefault();
     });
 
