@@ -129,6 +129,13 @@ await fetch(navbar_src).then((response) => response.text()).then((html) => {
     }
     else {
         //add here
+        let createPost = document.createElement("post_button");
+        createPost.id = "post_button";
+        createPost.innerHtml = "<button type='submit' id='cg_postbutton'></button>";
+        createPost.innerText = "Create Post";
+        createPost.classList.add("cg_post2");
+        user_profile.appendChild(createPost);
+
         let pfp_img = document.createElement("img");
         pfp_img.src = loggedin_user.profileImage;
         pfp_img.alt ="user-profile";
@@ -181,4 +188,9 @@ await fetch(navbar_src).then((response) => response.text()).then((html) => {
             window.location.href = "../guzzzler";
         }
     });
+    
+    document.getElementById("post_button").addEventListener("click", async function () {
+        window.location.href = "../guzzzlecreate";
+    })
+
 });
