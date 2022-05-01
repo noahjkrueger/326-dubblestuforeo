@@ -134,7 +134,7 @@ await fetch(navbar_src).then((response) => response.text()).then((html) => {
         createPost.id = "post_button";
         createPost.innerHtml = "<button type='submit' id='cg_postbutton'></button>";
         createPost.innerText = "Create Post";
-        createPost.classList.add("cg_post");
+        createPost.classList.add("cg_post2");
         user_profile.appendChild(createPost);
 
         let pfp_img = document.createElement("img");
