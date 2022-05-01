@@ -117,12 +117,14 @@
 }
 
 .cg_post2 {
-    height: 60px;
+    height: 100px;
     width: 350px;
-    border-radius: 12px;
     font-size: 20px;
     background-color: #8400ff;
-    color: white
+    color: white;
+    padding-left: 6px;
+    padding-right: 6px;
+    border-radius: 12px;
 }
 
 /* D */
