@@ -128,22 +128,20 @@ await fetch(navbar_src).then((response) => response.text()).then((html) => {
         user_profile.href = "../guzzzlegate";
     }
     else {
-        //add here
-        let createPost = document.createElement("post_button");
-        createPost.id = "post_button";
-        createPost.innerHtml = "<button type='submit' id='cg_postbutton'></button>";
+        user_profile.href ="../guzzzler";
+        let createPost = document.createElement("a");
+        createPost.type = "submit";
         createPost.innerText = "Create Post";
-        createPost.classList.add("cg_post2");
+        createPost.href = "../guzzzlecreate";
+        createPost.classList.add("createPostButton");
         user_profile.appendChild(createPost);
-
         let pfp_img = document.createElement("img");
         pfp_img.src = loggedin_user.profileImage;
         pfp_img.alt ="user-profile";
         pfp_img.classList = "d-inline-block align-text-top rounded-circle";
         pfp_img.width = "32";
-        pfp_img.height = "32";
+        pfp_img.height = "24";
         user_profile.appendChild(pfp_img);
-        user_profile.href ="../guzzzler";
     }
 
     data.forEach(entry => {
@@ -188,9 +186,4 @@ await fetch(navbar_src).then((response) => response.text()).then((html) => {
             window.location.href = "../guzzzler";
         }
     });
-    
-    document.getElementById("post_button").addEventListener("click", async function () {
-        window.location.href = "../guzzzlecreate";
-    })
-
 });

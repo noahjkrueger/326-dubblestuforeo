@@ -66,13 +66,14 @@ export class GuzzzleDatabase {
 
     async deleteUser(uid) {
         this.collection = this.db.collection('users');
+        //get user 
+                //Once unfollow function complete
+        // unfollow following, have followers unfollow, remove posts
         const result = await this.collection.deleteOne(
             {
                 uid: uid
             }
         );
-        //Once unfollow function complete
-        // unfollow following, have followers unfollow, remove posts
         return result.deletedCount === 1 ? true : false;
     }
 

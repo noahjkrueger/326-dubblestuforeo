@@ -79,7 +79,7 @@ const createElement = function (element_name) {
 };
 
 const cookie_guide_info = JSON.parse(window.localStorage.getItem("guide-info"));
-const cookie_login_uid = await guzzzleAPI.currentUser().uid;
+const cookie_login_uid = await guzzzleAPI.currentUser();
 const cookie_uid = cookie_guide_info.uid;   
 const cookie_pid = cookie_guide_info.pid;
 
@@ -88,7 +88,7 @@ renderFeed(cookie_login_uid, cookie_uid, cookie_pid, [column1, column2, column3]
 export async function renderFeed(login, uid, pid, columns) {
     let posting_user = await guzzzleAPI.readUser(uid);
     let user_post = await guzzzleAPI.readPost(pid);
-    let log = await guzzzleAPI.readUser(login);
+    let log = login;
 
     const col1 = columns[0];
     const col2 = columns[1];
@@ -112,9 +112,34 @@ export async function renderFeed(login, uid, pid, columns) {
     let user = createElement("h5");
     user.innerText = posting_user.uid;
     appendChildren(user_name, [user]);
+    row_1.style.marginTop = "2%";
     appendChildren(row_1, [user_pfp, user_name]);
-
-
+    //display iff logged in user matches posting user
+    if (log != null && log.uid === posting_user.uid) {
+        let editButton = createElement('button');
+        editButton.innerText = "Edit Post";
+        editButton.style.marginLeft = "5%";
+        addClasses(editButton, ["btn", "btn-outline-dark"]);
+        let deleteButton = createElement('button');
+        deleteButton.innerText = "Delete Post";
+        deleteButton.style.marginLeft = "5%";
+        addClasses(deleteButton, ["btn", "btn-outline-danger"]);
+        appendChildren(row_1, [editButton, deleteButton]);
+        deleteButton.addEventListener('click', async (e) => {
+            const confirm = window.confirm(`Are you sure you want to delete this post? This is permenant.`);
+            if (confirm) {
+                await guzzzleAPI.deletePost(pid);
+            }
+            e.preventDefault();
+        });
+        editButton.addEventListener('click', (e) => {
+            window.localStorage.setItem("guide-edit", JSON.stringify({
+                pid: user_post.pid
+            }));
+            window.location.href = "../guzzzlecreate";
+            e.preventDefault();
+        });
+    }
 
     //Second row in col1
     let row_2 = createElement("div");

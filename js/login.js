@@ -59,7 +59,7 @@ signBtn.addEventListener("click", async function() {
         notice.innerText = "";
         const uid = await guzzzleAPI.createUser(userSignup.value, check, passSignup.value, "https://i.guim.co.uk/img/media/a1b7129c950433c9919f5670c92ef83aa1c682d9/55_344_1971_1183/master/1971.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=88ba2531f114b9b58b9cb2d8e723abe1");      
         if (uid.hasOwnProperty("error")) {
-            window.alert(uid.error);
+            window.alert("Username is already taken.");
         }
         else {
             window.alert("You have succesfully created an account!");

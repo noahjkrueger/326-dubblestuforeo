@@ -13,6 +13,16 @@ postButton.addEventListener("click", post);
 addIng.addEventListener("click", duplicate);
 document.getElementById("cg_type" + ingredientCount).addEventListener("change", ingredientType);
 
+const info = JSON.parse(window.localStorage.getItem("guide-edit"));
+let prevIMG = null;
+if (info) {
+    const postInfo = await guzzzleAPI.readPost(info.pid);
+    title.value = postInfo.title;
+    inst.value = postInfo.instructions;
+    desc.value = postInfo.description;
+    prevIMG = postInfo.image;
+}
+
 async function post() {
     let ingredient_keys = [];
     let ingredientStr = [];
@@ -30,8 +40,37 @@ async function post() {
         reader.onerror = error => reject(error);
     });
     const files = img.files;
-    const img64 = await toBase64(files[0]);
-    await guzzzleAPI.createPost(title.value, img64, ingredient_keys, ingredientStr, inst.value, desc.value);
+    const img64 = files[0] ?  await toBase64(files[0]) : null;
+    if (info) {
+        if (img64) {
+            const res = await guzzzleAPI.updatePost(info.pid, title.value, img64, ingredient_keys, ingredientStr, inst.value, desc.value);
+            if (res.hasOwnProperty("error")) {
+                window.alert(res.error);
+            }
+            else {
+                window.alert("successfully updated the post!")
+            }
+        }
+        else {
+            const res = await guzzzleAPI.updatePost(info.pid, title.value, prevIMG, ingredient_keys, ingredientStr, inst.value, desc.value);
+            if (res.hasOwnProperty("error")) {
+                window.alert(res.error);
+            }
+            else {
+                window.alert("successfully updated the post!")
+            }
+        }
+        window.localStorage.removeItem("guide-edit");
+    }
+    else {
+        const res = await guzzzleAPI.createPost(title.value, img64, ingredient_keys, ingredientStr, inst.value, desc.value);
+        if (res.hasOwnProperty("error")) {
+            window.alert(res.error);
+        }
+        else {
+            window.alert("Post was succesfully made!")
+        }
+    }
 };
 
 // pid of post -> read post -> fill title, etc , for ingred for ingred in ingreds (-> call duplicate)

@@ -1,8 +1,9 @@
-import express from 'express';
+import express, { request } from 'express';
 import logger from 'morgan';
 import { GuzzzleDatabase } from './guzzzle-db.js';
 import Session from "express-session";
 import cookieParser from "cookie-parser";
+import {randomBytes, pbkdf2Sync} from "crypto"
 
 class GuzzzleServer {
   constructor(dburl) {
@@ -31,7 +32,7 @@ class GuzzzleServer {
         response.status(200).json(await self.db.getUser(request.session.uid));
       }
       catch (err) {
-        response.status(500).send(err);
+        response.status(500).json({error: err});
       }
     });
 
@@ -45,13 +46,15 @@ class GuzzzleServer {
           response.status(404).json({ error: `Username '${uid}' does not exist`});
         }
         else if (user.password != password) {
-          response.status.json({error: `Username '${uid}' does not exist`});
+          response.status.json({error: `Password for '${uid}' is incorrect`});
         }
-        request.session.uid = uid;
-        response.status(200).json(user);
+        else {
+          request.session.uid = uid;
+          response.status(200).json(user);
+        }
       }
       catch (err) {
-        response.status(500).send(err);
+        response.status(500).json({error: err});
       }
     });
 
@@ -81,7 +84,7 @@ class GuzzzleServer {
         }
       }
       catch (err) {
-        response.status(500).send(err);
+        response.status(500).json({error: err});
       }
     });
 
@@ -98,7 +101,7 @@ class GuzzzleServer {
         }
       }
       catch (err) {
-        response.status(500).send(err);
+        response.status(500).json({error: err});
       }
     });
 
@@ -106,22 +109,24 @@ class GuzzzleServer {
     this.app.put('/user_update', async (request, response) => {
       try {
         const uid = request.session.uid;
-        const password = request.query.password;
+        const password = request.body.password;
         const check = await self.db.getUser(uid);
         if (check === null || check.password != password) {
           response.status(400).json({error: "Password Incorrect"});
         }
-        const body = request.body;
-        const result = await self.db.updateUser(uid, body.newPassword, body.biography, body.profileImage);
-        if (!result) {
-          response.status(400).json({ error: `Error updating account`});
-        }
         else {
-          response.status(200).json(result);
+          const body = request.body;
+          const result = await self.db.updateUser(uid, body.newPassword, body.biography, body.profileImage);
+          if (!result) {
+            response.status(400).json({ error: `Error updating account`});
+          }
+          else {
+            response.status(200).json(result);
+          }
         }
       }
       catch (err) {
-        response.status(500).send(err);
+        response.status(500).json({error: err});
       }
     });
 
@@ -134,16 +139,18 @@ class GuzzzleServer {
         if (check === null || check.password != password) {
           response.status(400).json({error: "Password Incorrect"});
         }
-        const result = await self.db.deleteUser(uid);
-        if (!result) {
-          response.status(400).json({ error: `Error deleting account`});
-        }
         else {
-          response.status(200);
+          const result = await self.db.deleteUser(uid);
+          if (!result) {
+            response.status(400).json({ error: `Error deleting account`});
+          }
+          else {
+            response.status(200).json({status: "success"});
+          }
         }
       }
       catch (err) {
-        response.status(500).send(err);
+        response.status(500).json({error: err});
       }
     });
 
@@ -173,7 +180,7 @@ class GuzzzleServer {
         }
       }
       catch (err) {
-        response.status(500).send(err);
+        response.status(500).json({error: err});
       }
     });
 
@@ -190,16 +197,17 @@ class GuzzzleServer {
         }
       }
       catch (err) {
-        response.status(500).send(err);
+        response.status(500).json({error: err});
       }
     });
 
     //UPDATE A POST
     this.app.put('/post_update', async (request, response) => {
       try {
-        const pid = request.query.pid;
+        const pid = request.body.pid;
         const body = request.body;
         const post = await self.db.getPost(pid);
+        console.log(post);
         if (post.uid != request.session.uid) {
           response.status(400).json({erroe: "You must own this post to update."})
         }
@@ -222,7 +230,7 @@ class GuzzzleServer {
         }
       }
       catch (err) {
-        response.status(500).send(err);
+        response.status(500).json({error: err});
       }
     });
 
@@ -240,12 +248,12 @@ class GuzzzleServer {
             response.status(400).json({ error: `Error deleting post`});
           }
           else {
-            response.status(200).send("success");
+            response.status(200).json({status: "success"});
           }
         }
       }
       catch (err) {
-        response.status(500).send(err);
+        response.status(500).json({error: err});
       }
     });
 
@@ -264,7 +272,7 @@ class GuzzzleServer {
         }
       }
       catch (err) {
-        response.status(500).send(err);
+        response.status(500).json({error: err});
       }
     });
 
@@ -284,7 +292,7 @@ class GuzzzleServer {
         }
       }
       catch (err) {
-        response.status(500).send(err);
+        response.status(500).json({error: err});
       }
     });
 
@@ -400,6 +408,7 @@ class GuzzzleServer {
     // //COMMENT ON A POST
     // this.app.put('/comment', async (request, response) => {
     //   const body = request.body;
+    //  const uid = request.session.uid;
     //   const query = request.query;
     //   //reload users
     //   await reloadUsers();

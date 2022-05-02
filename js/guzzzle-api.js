@@ -19,9 +19,6 @@ export async function login(uid, password) {
             headers: {'Content-Type': 'application/json'}
         });
         const data = await response.json();
-        if (data.hasOwnProperty("error")) {
-            window.alert(data.error);
-        }
         return data;
     }
     catch(err) {
@@ -34,7 +31,7 @@ export async function logout() {
         const response = await fetch(`/logout`, {
             method: 'GET'
         });
-        return await response.status();
+        await response;
     }
     catch(err) {
         console.log(err);
@@ -75,8 +72,8 @@ export async function updateUser(password, newPassword, newProfileImage, newBiog
         const response = await fetch(`/user_update`, {
             method: 'PUT',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({password: password, newpassword: newPassword, profileImage: newProfileImage, biography: newBiography})
-            });
+            body: JSON.stringify({password: password, newPassword: newPassword, profileImage: newProfileImage, biography: newBiography})
+        });
         const data = await response.json();
         return data;
     } 
@@ -91,7 +88,11 @@ export async function deleteUser(password) {
             method: 'DELETE',
             headers: {'Content-Type': 'application/json'},
         });
-        return await response.status();
+        const data = await response.json();
+        if (data.hasOwnProperty("error")) {
+            window.alert(data.error);
+        }
+        return data;
     } catch (err) {
         console.log(err);
     }
@@ -142,10 +143,10 @@ export async function readOtherPosts(uid, pid) {
 
 export async function updatePost(pid, newTitle, newImage, newIngredient_keys, newIngredients, newInstructions, newDescription) {
     try {
-        const response = await fetch(`/post_update?pid=${pid}`, {
+        const response = await fetch(`/post_update`, {
             method: 'PUT',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({title: newTitle, image: newImage, ingredient_keys: newIngredient_keys, ingredients: newIngredients, description: newDescription, instructions: newInstructions})
+            body: JSON.stringify({pid: pid, title: newTitle, image: newImage, ingredient_keys: newIngredient_keys, ingredients: newIngredients, description: newDescription, instructions: newInstructions})
         });
         const data = await response.json();
         return data;
@@ -162,6 +163,9 @@ export async function deletePost(pid) {
             headers: {'Content-Type': 'application/json'},
         });
         const data = await response.json();
+        if (data.hasOwnProperty("error")) {
+            window.alert(data.error);
+        }
         return data;
     } catch (err) {
         console.log(err);

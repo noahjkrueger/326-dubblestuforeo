@@ -18,7 +18,7 @@ here
 
 ### Database Counters
 #### Users
-    counter user {
+    document user {
         _id: <ObjectID>,
         uid: String,
         email: String,
@@ -31,7 +31,7 @@ here
         likes: Array<Integer>
     }
 #### Posts
-    counter post {
+    document post {
         pid: Integer,
         uid: String,
         title: String, 
@@ -44,3 +44,4 @@ here
         description : String, 
         comments: Array<Object>, 
     }
+    

@@ -35,6 +35,20 @@
     bottom:70px;
 }
 
+.createPostButton {
+    margin-right: 20%;
+    text-decoration: none;
+    color: black;
+    padding: 2px;
+    border-radius: 5%;
+}
+
+.createPostButton:hover {
+    text-decoration: underline;
+    color: black;
+}
+
+
 .credentialsBox {
     margin: 8px;
     margin-left: 0px;
@@ -127,7 +141,7 @@
     border-radius: 12px;
 }
 
-/* D */
+/* D */ 
 .dividerLine {
     display: block;
     margin: 50px;
@@ -136,6 +150,7 @@
 }
 
 /* E */
+
 .empty-feed-img {
     display: block;
     margin-left: auto;
@@ -323,7 +338,7 @@
 }
 
 .profileImg {
-    width: 250px;
+    width: 190px;
     height: 190px;
     display: inline;
 }
