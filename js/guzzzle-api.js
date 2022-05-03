@@ -172,7 +172,7 @@ export async function deletePost(pid) {
     }
 }
 
-export async function likePost(pid) {
+export async function likePost(uid, pid) {
     try {
         const response = await fetch(`/like?uid=${uid}&pid=${pid}`, {
             method: 'PUT',
@@ -186,7 +186,7 @@ export async function likePost(pid) {
     }
 }
 
-export async function unlikePost(pid) {
+export async function unlikePost(uid, pid) {
     try {
         const response = await fetch(`/unlike?uid=${uid}&pid=${pid}`, {
             method: 'PUT',

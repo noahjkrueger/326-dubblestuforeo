@@ -325,45 +325,33 @@ class GuzzzleServer {
     //   }
     // });    
 
-    // //FOR USE IN LIKE AND UNLIKE REQUESTS
-    // async function votePost(response, uid, pid, like) {
-    //   //reload users and posts
-    //   await reloadUsers();
-    //   await reloadPosts();
-    //   //404 post not exist
-    //   if (!entryExists(posts, pid)) {
-    //     response.status(400).json({ error: `Post does not exist`});
-    //   }
-    //   //200 success, return post
-    //   else {
-    //     //like = true -> add like, like  = false -> remove like
-    //     posts[pid].likes += like ? 1 : -1;
-    //     //save file
-    //     await saveFile(posts_file, posts);
-    //     //add or remove PID to UID like list
-    //     if (!like) {
-    //       users[uid].likes = users[uid].likes.filter(post => post != pid);
-    //     }
-    //     else {
-    //       users[uid].likes.push(pid);
-    //     }
-    //     //save users
-    //     await saveFile(users_file, users)
-    //     response.status(200).json(posts[pid]);
-    //   }
-    // }
+    //FOR USE IN LIKE AND UNLIKE REQUESTS
+    async function votePost(response, uid, pid, like) {
+      try {
+        if(like) {
+          let post = await self.db.likePost(uid, pid);
+          response.status(200).json(post)
+        } else {
+          let post = await self.db.unlikePost(uid, pid);
+          response.status(200).json(post)
+        }
+      }
+      catch(err) {
+        response.status(500).json({error: err});
+      }
+    }
 
-    // //LIKE A POST
-    // this.app.put('/like', async (request, response) => {
-    //     const query = request.query;
-    //     votePost(response, query.uid, query.pid, true);
-    // });
+    //LIKE A POST
+    this.app.put('/like', async (request, response) => {
+        const query = request.query;
+        votePost(response, query.uid, parseInt(query.pid), true);
+    });
 
     // //UNLIKE A POST
-    // this.app.put('/unlike', async (request, response) => {
-    //   const query = request.query;
-    //   votePost(response, query.uid, query.pid, false);
-    // });
+    this.app.put('/unlike', async (request, response) => {
+      const query = request.query;
+      votePost(response, query.uid, parseInt(query.pid), false);
+    });
 
     // //FOR USE IS FOLLOW/UNFOLLOW USER
     // async function manageFollow(response, uid_from, uid_to, follow) {
