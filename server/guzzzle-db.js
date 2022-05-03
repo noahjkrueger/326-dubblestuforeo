@@ -78,6 +78,8 @@ export class GuzzzleDatabase {
     }
 
     async getPost(pid) {
+        // console.log(pid)
+        // console.log(typeof(pid))
         this.collection = this.db.collection('posts');
         const result = await this.collection.findOne(
             {
@@ -229,14 +231,64 @@ export class GuzzzleDatabase {
 
     async likePost(uid, pid) {
         //get original post by calling getPost
-        //update post to inciment like count
+        let post = await this.getPost(pid);
+        //update post to increment like count
+        let newLikes = post.likes + 1;
         //see updateUser -> $set
+        this.collection = this.db.collection('posts');
+        await this.collection.updateOne(
+            {
+                pid: pid
+            },
+            {
+                $set: {
+                    likes: newLikes
+                }
+            }
+        );
         //add pid to uid like list via updateOne, $push (see createPost)
+        this.collection = this.db.collection('users');
+        await this.collection.updateOne(
+            {
+                uid: uid
+            },
+            {
+                $push: {
+                    "likes": pid
+                } 
+            }
+        );
+        return await this.getPost(pid);
     }
 
-    async unlikePost(pid) {
+    async unlikePost(uid, pid) {
         //reverse of likePost
+        let post = await this.getPost(pid);
+        this.collection = this.db.collection('posts');
+        let newLikes = post.likes - 1;
+        await this.collection.updateOne(
+            {
+                pid: pid
+            },
+            {
+                $set: {
+                    likes: newLikes
+                }
+            }
+        );
         //rm pid from uid like list via updateOne, $pull (see deletePost)
+        this.collection = this.db.collection('users');
+        await this.collection.updateOne(
+            {
+                uid: uid
+            },
+            {
+                $pull: {
+                    "likes": pid
+                } 
+            }
+        );
+        return await this.getPost(pid);
     }
 
     async follow(uid_to, uid_from) {
