@@ -1,23 +1,51 @@
-# 326-dubblestuforeo  
-## guzzzle.
-### Team Overview  
+# 326-dubblestuforeo - guzzzle.
+
+## Team Overview  
 Noah Krueger - noahjkrueger  
-Diganta Mainali - D-Mainali
+Diganta Mainali - D-Mainali  
 Kenneth Drewry - kendrewry  
 Piyush Makkapati - piyushm2001
 
-### Division of labor
-#### Noah Krueger
-here
-#### Diganta Mainali
-here
-#### Kenneth Drewry
-here
-#### Piyush Makkapati
+## Division of labor
+
+### Noah Krueger
+
+- CRUD database operations and corrosponding endpoints
+    - Post CRUD
+    - User CRUD
+- Session / Authentication features
+- Enabled user upload of images
+    - Image conversion to base64 for storage
+    - For use in profiles and posts
+- Addition of buttons for owners of post or user pages
+    - Post owners can modify or delete their posts
+    - Profile owners can mondify or delete their profile
+- Bug fixes / Error checking throughout the project
+    - Code cleanup
+- Coherent Application Navigation
+- Restructure of application
+- Favicon
+- Documentation of Database Documents
+- Final Video work
+- Heroku Configs
+- setup.md rework
+- Contributed to final.md
+
+### Diganta Mainali
+
 here
 
-### Database Counters
-#### Users
+### Kenneth Drewry
+
+here
+
+### Piyush Makkapati
+
+here
+
+## Database Cluster
+
+### Users Collection
     document user {
         _id: <ObjectID>,
         uid: String,
@@ -30,7 +58,8 @@ here
         followers: Array<String>, 
         likes: Array<Integer>
     }
-#### Posts
+
+### Posts Collection
     document post {
         pid: Integer,
         uid: String,
@@ -44,4 +73,3 @@ here
         description : String, 
         comments: Array<Object>, 
     }
-    
