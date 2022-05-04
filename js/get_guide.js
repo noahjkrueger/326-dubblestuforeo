@@ -325,23 +325,23 @@ export async function renderFeed(login, uid, pid, columns) {
 
 
     let login_following_pids = await guzzzleAPI.getFeed(login); // check to make sure users current post not here and duplicates
-    // console.log(login_following_pids)
+    console.log(login_following_pids)
     if (login_following_pids.hasOwnProperty("error")) {
         login_following_pids = await guzzzleAPI.readOtherPosts(uid, pid);
     }
     let user_following_pids = await guzzzleAPI.getFeed(uid); // check to make sure login's posts not here and duplicates
-    // console.log(user_following_pids)
+    console.log(user_following_pids)
     let other_user_pids = await guzzzleAPI.readOtherPosts(uid, pid); // already filtered current post, check for duplicates
-    // console.log(other_user_pids)
+    console.log(other_user_pids)
     let total_pids = [];
     for(const post of login_following_pids) {
-        if (post != pid) {
-            total_pids.push(post);
+        if (post.pid != pid) {
+            total_pids.push(post.pid);
         }
     }
     for(const post of user_following_pids) {
-        if (!(post in total_pids) && !(post in log.posts)) {
-            total_pids.push(post);
+        if (!(post.pid in total_pids) && !(post.pid in log.posts)) {
+            total_pids.push(post.pid);
         }
     }
     for(const post of other_user_pids) {
