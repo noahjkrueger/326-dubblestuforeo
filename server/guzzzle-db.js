@@ -329,6 +329,35 @@ export class GuzzzleDatabase {
     async unfollow(uid_to, uid_from) {
         //reverse of follow
         //use updateOne, $pull for each user
+        let user1 = await this.getUser(uid_to);
+        let user2 = await this.getUser(uid_from);
+        let arr1 = user1.following;
+        arr1.push(uid_from);
+        let arr2 = user2.followers;
+        arr2.push(uid_to);
+        this.collection = this.db.collection('users');
+        // following array
+        await this.collection.updateOne(
+            {
+                uid: uid_to
+            },
+            {
+                $push: {
+                   following: arr1 
+                }
+            }
+        );
+        // followers array
+        await this.collection.updateOne(
+            {
+                uid: uid_from
+            },
+            {
+                $push: {
+                    followers: arr2
+                }
+            }
+        );
     }
 
     //Should probably restructure the commments. Include a comment ID (cid) for each comment obj within a post.
