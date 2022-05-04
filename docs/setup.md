@@ -2,9 +2,9 @@
 
 ## Team Overview  
 Noah Krueger - noahjkrueger  
-Diganta Mainali - D-Mainali
+Diganta Mainali - D-Mainali  
 Kenneth Drewry - kendrewry  
-Piyush Makkapati - piyushm2001
+Piyush Makkapati - piyushm2001  
 
 ## Running the app
 
