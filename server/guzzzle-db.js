@@ -324,6 +324,7 @@ export class GuzzzleDatabase {
                 }
             }
         );
+        return await this.getUser(uid_to);
     }
 
     async unfollow(uid_to, uid_from) {
@@ -360,6 +361,7 @@ export class GuzzzleDatabase {
                 }
             }
         );
+        return await this.getUser(uid_to);
     }
 
     //Should probably restructure the commments. Include a comment ID (cid) for each comment obj within a post.
