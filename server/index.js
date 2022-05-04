@@ -204,11 +204,11 @@ class GuzzzleServer {
     //GET A USERS OTHER POSTS
     this.app.get('/otherposts', async (request, response) => {
       try {
-      const query = request.query;
-      const uid = query.uid;
-      const pid = parseInt(query.pid);
-      const PIDs = self.db.getOtherPosts(uid, pid);
-      response.status(200).json(PIDs);
+        const query = request.query;
+        const uid = query.uid;
+        const pid = parseInt(query.pid);
+        const PIDs = await self.db.getOtherPosts(uid, pid);
+        response.status(200).json(PIDs);
       }
       catch(err) {
         response.status(500).json({error: err});
@@ -402,7 +402,7 @@ class GuzzzleServer {
       try {
         const query = request.query;
         const pid = parseInt(query.pid)
-        const comments = self.db.getComments(pid);
+        const comments = await self.db.getComments(pid);
         response.status(200).json(comments);
       }
       catch(err) {

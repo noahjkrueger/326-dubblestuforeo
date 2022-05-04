@@ -128,7 +128,7 @@ export class GuzzzleDatabase {
     }
 
     async getOtherPosts(uid, pid) {
-        let user = await this.getPost(uid);
+        let user = await this.getUser(uid);
         let PIDs = [];
           //get rest of pids in PID list from each user
           user.posts.forEach(post => { 
@@ -352,8 +352,8 @@ export class GuzzzleDatabase {
 
     async getComments(pid) {
         //return the comments attribute of post
-        let post = self.getPost(pid);
-        return post.comments
+        const post = await this.getPost(pid);
+        return post.comments;
     }
 
     async updateComment(pid, cid, comment) {
@@ -404,13 +404,11 @@ export class GuzzzleDatabase {
     }
 
     async commentLiked(log, uid, pid, comment) {
-        //return the comments attribute of post
-        const comments = self.getComments(pid);
+        const comments = await getComments(pid);
         let b = false
         comments.forEach(c => {
           if (c.comment === comment && c.uid === uid && log in c.likes) {
-            b = true
-            break
+            b = true;
           }
         });
         return b;

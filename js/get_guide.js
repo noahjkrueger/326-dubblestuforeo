@@ -22,7 +22,7 @@ const createElement = function (element_name) {
 
 const cookie_guide_info = JSON.parse(window.localStorage.getItem("guide-info"));
 const cookie_login_uid = await guzzzleAPI.currentUser();
-const cookie_uid = cookie_guide_info.uid;
+const cookie_uid = cookie_guide_info.uid;   
 const cookie_pid = cookie_guide_info.pid;
 
 renderFeed(cookie_login_uid, cookie_uid, cookie_pid, [column1, column2, column3]);
@@ -220,6 +220,7 @@ export async function renderFeed(login, uid, pid, columns) {
     addClasses(section, ["scrollable"]);
 
     let comments = await guzzzleAPI.getComments(pid);
+    console.log(comments)
     comments.forEach(async function(comment) {
         let wrapper = createElement("span");
         let content = createElement("div");
