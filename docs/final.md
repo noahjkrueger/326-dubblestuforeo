@@ -19,13 +19,13 @@ Kenneth Drewry - kendrewry
 Piyush Makkapati - piyushm2001
 
 ## User Interface (TODO)
-TODO: here, put screenshot examples of each page and describe the interface.    
+**TODO:** here, put screenshot examples of each page and describe the interface.    
 MS3 Instructions:  
 
     A final up-to-date list/table describing your application’s user interface. This should include the name of the UI view and its purpose. You should include a screenshot of each of your UI views.
 
 ## APIs (TODO)
-TODO : Once the API documentation section is rewritten/reworked, paste it here (reformat it to fit here too !)  
+**TODO:** Once the API documentation section is rewritten/reworked, paste it here (reformat it to fit here too !)  
 MS3 Instructions:  
 
     A final up-to-date list/table describing your application’s API
@@ -72,7 +72,7 @@ A post document includes the followinf that allows for user to post interaction:
 - A list of keys used for querying posts
 
 ## URL Routes/Mappings (TODO)
-TODO : List all endpoints and write a description of each.  
+**TODO:** List all endpoints and write a description of each.  
 MS3 Instructions:  
 
      A final up-to-date table of all the URL routes that your application supports and a short description  
@@ -84,12 +84,14 @@ All visitors of the application are able to:
 - Query guides
 - Find user pages
 - Create an account
-- Log in to an account
+- Log in to an account  
+
 If a user is logged in, they will have a session. When there is a valid session, the user has additional privledges:
 - Like posts
 - Comment on posts
 - Follow other users 
-- Create posts 
+- Create posts  
+
 In addition, post/guide pages and user pages that are owned by the user have accsess to buttons that enable certian features. These include:
 1. Post pages a logged in user owns:
     - Edit Post button
