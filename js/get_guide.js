@@ -166,8 +166,11 @@ export async function renderFeed(login, uid, pid, columns) {
     appendChildren(tr1, [th1]);
     appendChildren(thead, [tr1]);
     let tbody = createElement("tbody");
-    let ingred = user_post.ingredient_keys;
+    let ingred = user_post.ingredients;
 
+    if (ingred === null) {
+        ingred = []
+    }
     ingred.forEach(ing => {
         let tr = createElement("tr");
         let th = createElement("th");
@@ -198,7 +201,9 @@ export async function renderFeed(login, uid, pid, columns) {
     //Instructions body
     let instruc = createElement("div")
     let steps = [user_post.instructions]
-
+    if (steps[0] == null) {
+        steps = []
+    }
     steps.forEach(step => {
         let s = createElement("p");
         s.innerText = step
