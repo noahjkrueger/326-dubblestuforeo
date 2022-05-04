@@ -3,64 +3,6 @@ import * as guzzzleAPI from './guzzzle-api.js'
 const column1 = document.getElementById('col1');
 const column2 = document.getElementById('col2');
 const column3 = document.getElementById('col3');
-// const content1 = [
-//     {
-//         "title": "Bloody Mary",
-//         "user": "urmom420",
-//         "pfp": "https://i.guim.co.uk/img/media/a1b7129c950433c9919f5670c92ef83aa1c682d9/55_344_1971_1183/master/1971.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=88ba2531f114b9b58b9cb2d8e723abe1",
-//         "image": "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/bloody-mary-glass-2258f4e.jpg?quality=90&resize=504,458?quality=90&webp=true&resize=504,458",
-//         "date": "03/18/2022",
-//         "stars": "4 stars",
-//         "ingredients" : ['Celery salt',
-//                             '1 lemon wedge',
-//                             '1 lime wedge',
-//                             '2 ounces vodka',
-//                             '4 ounces tomato juice',
-//                             '2 teaspoons prepared horseradish',
-//                             '2 dashes Tabasco sauce',
-//                             '2 dashes Worcestershire sauce',
-//                             '1 pinch ground black pepper',
-//                             '1 pinch smoked paprika',
-//                             'Garnished parsley sprig',
-//                             'Garnished green olives',
-//                             'Garnished lime wedge',
-//                             'Garnished celery stalk']
-//     }
-// ]
-
-// const content2 = [
-//     {
-//         "Instructions" : [  '1) Pour some celery salt onto a small plate.',
-//                             '2) Rub the juicy side of the lemon or lime wedge along the lip of a pint glass.',
-//                             '3) Roll the outer edge of the glass in celery salt until fully coated, then fill the glass with ice and set aside.',
-//                             '4) Squeeze the lemon and lime wedges into a shaker and drop them in.',
-//                             '5) Add the vodka, tomato juice, horseradish, Tabasco, Worcestershire, black pepper, paprika, plus a pinch of celery salt along with ice and shake gently.',
-//                             '6) Strain into the prepared glass.',
-//                             '7) Garnish with parsley sprig, 2 speared green olives, a lime wedge and a celery stalk (optional).'
-//         ]
-//     }
-// ]
-
-// const content3 = [
-//     {
-//         "title": "Vampire Juice",
-//         "user": "urmom421",
-//         "pfp": "https://i.guim.co.uk/img/media/a1b7129c950433c9919f5670c92ef83aa1c682d9/55_344_1971_1183/master/1971.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=88ba2531f114b9b58b9cb2d8e723abe1",
-//         "image": "https://insanelygoodrecipes.com/wp-content/uploads/2021/09/Red-Negroni-Cocktail-with-Ice-800x530.jpg"
-//     },
-//     {
-//         "title": "Jim Carry",
-//         "user": "urmom422",
-//         "pfp": "https://i.guim.co.uk/img/media/a1b7129c950433c9919f5670c92ef83aa1c682d9/55_344_1971_1183/master/1971.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=88ba2531f114b9b58b9cb2d8e723abe1",
-//         "image": "https://createyum.com/wp-content/uploads/2020/05/alcohol-drinks-caribbean-rum-punch-83.jpg"
-//     },
-//     {
-//         "title": "Mary O' Death",
-//         "user": "urmom423",
-//         "pfp": "https://i.guim.co.uk/img/media/a1b7129c950433c9919f5670c92ef83aa1c682d9/55_344_1971_1183/master/1971.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=88ba2531f114b9b58b9cb2d8e723abe1",
-//         "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiEndHkjFmusKIlYoQEuLAfh7DM44Xu_pPxQ&usqp=CAU"
-//     }
-// ]
 
 const appendChildren = function (element, children) {
     children.forEach(child => {
@@ -80,7 +22,7 @@ const createElement = function (element_name) {
 
 const cookie_guide_info = JSON.parse(window.localStorage.getItem("guide-info"));
 const cookie_login_uid = await guzzzleAPI.currentUser();
-const cookie_uid = cookie_guide_info.uid;   
+const cookie_uid = cookie_guide_info.uid;
 const cookie_pid = cookie_guide_info.pid;
 
 renderFeed(cookie_login_uid, cookie_uid, cookie_pid, [column1, column2, column3]);

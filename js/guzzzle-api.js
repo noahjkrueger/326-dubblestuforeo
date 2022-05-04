@@ -257,6 +257,20 @@ export async function getComments(pid) {
     }
 }
 
+export async function updateComments(pid, cid, comment) {
+    try {
+        const response = await fetch(`/comment_update?pid=${pid}&cid=${cid}&comment=${comment}`, {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'}
+        });
+        const data = await response.json();
+        return data;
+    } 
+    catch (err) {
+        console.log(err);
+    }
+}
+
 export async function commentDelete(uid, pid, comment) {
     try {
         const response = await fetch(`/comment_delete?uid=${uid}&pid=${pid}&comment=${comment}`, {
@@ -278,7 +292,7 @@ export async function checkCommentLike(log, uid, pid, comment) {
             headers: {'Content-Type': 'application/json'}
         });
         const data = await response.json();
-        return data;
+        return data.value;
     } 
     catch (err) {
         console.log(err);

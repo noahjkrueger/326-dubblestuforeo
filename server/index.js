@@ -201,6 +201,20 @@ class GuzzzleServer {
       }
     });
 
+    //GET A USERS OTHER POSTS
+    this.app.get('/otherposts', async (request, response) => {
+      try {
+      const query = request.query;
+      const uid = query.uid;
+      const pid = parseInt(query.pid);
+      const PIDs = self.db.getOtherPosts(uid, pid);
+      response.status(200).json(PIDs);
+      }
+      catch(err) {
+        response.status(500).json({error: err});
+      }
+    }); 
+
     //UPDATE A POST
     this.app.put('/post_update', async (request, response) => {
       try {
@@ -294,36 +308,7 @@ class GuzzzleServer {
       catch (err) {
         response.status(500).json({error: err});
       }
-    });
-
-        // //GET A USERS OTHER POSTS
-    // this.app.get('/otherposts', async (request, response) => {
-    //   const query = request.query;
-    //   const uid = query.uid;
-    //   const pid = query.pid;
-    //   //reload file into memory
-    //   await reloadUsers();
-    //   await reloadPosts();
-    //   //404 not found
-    //   if (!entryExists(users, uid)) {
-    //     response.status(404).json({ error: `User '${uid}' Not Found`});
-    //   }
-    //   //404 not found
-    //   else if (!entryExists(posts, pid)) {
-    //     response.status(404).json({ error: `Post '${pid}' does not exist`});
-    //   }
-    //   //200 found, return data
-    //   else {
-    //     let PIDs = [];
-    //     //get rest of pids in PID list from each user
-    //     users[uid].posts.forEach(post => { 
-    //       if (post != pid) {
-    //         PIDs.push(post);
-    //       }
-    //     });
-    //     response.status(200).json(PIDs);
-    //   }
-    // });    
+    });   
 
     //FOR USE IN LIKE AND UNLIKE REQUESTS
     async function votePost(response, uid, pid, like) {
@@ -347,7 +332,7 @@ class GuzzzleServer {
         votePost(response, query.uid, parseInt(query.pid), true);
     });
 
-    // //UNLIKE A POST
+    //UNLIKE A POST
     this.app.put('/unlike', async (request, response) => {
       const query = request.query;
       votePost(response, query.uid, parseInt(query.pid), false);
@@ -393,190 +378,127 @@ class GuzzzleServer {
     //   manageFollow(response, query.uid_from, query.uid_to, false);
     // });
 
-    // //COMMENT ON A POST
-    // this.app.put('/comment', async (request, response) => {
-    //   const body = request.body;
-    //  const uid = request.session.uid;
-    //   const query = request.query;
-    //   //reload users
-    //   await reloadUsers();
-    //   //404 post not found
-    //   if (!entryExists(posts, query.pid)) {
-    //     response.status(404).json({ error: `Post does not exist`});
-    //   }
-    //   //400 invalid user
-    //   else if (!entryExists(users, query.uid)) {
-    //     response.status(400).json({ error: `Must be logged in to post!`});
-    //   }
-    //   //200 success
-    //   else {
-    //     await reloadPosts();
-    //     //add comment
-    //     posts[query.pid].comments.push({
-    //       uid: query.uid, 
-    //       comment: body.comment,
-    //       likes: []
-    //     });
-    //     await saveFile(posts_file, posts);
-    //     response.status(200).json(posts[query.pid]);
-    //   }
-    // });
+    //COMMENT ON A POST
+    this.app.put('/comment', async (request, response) => {
+      try {
+        const query = request.query;
+        const pid = parseInt(query.pid)
+        const uid = query.uid;
+        const not_available = await self.db.getUser(uid);
+        if (!not_available) {
+          response.status(400).json({error: `Must be logged in to post`});
+        }
+        const comment = query.comment
+        const result = await self.db.createComment(uid, pid, comment)
+        response.status(200).json({status: "success"});
+      }
+      catch(err) {
+        response.status(500).json({error: err});
+      }
+    });
 
-    // //GET COMMENTS OF A POST
-    // this.app.get('/comments_get', async (request, response) => {
-    //   const query = request.query;
-    //   const pid = query.pid;
-    //   //reload file into memory
-    //   await reloadPosts();
-    //   //404 not found
-    //   if (!entryExists(posts, pid)) {
-    //     response.status(404).json({ error: `Post '${pid}' does not exist`});
-    //   }
-    //   //200 found, return data
-    //   else {
-    //     response.status(200).json(posts[pid].comments.sort((a, b) => b.likes.length - a.score.length));
-    //     // response.status(200).json(posts[pid].comments);
-    //   }
-    // });
+    //GET COMMENTS OF A POST
+    this.app.get('/comments_get', async (request, response) => {
+      try {
+        const query = request.query;
+        const pid = parseInt(query.pid)
+        const comments = self.db.getComments(pid);
+        response.status(200).json(comments);
+      }
+      catch(err) {
+        response.status(500).json({error: err});
+      }
+    });
 
-    // //DELETE A COMMENT OF A POST
-    // this.app.delete('/comment_delete', async (request, response) => {
-    //   const query = request.query;
-    //   const uid = query.uid;
-    //   const pid = query.pid;
-    //   const comment = query.comment;
-    //   //reload file into memeory
-    //   await reloadUsers();
-    //   await reloadPosts();
-    //   //404 not found
-    //   if (!entryExists(users, uid)) {
-    //     response.status(404).json({ error: `User '${uid}' Not Found`});
-    //   }
-    //   //404 not found
-    //   else if (!entryExists(posts, pid)) {
-    //     response.status(404).json({ error: `Post '${pid}' does not exist`});
-    //   }
-    //   //200 found, return data
-    //   else {
-    //     let newComments = [];
-    //     posts[pid].comments.forEach(c => {
-    //       if (c.comment != comment || c.uid != uid) {
-    //         newComments.push(c);
-    //       }
-    //     });
-    //     posts[pid].comments = newComments;
-    //     await saveFile(posts_file, posts);
-    //     response.status(200).json(`'${comment}' posted by '${uid}' on post '${pid}' Has been Deleted`);
-    //   }
-    // });
+    // UPDATE A COMMENT
+    this.app.get('/comment_update', async (request, response) => {
+      try {
+        const query = request.query;
+        const pid = parseInt(query.pid);
+        const cid = parseInt(query.cid);
+        const comment = query.comment;
+        const result = self.db.updateComment(pid, cid, comment);
+        response.status(200).json({status: "success"});
+      }
+      catch(err) {
+        response.status(500).json({error: err});
+      }
+    });
 
-    // //GET WHETHER USER HAS LIKED COMMENT
-    // this.app.get('/comment_check', async (request, response) => {
-    //   const query = request.query;
-    //   const log = query.log;
-    //   const uid = query.uid;
-    //   const pid = query.pid;
-    //   const comment = query.comment;
-    //   //reload file into memory
-    //   await reloadUsers();
-    //   await reloadPosts();
-    //   //404 not found
-    //   if (!entryExists(users, log)) {
-    //     response.status(404).json({ error: `User '${log}' Not Found`});
-    //   }
-    //   //404 not found
-    //   // else if (!entryExists(users, uid)) { // only uncomment once more users established
-    //   //   response.status(404).json({ error: `User '${uid}' Not Found`});
-    //   // }
-    //   //404 not found
-    //   else if (!entryExists(posts, pid)) {
-    //     response.status(404).json({ error: `Post '${pid}' does not exist`});
-    //   }
-    //   //200 found, return data
-    //   else {
-    //     let b = false
-    //     posts[pid].comments.forEach(c => {
-    //       if (c.comment === comment && c.uid === uid && log in c.likes) {
-    //         b = true
-    //       }
-    //     });
-    //     response.status(200).json({"value": b});
-    //   }
-    // });
+    //DELETE A COMMENT OF A POST
+    this.app.delete('/comment_delete', async (request, response) => {
+      try {
+        const query = request.query;
+        const cid = parseInt(query.cid);
+        const pid = parseInt(query.pid);
+        const result = self.db.deleteComment(pid, cid);
+        response.status(200).json({status: "success"});
+      }
+      catch(err) {
+        response.status(500).json({error: err});
+      }
+    });
 
-    // //LIKE A COMMENT
-    // this.app.put('/comment_like', async (request, response) => {
-    //   const query = request.query;
-    //   const log = query.log;
-    //   const uid = query.uid;
-    //   const pid = query.pid;
-    //   const comment = query.comment;
-    //   //reload file into memory
-    //   await reloadPosts();
-    //   //404 not found
-    //   if (!entryExists(users, log)) {
-    //     response.status(404).json({ error: `User '${log}' Not Found`});
-    //   }
-    //   // //404 not found // only uncomment once more users established
-    //   // else if (!entryExists(users, uid)) {
-    //   //   response.status(404).json({ error: `User '${uid}' Not Found`});
-    //   // } 
-    //   //404 not found
-    //   else if (!entryExists(posts, pid)) {
-    //     response.status(404).json({ error: `Post '${pid}' does not exist`});
-    //   }
-    //   //200 found, return data
-    //   else {
-    //     posts[pid].comments.forEach(c => {
-    //       if (c.comment === comment && c.uid === uid) {
-    //         c.likes.push(log)
-    //       }
-    //     });
-    //     await saveFile(posts_file, posts);
-    //     response.status(200).json(`Comment by '${uid}' liked by '${log}'`);
-    //   }
-    // });
+    //GET WHETHER USER HAS LIKED COMMENT
+    this.app.get('/comment_check', async (request, response) => {
+      try {
+        const query = request.query;
+        const log = query.log;
+        const uid = query.uid;
+        const pid = parseInt(query.pid);
+        const comment = query.comment;
+        const not_available = await self.db.getUser(log);
+        if (!not_available) {
+          response.status(400).json({error: `Must be logged in to post`});
+        }
+        const bool = self.db.commentLiked(log, uid, pid, comment)
+        response.status(200).json({"value": bool});
+      }
+      catch(err) {
+        response.status(500).json({error: err});
+      }
+    });
 
-    // this.app.put('/comment_unlike', async (request, response) => {
-    //   const query = request.query;
-    //   const log = query.log;
-    //   const uid = query.uid;
-    //   const pid = query.pid;
-    //   const comment = query.comment;
-    //   //reload file into memory
-    //   await reloadPosts();
-    //   //404 not found
-    //   if (!entryExists(users, log)) {
-    //     response.status(404).json({ error: `User '${log}' Not Found`});
-    //   }
-    //   //404 not found
-    //   // else if (!entryExists(users, uid)) { // only uncomment once more users established
-    //   //   response.status(404).json({ error: `User '${uid}' Not Found`});
-    //   // }
-    //   //404 not found
-    //   else if (!entryExists(posts, pid)) {
-    //     response.status(404).json({ error: `Post '${pid}' does not exist`});
-    //   }
-    //   //200 found, return data
-    //   else {
-    //     let newLikes = [];
-    //     posts[pid].comments.forEach(c => {
-    //       if (c.comment === comment && c.uid === uid) {
-    //         c.likes.forEach(liker => {
-    //           if (liker != log) {
-    //             newLikes.push(liker)
-    //           }
-    //         });
-    //         c.likes = newLikes;
-    //       }
-    //     });
-    //     await saveFile(posts_file, posts);
-    //     response.status(200).json(`Comment by '${uid}' unliked by '${log}'`);
-    //   }
-    // });
+    //LIKE A COMMENT
+    this.app.put('/comment_like', async (request, response) => {
+      try {
+        const query = request.query;
+        const uid = query.uid;
+        const pid = parseInt(query.pid);
+        const cid = parseInt(query.cid);
+        const not_available = await self.db.getUser(log);
+        if (!not_available) {
+          response.status(400).json({error: `Must be logged in to post`});
+        }
+        const result = self.db.likeComment(uid, pid, cid)
+        response.status(200).json({status: "success"});
+      }
+      catch(err) {
+        response.status(500).json({error: err});
+      }
+    });
+
+    //UNLIKE A COMMENT
+    this.app.put('/comment_unlike', async (request, response) => {
+      try {
+        const query = request.query;
+        const uid = query.uid;
+        const pid = parseInt(query.pid);
+        const cid = parseInt(query.cid);
+        const not_available = await self.db.getUser(log);
+        if (!not_available) {
+          response.status(400).json({error: `Must be logged in to post`});
+        }
+        const result = self.db.unlikeComment(uid, pid, cid)
+        response.status(200).json({status: "success"});
+      }
+      catch(err) {
+        response.status(500).json({error: err});
+      }
+    });
 
     //OTHER
-    this.app.get('*', async (request, response) => {
+  this.app.get('*', async (request, response) => {
       response.status(404).send(`Not found: ${request.path}`);
     });
   }
