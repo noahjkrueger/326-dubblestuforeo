@@ -25,7 +25,7 @@ const cookie_login_uid = await guzzzleAPI.currentUser();
 const cookie_uid = cookie_guide_info.uid;   
 const cookie_pid = cookie_guide_info.pid;
 
-renderFeed(cookie_login_uid, cookie_uid, cookie_pid, [column1, column2, column3]);
+renderFeed(cookie_login_uid, cookie_uid, parseInt(cookie_pid), [column1, column2, column3]);
 
 export async function renderFeed(login, uid, pid, columns) {
     let posting_user = await guzzzleAPI.readUser(uid);
@@ -220,7 +220,6 @@ export async function renderFeed(login, uid, pid, columns) {
     addClasses(section, ["scrollable"]);
 
     let comments = await guzzzleAPI.getComments(pid);
-    console.log(comments)
     comments.forEach(async function(comment) {
         let wrapper = createElement("span");
         let content = createElement("div");
@@ -321,11 +320,14 @@ export async function renderFeed(login, uid, pid, columns) {
 
 
     let login_following_pids = await guzzzleAPI.getFeed(login); // check to make sure users current post not here and duplicates
+    // console.log(login_following_pids)
     if (login_following_pids.hasOwnProperty("error")) {
         login_following_pids = await guzzzleAPI.readOtherPosts(uid, pid);
     }
     let user_following_pids = await guzzzleAPI.getFeed(uid); // check to make sure login's posts not here and duplicates
+    // console.log(user_following_pids)
     let other_user_pids = await guzzzleAPI.readOtherPosts(uid, pid); // already filtered current post, check for duplicates
+    // console.log(other_user_pids)
     let total_pids = [];
     for(const post of login_following_pids) {
         if (post != pid) {
@@ -333,16 +335,16 @@ export async function renderFeed(login, uid, pid, columns) {
         }
     }
     for(const post of user_following_pids) {
-        if (!post in total_pids && !post in log.posts) {
+        if (!(post in total_pids) && !(post in log.posts)) {
             total_pids.push(post);
         }
     }
     for(const post of other_user_pids) {
-        if (!post in total_pids) {
+        if (!(post in total_pids)) {
             total_pids.push(post);
         }
     }
-
+    // console.log(total_pids)
     total_pids.forEach(async function(post) {
         const related_post_info = await guzzzleAPI.readPost(post)
         const related_user_info = await guzzzleAPI.readUser(related_post_info.uid)
