@@ -22,7 +22,9 @@ Piyush Makkapati - piyushm2001
 **TODO:** here, put screenshot examples of each page and describe the interface.    
 MS3 Instructions:  
 
-    A final up-to-date list/table describing your application’s user interface. This should include the name of the UI view and its purpose. You should include a screenshot of each of your UI views.
+    A final up-to-date list/table describing your application’s user interface.  
+    This should include the name of the UI view and its purpose.  
+    You should include a screenshot of each of your UI views.
 
 ## APIs (TODO)
 **TODO:** Once the API documentation section is rewritten/reworked, paste it here (reformat it to fit here too !)  
