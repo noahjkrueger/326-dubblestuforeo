@@ -19,13 +19,15 @@ Kenneth Drewry - kendrewry
 Piyush Makkapati - piyushm2001
 
 ## User Interface (TODO)
-TODO: here, put screenshot examples of each page and describe the interface.  
-MS3 Instructions:
+TODO: here, put screenshot examples of each page and describe the interface.    
+MS3 Instructions:  
+
     A final up-to-date list/table describing your application’s user interface. This should include the name of the UI view and its purpose. You should include a screenshot of each of your UI views.
 
 ## APIs (TODO)
-TODO : Once the API documentation section is rewritten/reworked, paste it here (reformat it to fit here too !)
-MS3 Instructions:
+TODO : Once the API documentation section is rewritten/reworked, paste it here (reformat it to fit here too !)  
+MS3 Instructions:  
+
     A final up-to-date list/table describing your application’s API
 
 ## Database
@@ -71,7 +73,8 @@ A post document includes the followinf that allows for user to post interaction:
 
 ## URL Routes/Mappings (TODO)
 TODO : List all endpoints and write a description of each.  
-MS3 Instructions:
+MS3 Instructions:  
+
      A final up-to-date table of all the URL routes that your application supports and a short description of what those routes are used for. You should also indicate any authentication and permissions on those routes.
 
 ## Authentication/Authorization
@@ -176,18 +179,22 @@ In addition, post/guide pages and user pages that are owned by the user have acc
     - Contributed to final video
 
 ### Diganta Mainali
-TODO:
+TODO:  
+
     for each team member — that is, saying who did what, for the entire project.
 
 ### Kenneth Drewry
-TODO:
+TODO:  
+
     for each team member — that is, saying who did what, for the entire project.
 
 ### Piyush Makkapati
-TODO:
+TODO:  
+
     for each team member — that is, saying who did what, for the entire project.
 
 ## Conclusion (TODO)
 TODO : Write the conclusion.  
 MS3 Instructions:  
+
      A conclusion describing your team’s experience in working on this project. This should include what you learned through the design and implementation process, the difficulties you encountered, what your team would have liked to know before starting the project that would have helped you later, and any other technical hurdles that your team encountered
