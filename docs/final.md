@@ -75,7 +75,8 @@ A post document includes the followinf that allows for user to post interaction:
 TODO : List all endpoints and write a description of each.  
 MS3 Instructions:  
 
-     A final up-to-date table of all the URL routes that your application supports and a short description of what those routes are used for. You should also indicate any authentication and permissions on those routes.
+     A final up-to-date table of all the URL routes that your application supports and a short description  
+     of what those routes are used for. You should also indicate any authentication and permissions on those routes.
 
 ## Authentication/Authorization
 All visitors of the application are able to:
@@ -197,4 +198,7 @@ TODO:
 TODO : Write the conclusion.  
 MS3 Instructions:  
 
-     A conclusion describing your team’s experience in working on this project. This should include what you learned through the design and implementation process, the difficulties you encountered, what your team would have liked to know before starting the project that would have helped you later, and any other technical hurdles that your team encountered
+     A conclusion describing your team’s experience in working on this project.  
+     This should include what you learned through the design and implementation process,
+     the difficulties you encountered, what your team would have liked to know before starting the project  
+     that would have helped you later, and any other technical hurdles that your team encountered.
