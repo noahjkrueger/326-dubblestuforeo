@@ -182,22 +182,22 @@ In addition, post/guide pages and user pages that are owned by the user have acc
     - Contributed to final video
 
 ### Diganta Mainali
-TODO:  
+**TODO:**  
 
     for each team member — that is, saying who did what, for the entire project.
 
 ### Kenneth Drewry
-TODO:  
+**TODO:**  
 
     for each team member — that is, saying who did what, for the entire project.
 
 ### Piyush Makkapati
-TODO:  
+**TODO:**  
 
     for each team member — that is, saying who did what, for the entire project.
 
 ## Conclusion (TODO)
-TODO : Write the conclusion.  
+**TODO:** Write the conclusion.  
 MS3 Instructions:  
 
      A conclusion describing your team’s experience in working on this project.  
