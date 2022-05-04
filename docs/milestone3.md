@@ -25,6 +25,9 @@ Piyush Makkapati - piyushm2001
 - Favicon
 - Documentation of Database Documents
 - Final Video work
+- Heroku Configs
+- setup.md rework
+- Contributed to final.md
 #### Diganta Mainali
 here
 #### Kenneth Drewry
