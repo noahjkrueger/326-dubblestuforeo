@@ -1,10 +1,10 @@
-# 326-dubblestuforeo
+# 326-dubblestuforeo 
 
-## guzzzle.
+### guzzzle.
 
 ### UMass CS326 Final Project - Spring 2022
 
-### Overview
+## Overview
 Our application is called **guzzzle.** (period included). It is *our* take on a social media platform, where users are able to connect 
 to one another over the consumption of alcohol. Users of the application are able to create their own pages, or proflies, that house their inteactions 
 with the application. This includes the user's posts. Posts, or guides, are user-generated content that are shared across the platform that give instructions 
@@ -13,26 +13,26 @@ with one another by following each other, liking, commenting or sharing guides. 
 with ease. The applications includes a query feature that allows users to create a list of ingredients they like or have, and upon submission, 
 be greeted with a list of the guides that include said ingredients. This enables users to discover new, exiting ways to consume their beloved alcohol. 
 
-### Team Members
+## Team Members
 Noah Krueger - noahjkrueger  
 Diganta Mainali - D-Mainali
 Kenneth Drewry - kendrewry  
 Piyush Makkapati - piyushm2001
 
-### User Interface (TODO)
+## User Interface (TODO)
 TODO: here, put screenshot examples of each page and describe the interface.  
 MS3 Instructions:
     A final up-to-date list/table describing your application’s user interface. This should include the name of the UI view and its purpose. You should include a screenshot of each of your UI views.
 
-### APIs (TODO)
+## APIs (TODO)
 TODO : Once the API documentation section is rewritten/reworked, paste it here (reformat it to fit here too !)
 MS3 Instructions:
     A final up-to-date list/table describing your application’s API
 
-### Database
+## Database
 Our application uses MongoDB. We use one cluster. A description of each collection is below.
 
-#### Users Collection
+### Users Collection
     document user {
         _id: <ObjectID>,
         uid: String,
@@ -51,7 +51,7 @@ A user document includes the following that allows for user to user and user to 
 - A list of PIDs that the user has posted
 - A list of PIDs that the user has liked
 
-#### Posts Collection
+### Posts Collection
     document post {
         pid: Integer,
         uid: String,
@@ -70,12 +70,12 @@ A post document includes the followinf that allows for user to post interaction:
 - A count of likes the post has
 - A list of keys used for querying posts
 
-### URL Routes/Mappings (TODO)
+## URL Routes/Mappings (TODO)
 TODO : List all endpoints and write a description of each.  
 MS3 Instructions:
      A final up-to-date table of all the URL routes that your application supports and a short description of what those routes are used for. You should also indicate any authentication and permissions on those routes.
 
-### Authentication/Authorization
+## Authentication/Authorization
 All visitors of the application are able to:
 - View a post
 - Query guides
@@ -104,9 +104,9 @@ In addition, post/guide pages and user pages that are owned by the user have acc
         - Change the password of a profile
         - Delete a profile
 
-### Division of labor
+## Division of labor
 
-#### Noah Krueger
+### Noah Krueger
 - Laid out structure of application
     - Organization of files
     - How posts are represented
@@ -176,19 +176,19 @@ In addition, post/guide pages and user pages that are owned by the user have acc
 - Final Video
     - Contributed to final video
 
-#### Diganta Mainali
+### Diganta Mainali
 TODO:
     for each team member — that is, saying who did what, for the entire project.
 
-#### Kenneth Drewry
+### Kenneth Drewry
 TODO:
     for each team member — that is, saying who did what, for the entire project.
 
-#### Piyush Makkapati
+### Piyush Makkapati
 TODO:
     for each team member — that is, saying who did what, for the entire project.
 
-### Conclusion (TODO)
+## Conclusion (TODO)
 TODO : Write the conclusion.  
 MS3 Instructions:  
      A conclusion describing your team’s experience in working on this project. This should include what you learned through the design and implementation process, the difficulties you encountered, what your team would have liked to know before starting the project that would have helped you later, and any other technical hurdles that your team encountered
