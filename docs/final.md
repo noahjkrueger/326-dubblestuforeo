@@ -1,10 +1,10 @@
 # 326-dubblestuforeo 
 
-### guzzzle.
-
 ### UMass CS326 Final Project - Spring 2022
 
-## Overview
+### guzzzle.
+
+## Overview  
 Our application is called **guzzzle.** (period included). It is *our* take on a social media platform, where users are able to connect 
 to one another over the consumption of alcohol. Users of the application are able to create their own pages, or proflies, that house their inteactions 
 with the application. This includes the user's posts. Posts, or guides, are user-generated content that are shared across the platform that give instructions 
