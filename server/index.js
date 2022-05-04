@@ -3,7 +3,7 @@ import logger from 'morgan';
 import { GuzzzleDatabase } from './guzzzle-db.js';
 import Session from "express-session";
 import cookieParser from "cookie-parser";
-import {randomBytes, pbkdf2Sync} from "crypto"
+import {randomBytes, pbkdf2Sync} from "crypto";
 
 class GuzzzleServer {
   constructor(dburl) {
