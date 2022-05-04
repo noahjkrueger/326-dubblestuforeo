@@ -8,7 +8,23 @@ Piyush Makkapati - piyushm2001
 
 ### Division of labor
 #### Noah Krueger
-here
+- CRUD database operations and corrosponding endpoints
+    - Post CRUD
+    - User CRUD
+- Session / Authentication features
+- Enabled user upload of images
+    - Image conversion to base64 for storage
+    - For use in profiles and posts
+- Addition of buttons for owners of post or user pages
+    - Post owners can modify or delete their posts
+    - Profile owners can mondify or delete their profile
+- Bug fixes / Error checking throughout the project
+    - Code cleanup
+- Coherent Application Navigation
+- Restructure of application
+- Favicon
+- Documentation of Database Documents
+- Final Video work
 #### Diganta Mainali
 here
 #### Kenneth Drewry
@@ -16,7 +32,7 @@ here
 #### Piyush Makkapati
 here
 
-### Database Counters
+### Database Documents
 #### Users
     document user {
         _id: <ObjectID>,
