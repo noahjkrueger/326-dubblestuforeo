@@ -14,7 +14,7 @@ be greeted with a list of the guides that include said ingredients. This enables
 
 ## Team Members
 Noah Krueger - noahjkrueger  
-Diganta Mainali - D-Mainali
+Diganta Mainali - D-Mainali  
 Kenneth Drewry - kendrewry  
 Piyush Makkapati - piyushm2001
 
