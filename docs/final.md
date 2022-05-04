@@ -9,8 +9,7 @@ Our application is called **guzzzle.** (period included). It is *our* take on a 
 to one another over the consumption of alcohol. Users of the application are able to create their own pages, or proflies, that house their inteactions 
 with the application. This includes the user's posts. Posts, or guides, are user-generated content that are shared across the platform that give instructions 
 on how to create alcoholic drinks. This includes everything from as simple as a Gin and Tonic to as complex as a Fat-Washed Mezcal cocktail. Users can interact 
-with one another by following each other, liking, commenting or sharing guides. The innovation of this site is the ability to search through all of the guides 
-with ease. The applications includes a query feature that allows users to create a list of ingredients they like or have, and upon submission, 
+with one another by following each other, liking, commenting or sharing guides. The innovation of this application consists of the ability to search through all of the guides with ease. The applications includes a query feature that allows users to create a list of ingredients they like or have, and upon submission, 
 be greeted with a list of the guides that include said ingredients. This enables users to discover new, exiting ways to consume their beloved alcohol. 
 
 ## Team Members
