@@ -35,8 +35,8 @@ here
 #### Piyush Makkapati
 here
 
-### Database Documents
-#### Users
+### Database Cluster
+#### Users Collection
     document user {
         _id: <ObjectID>,
         uid: String,
@@ -49,7 +49,7 @@ here
         followers: Array<String>, 
         likes: Array<Integer>
     }
-#### Posts
+#### Posts Collection
     document post {
         pid: Integer,
         uid: String,
