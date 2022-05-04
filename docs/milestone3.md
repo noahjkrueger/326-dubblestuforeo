@@ -1,13 +1,15 @@
-# 326-dubblestuforeo  
-## guzzzle.
-### Team Overview  
+# 326-dubblestuforeo - guzzzle.
+
+## Team Overview  
 Noah Krueger - noahjkrueger  
-Diganta Mainali - D-Mainali
+Diganta Mainali - D-Mainali  
 Kenneth Drewry - kendrewry  
 Piyush Makkapati - piyushm2001
 
-### Division of labor
-#### Noah Krueger
+## Division of labor
+
+### Noah Krueger
+
 - CRUD database operations and corrosponding endpoints
     - Post CRUD
     - User CRUD
@@ -28,15 +30,22 @@ Piyush Makkapati - piyushm2001
 - Heroku Configs
 - setup.md rework
 - Contributed to final.md
-#### Diganta Mainali
-here
-#### Kenneth Drewry
-here
-#### Piyush Makkapati
+
+### Diganta Mainali
+
 here
 
-### Database Cluster
-#### Users Collection
+### Kenneth Drewry
+
+here
+
+### Piyush Makkapati
+
+here
+
+## Database Cluster
+
+### Users Collection
     document user {
         _id: <ObjectID>,
         uid: String,
@@ -49,7 +58,8 @@ here
         followers: Array<String>, 
         likes: Array<Integer>
     }
-#### Posts Collection
+
+### Posts Collection
     document post {
         pid: Integer,
         uid: String,
@@ -63,4 +73,3 @@ here
         description : String, 
         comments: Array<Object>, 
     }
-    

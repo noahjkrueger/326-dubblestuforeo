@@ -20,7 +20,7 @@ Navigate to the newly cloned repository:
 
 ### Install required packages
 
-Install all reqired node packages: 
+Install all required node packages: 
 
     npm install
 
