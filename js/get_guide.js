@@ -31,6 +31,7 @@ export async function renderFeed(login, uid, pid, columns) {
     let posting_user = await guzzzleAPI.readUser(uid);
     let user_post = await guzzzleAPI.readPost(pid);
     let log = login;
+    console.log(login)
 
     const col1 = columns[0];
     const col2 = columns[1];
@@ -134,14 +135,14 @@ export async function renderFeed(login, uid, pid, columns) {
             addClasses(like_icon, ["bi-balloon-heart-fill"]);
             //like post
             like_text.innerText = user_post.likes + 1;
-            await guzzzleAPI.likePost(login.uid, pid);
+            await guzzzleAPI.likePost(log.uid, pid);
         }
         else {
             like_icon.classList.remove("bi-balloon-heart-fill")
             //unlike post
             addClasses(like_icon, ["bi-balloon-heart"]);
             like_text.innerText = user_post.likes - 1;
-            await guzzzleAPI.unlikePost(login.uid, pid);
+            await guzzzleAPI.unlikePost(log.uid, pid);
         }
         event.preventDefault();
     });
@@ -233,14 +234,14 @@ export async function renderFeed(login, uid, pid, columns) {
         let comm = createElement("p");
         user.innerText = String(comment.uid) + ': ';
         comm.innerText = comment.comment;
-        if (login === comment.uid) {
+        if (log.uid === comment.uid) {
             let button1 = createElement("button")
             button1.setAttribute("type", "submit");
             button1.innerText = "Delete"
             button1.addEventListener('click', async function(event) {
                 //implement delete feature
                 wrapper.innerHTML = '';
-                await guzzzleAPI.commentDelete(login, pid, comment.comment);
+                await guzzzleAPI.commentDelete(pid, comment.cid);
             });
             appendChildren(content, [user, comm, button1]);
             let divide = createElement("hr");
@@ -249,7 +250,8 @@ export async function renderFeed(login, uid, pid, columns) {
         else {
             let button2 = createElement("button");
             button2.setAttribute("type", "submit");
-            let temp = await guzzzleAPI.checkCommentLike(login, comment.uid, pid, comment.comment);
+            let temp = await guzzzleAPI.checkCommentLike(log.uid, comment.uid, pid, comment.comment);
+            console.log(temp)
             let liked = temp.value;
             if (liked) {
                 button2.innerText = "Liked" 
@@ -261,10 +263,10 @@ export async function renderFeed(login, uid, pid, columns) {
                 //implement like feature
                 if (button2.innerText === "Liked") {
                     button2.innerText = "Like"
-                    await guzzzleAPI.unlikeComment(login, comment.uid, pid, comment.comment)
+                    await guzzzleAPI.unlikeComment(log.uid, comment.uid, pid, comment.comment)
                 } else {
                     button2.innerText = "Liked"
-                    await guzzzleAPI.likeComment(login, comment.uid, pid, comment.comment)
+                    await guzzzleAPI.likeComment(log.uid, comment.uid, pid, comment.comment)
                 }
             });
             appendChildren(content, [user, comm, button2]);
@@ -290,14 +292,14 @@ export async function renderFeed(login, uid, pid, columns) {
         if (log.hasOwnProperty("error")) {
             window.location.href="../guzzzlegate";
         }
-        else if (input.value != "" && login != uid) {
+        else if (input.value != "" && log.uid != uid) {
             const message = input.value
             let wrapper = createElement("span")
             let comment = createElement("div");
             let user = createElement("b");
             addClasses(user, ["comments_User"]);
             let com = createElement("p");
-            user.innerText = String(login) + ': ';
+            user.innerText = String(log.uid) + ': ';
             com.innerText = input.value;
             let del = createElement("button")
             del.setAttribute("type", "submit");
@@ -306,13 +308,13 @@ export async function renderFeed(login, uid, pid, columns) {
             appendChildren(comment, [user, com, del]);
             appendChildren(wrapper, [comment, divide])
             appendChildren(section, [wrapper])
+            const cid = await guzzzleAPI.commentPost(log.uid, pid, message)
+            input.value = "";
             del.addEventListener('click', async function(event) {
                 // delete comment
                 wrapper.innerHTML = ''
-                await guzzzleAPI.commentDelete(login, pid, message)
+                await guzzzleAPI.commentDelete(pid, cid)
             });
-            await guzzzleAPI.commentPost(login, pid, message)
-            input.value = "";
         }
     });
 
@@ -324,7 +326,7 @@ export async function renderFeed(login, uid, pid, columns) {
     appendChildren(col3, [h2]);
 
 
-    let login_following_pids = await guzzzleAPI.getFeed(login); // check to make sure users current post not here and duplicates
+    let login_following_pids = await guzzzleAPI.getFeed(log.uid); // check to make sure users current post not here and duplicates
     console.log(login_following_pids)
     if (login_following_pids.hasOwnProperty("error")) {
         login_following_pids = await guzzzleAPI.readOtherPosts(uid, pid);

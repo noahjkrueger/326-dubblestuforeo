@@ -230,7 +230,7 @@ export async function unfollowUser(uid_from, uid_to) {
 
 export async function commentPost(uid, pid, comment) {
     try {
-        const response = await fetch(`/comment?uid=${uid}&pid=${pid}`, {
+        const response = await fetch(`/comment?uid=${uid}&pid=${pid}&comment=${comment}`, {
             method: 'PUT',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({comment: comment})
@@ -271,9 +271,9 @@ export async function updateComments(pid, cid, comment) {
     }
 }
 
-export async function commentDelete(uid, pid, comment) {
+export async function commentDelete(pid, cid) {
     try {
-        const response = await fetch(`/comment_delete?uid=${uid}&pid=${pid}&comment=${comment}`, {
+        const response = await fetch(`/comment_delete?pid=${pid}&cid=${cid}`, {
             method: 'DELETE',
             headers: {'Content-Type': 'application/json'}
         });

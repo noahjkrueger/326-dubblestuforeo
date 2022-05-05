@@ -334,8 +334,8 @@ export class GuzzzleDatabase {
             comment: comment,
             likes: []
         }
-        comments.push(newComment)
-        comments.sort((a, b) => b.likes.length - a.score.length)
+        comments.push(newComment);
+        comments.sort((a, b) => b.likes.length - a.likes.length);
         this.collection = this.db.collection('posts');
         await this.collection.updateOne(
             {
@@ -343,7 +343,13 @@ export class GuzzzleDatabase {
             },
             {
                 $set: {
-                    comments: comments
+                    // comments: {
+                    //     "uid": uid,
+                    //     "cid": cid,
+                    //     "comment": comment,
+                    //     "likes": []
+                    // }
+                    "comments": comments
                 }
             }
         );
@@ -384,11 +390,11 @@ export class GuzzzleDatabase {
         //remove comment cid on post pid
         let post = await this.getPost(pid);
         let comments = post.comments
-        const index = arr.findIndex(o => {
+        const index = comments.findIndex(o => {
             return o.cid === cid;
         });
         comments.splice(index, 1)
-        comments.sort((a, b) => b.likes.length - a.score.length)
+        comments.sort((a, b) => b.likes.length - a.likes.length)
         this.collection = this.db.collection('posts');
         await this.collection.updateOne(
             {
@@ -396,7 +402,7 @@ export class GuzzzleDatabase {
             },
             {
                 $set: {
-                    comments: comments
+                    "comments": comments
                 }
             }
         );
@@ -404,7 +410,7 @@ export class GuzzzleDatabase {
     }
 
     async commentLiked(log, uid, pid, comment) {
-        const comments = await getComments(pid);
+        const comments = await this.getComments(pid);
         let b = false
         comments.forEach(c => {
           if (c.comment === comment && c.uid === uid && log in c.likes) {
