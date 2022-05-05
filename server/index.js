@@ -443,16 +443,11 @@ class GuzzzleServer {
     this.app.get('/comment_check', async (request, response) => {
       try {
         const query = request.query;
-        const log = query.log;
         const uid = query.uid;
         const pid = parseInt(query.pid);
-        const comment = query.comment;
-        const not_available = await self.db.getUser(log);
-        if (!not_available) {
-          response.status(400).json({error: `Must be logged in to post`});
-        }
-        const bool = await self.db.commentLiked(log, uid, pid, comment)
-        response.status(200).json({"value": bool});
+        const cid = parseInt(query.cid);
+        const obj = await self.db.commentLiked(uid, pid, cid)
+        response.status(200).json(obj);
       }
       catch(err) {
         response.status(500).json({error: err});
@@ -466,10 +461,6 @@ class GuzzzleServer {
         const uid = query.uid;
         const pid = parseInt(query.pid);
         const cid = parseInt(query.cid);
-        const not_available = await self.db.getUser(log);
-        if (!not_available) {
-          response.status(400).json({error: `Must be logged in to post`});
-        }
         const result = await self.db.likeComment(uid, pid, cid)
         response.status(200).json({status: "success"});
       }
@@ -485,10 +476,6 @@ class GuzzzleServer {
         const uid = query.uid;
         const pid = parseInt(query.pid);
         const cid = parseInt(query.cid);
-        const not_available = await self.db.getUser(log);
-        if (!not_available) {
-          response.status(400).json({error: `Must be logged in to post`});
-        }
         const result = await self.db.unlikeComment(uid, pid, cid)
         response.status(200).json({status: "success"});
       }

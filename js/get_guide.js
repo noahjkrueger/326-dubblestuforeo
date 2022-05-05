@@ -31,7 +31,6 @@ export async function renderFeed(login, uid, pid, columns) {
     let posting_user = await guzzzleAPI.readUser(uid);
     let user_post = await guzzzleAPI.readPost(pid);
     let log = login;
-    console.log(login)
 
     const col1 = columns[0];
     const col2 = columns[1];
@@ -250,9 +249,8 @@ export async function renderFeed(login, uid, pid, columns) {
         else {
             let button2 = createElement("button");
             button2.setAttribute("type", "submit");
-            let temp = await guzzzleAPI.checkCommentLike(log.uid, comment.uid, pid, comment.comment);
-            console.log(temp)
-            let liked = temp.value;
+            let liked = await guzzzleAPI.checkCommentLike(log.uid, pid, comment.cid);
+            console.log(liked)
             if (liked) {
                 button2.innerText = "Liked" 
             }
@@ -263,10 +261,10 @@ export async function renderFeed(login, uid, pid, columns) {
                 //implement like feature
                 if (button2.innerText === "Liked") {
                     button2.innerText = "Like"
-                    await guzzzleAPI.unlikeComment(log.uid, comment.uid, pid, comment.comment)
+                    await guzzzleAPI.unlikeComment(log.uid, pid, comment.cid)
                 } else {
                     button2.innerText = "Liked"
-                    await guzzzleAPI.likeComment(log.uid, comment.uid, pid, comment.comment)
+                    await guzzzleAPI.likeComment(log.uid, pid, comment.cid)
                 }
             });
             appendChildren(content, [user, comm, button2]);
@@ -327,14 +325,14 @@ export async function renderFeed(login, uid, pid, columns) {
 
 
     let login_following_pids = await guzzzleAPI.getFeed(log.uid); // check to make sure users current post not here and duplicates
-    console.log(login_following_pids)
+    // console.log(login_following_pids)
     if (login_following_pids.hasOwnProperty("error")) {
         login_following_pids = await guzzzleAPI.readOtherPosts(uid, pid);
     }
     let user_following_pids = await guzzzleAPI.getFeed(uid); // check to make sure login's posts not here and duplicates
-    console.log(user_following_pids)
+    // console.log(user_following_pids)
     let other_user_pids = await guzzzleAPI.readOtherPosts(uid, pid); // already filtered current post, check for duplicates
-    console.log(other_user_pids)
+    // console.log(other_user_pids)
     let total_pids = [];
     for(const post of login_following_pids) {
         if (post.pid != pid) {

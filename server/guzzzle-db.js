@@ -387,7 +387,6 @@ export class GuzzzleDatabase {
     }
 
     async deleteComment(pid, cid) {
-        //remove comment cid on post pid
         let post = await this.getPost(pid);
         let comments = post.comments
         const index = comments.findIndex(o => {
@@ -409,15 +408,15 @@ export class GuzzzleDatabase {
         return 1;
     }
 
-    async commentLiked(log, uid, pid, comment) {
+    async commentLiked(uid, pid, cid) {
         const comments = await this.getComments(pid);
         let b = false
         comments.forEach(c => {
-          if (c.comment === comment && c.uid === uid && log in c.likes) {
+          if (parseInt(c.cid) === cid && c.likes.includes(uid)) {
             b = true;
           }
         });
-        return b;
+        return {"value": b};
     }
 
     async likeComment(uid, pid, cid) {
@@ -425,13 +424,11 @@ export class GuzzzleDatabase {
         let comments = post.comments;
         comments.find((o, i) => {
             if (o.cid === cid) {
-                let likes = comments[i].likes;
-                likes.push(uid);
-                comments[i].likes = likes;
+                comments[i].likes.push(uid);
                 return true; // stop searching
             }
         });
-        comments.sort((a, b) => b.likes.length - a.score.length)
+        comments.sort((a, b) => b.likes.length - a.likes.length)
         this.collection = this.db.collection('posts');
         await this.collection.updateOne(
             {
@@ -439,7 +436,7 @@ export class GuzzzleDatabase {
             },
             {
                 $set: {
-                    comments: comments
+                    "comments": comments
                 }
             }
         );
@@ -451,14 +448,14 @@ export class GuzzzleDatabase {
         let comments = post.comments;
         comments.find((o, i) => {
             if (o.cid === cid) {
-                likes = comments[i].likes;
+                let likes = comments[i].likes;
                 const index = likes.indexOf(uid);
                 likes.splice(index, 1)
                 comments[i].likes = likes;
                 return true; // stop searching
             }
         });
-        comments.sort((a, b) => b.likes.length - a.score.length)
+        comments.sort((a, b) => b.likes.length - a.likes.length)
         this.collection = this.db.collection('posts');
         await this.collection.updateOne(
             {
@@ -466,7 +463,7 @@ export class GuzzzleDatabase {
             },
             {
                 $set: {
-                    comments: comments
+                    "comments": comments
                 }
             }
         );
