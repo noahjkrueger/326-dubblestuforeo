@@ -79,6 +79,34 @@ MS3 Instructions:
 
      A final up-to-date table of all the URL routes that your application supports and a short description  
      of what those routes are used for. You should also indicate any authentication and permissions on those routes.
+     - /currentuser
+        Gets the current user. User must be logged in.
+     - /login
+        Logs the user in. User must use a username and password to log in.
+     - /logout
+        Logs the user out. User must be logged in.
+     - /user_create
+        Creates a new user. Must be created using a username and password.
+     - /user
+        Gets the user's page.
+     - /user_update
+     - /user_delete
+     - /post_create
+     - /post
+     - /post_update
+     - /post_delete
+     - /query
+     - /feed
+     - /like
+     - /unlike
+     - /follow
+     - /unfollow
+     - /comment
+     - /comments_get
+     - /comment_delete
+     - /comment_check
+     - /comment_like
+     - /comment_unlike
 
 ## Authentication/Authorization
 All visitors of the application are able to:
