@@ -120,7 +120,7 @@ MS3 Instructions:
      - /comment_delete
         Allows the user to delete their own comment. User must be the author of the comment and logged in.
      - /comment_check
-        
+        Checks if the user has liked
      - /comment_like
         Allows a user to like a comment. The user must be logged in.
      - /comment_unlike
