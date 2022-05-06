@@ -48,7 +48,12 @@ here
 
 ### Piyush Makkapati
 
-here
+- Implemented Database calls for Follow and Unfollow of users. 
+    - Changed around the function/parameters in index.js for manageFollow
+    - Needed to change around the following/ unfollowing section in feed.js to correctly follow and unfollow an user.
+- Couple small bug fixes here and there for the db file.
+- Deployed the fully merged branched onto Heroku 
+- Wrote the conclusion in final.md 
 
 ## Database Cluster
 
