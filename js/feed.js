@@ -146,7 +146,7 @@ export async function renderFeed(post_objects, element) {
             let like_guide = createElement("a");
             addClasses(like_guide, ["col", "btn", "post-options-button", "post-options-like"]);
             let like_icon = createElement("i");
-            if (this_user != null && this_user.likes.includes(String(post_object.pid))) {
+            if (this_user != null && this_user.likes.includes(post_object.pid)) {
                 addClasses(like_icon, ["bi-balloon-heart-fill", "icon"]);
             }
             else {
@@ -163,17 +163,20 @@ export async function renderFeed(post_objects, element) {
                     like_icon.classList.remove("bi-balloon-heart");
                     addClasses(like_icon, ["bi-balloon-heart-fill"]);
                     //like post
-                    post_object.likes = post_object.likes + 1;
-                    like_text.innerText = "Likes: " + post_object.likes;
-                    await guzzzleAPI.likePost(this_user.uid, post_object.pid);
+                   // post_object.likes = post_object.likes + 1;
+                    let updated_post_object = await guzzzleAPI.likePost(post_object.pid);
+                    like_text.innerText = "Likes: " + updated_post_object.likes;
+                    // await guzzzleAPI.likePost(post_object.pid);
                 }
                 else {
                     like_icon.classList.remove("bi-balloon-heart-fill")
                     //unlike post
-                    post_object.likes = post_object.likes - 1;
-                    like_text.innerText = "Likes: " + post_object.likes;
+                    // post_object.likes = post_object.likes - 1;
+                    // like_text.innerText = "Likes: " + post_object.likes;
                     addClasses(like_icon, ["bi-balloon-heart"]);
-                    await guzzzleAPI.unlikePost(this_user.uid, post_object.pid);
+                    // await guzzzleAPI.unlikePost(post_object.pid);
+                    let updated_post_object = await guzzzleAPI.unlikePost(post_object.pid);
+                    like_text.innerText = "Likes: " + updated_post_object.likes;
                 }
             });
             appendChildren(like_guide, [like_icon, like_text]);
