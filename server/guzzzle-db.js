@@ -310,10 +310,10 @@ export class GuzzzleDatabase {
         //use updateOne, $push for each user
         let user1 = await this.getUser(uid_to);
         let user2 = await this.getUser(uid_from);
-        let arr1 = user1.following;
-        arr1.push(uid_from);
-        let arr2 = user2.followers;
-        arr2.push(uid_to);
+        // let arr1 = user1.following;
+        // arr1.push(uid_from);
+        // let arr2 = user2.followers;
+        // arr2.push(uid_to);
         this.collection = this.db.collection('users');
         // following array
         await this.collection.updateOne(
@@ -322,7 +322,7 @@ export class GuzzzleDatabase {
             },
             {
                 $push: {
-                   following: arr1 
+                   following: uid_to 
                 }
             }
         );
@@ -333,7 +333,7 @@ export class GuzzzleDatabase {
             },
             {
                 $push: {
-                    followers: arr2
+                    followers: uid_from
                 }
             }
         );
