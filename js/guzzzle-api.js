@@ -200,9 +200,9 @@ export async function unlikePost(pid) {
     }
 }
 
-export async function followUser(uid_from, uid_to) {
+export async function followUser(uid_to, uid_from) {
     try {
-        const response = await fetch(`/follow?uid_from=${uid_from}&uid_to=${uid_to}`, {
+        const response = await fetch(`/follow?uid_to=${uid_to}&uid_from=${uid_from}`, {
             method: 'PUT',
             headers: {'Content-Type': 'application/json'},
         });

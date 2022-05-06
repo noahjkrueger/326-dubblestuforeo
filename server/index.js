@@ -343,7 +343,7 @@ class GuzzzleServer {
     });
 
     // //FOR USE IS FOLLOW/UNFOLLOW USER
-    async function manageFollow(response, uid_from, uid_to, follow) {
+    async function manageFollow(response, uid_to, uid_from, follow) {
       try {
         if(follow) {
           let user = await self.db.follow(uid_to, uid_from);
