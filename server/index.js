@@ -328,12 +328,17 @@ class GuzzzleServer {
     //FOR USE IN LIKE AND UNLIKE REQUESTS
     async function votePost(response, uid, pid, like) {
       try {
-        if(like) {
-          let post = await self.db.likePost(uid, pid);
-          response.status(200).json(post)
+        const not_available = await self.db.getUser(uid);
+        if (!not_available) {
+          response.status(400).json({error: `Must be logged in to post`});
         } else {
-          let post = await self.db.unlikePost(uid, pid);
-          response.status(200).json(post)
+          if(like) {
+            let post = await self.db.likePost(uid, pid);
+            response.status(200).json(post)
+          } else {
+            let post = await self.db.unlikePost(uid, pid);
+            response.status(200).json(post)
+          }
         }
       }
       catch(err) {
