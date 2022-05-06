@@ -109,7 +109,7 @@ export async function renderFeed(login, uid, pid, columns) {
     let like = createElement("span");
     addClasses(like, ["btn", "post-options-guide-button", "post-options-guide-like", "stars_Guide"]);
     let like_icon = createElement("i");
-    if (!log.hasOwnProperty("error") && log.likes.includes(String(user_post.pid))) {
+    if (!log.hasOwnProperty("error") && log.likes.includes((pid))) {
         addClasses(like_icon, ["bi-balloon-heart-fill", "icon"]);
     }
     else {
@@ -125,15 +125,15 @@ export async function renderFeed(login, uid, pid, columns) {
             like_icon.classList.remove("bi-balloon-heart");
             addClasses(like_icon, ["bi-balloon-heart-fill"]);
             //like post
-            like_text.innerText = user_post.likes + 1;
-            await guzzzleAPI.likePost(log.uid, pid);
+            let post = await guzzzleAPI.likePost(pid);
+            like_text.innerText = post.likes;
         }
         else {
             like_icon.classList.remove("bi-balloon-heart-fill")
             //unlike post
             addClasses(like_icon, ["bi-balloon-heart"]);
-            like_text.innerText = user_post.likes;
-            await guzzzleAPI.unlikePost(log.uid, pid);
+            let post = await guzzzleAPI.unlikePost(pid);
+            like_text.innerText = post.likes;
         }
         event.preventDefault();
     });

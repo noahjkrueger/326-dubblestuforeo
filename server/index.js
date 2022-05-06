@@ -328,13 +328,13 @@ class GuzzzleServer {
     //LIKE A POST
     this.app.put('/like', async (request, response) => {
         const query = request.query;
-        votePost(response, query.uid, parseInt(query.pid), true);
+        votePost(response, request.session.uid, parseInt(query.pid), true);
     });
 
     //UNLIKE A POST
     this.app.put('/unlike', async (request, response) => {
       const query = request.query;
-      votePost(response, query.uid, parseInt(query.pid), false);
+      votePost(response, request.session.uid, parseInt(query.pid), false);
     });
 
     // //FOR USE IS FOLLOW/UNFOLLOW USER
