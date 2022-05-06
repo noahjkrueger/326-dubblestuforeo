@@ -61,6 +61,8 @@ if (current_user != null && current_user.uid === cookie_uid.uid) {
         const confirm = window.prompt(`Are you sure you want to delete "${current_user.uid}"? This is permenant. Re-enter your password to continue.`, "Confirm Password");
         if (confirm != null) {
             await guzzzleAPI.deleteUser(confirm);
+            await guzzzleAPI.logout();
+            window.location.href = "../guzzzlin";
         }
         e.preventDefault();
     });

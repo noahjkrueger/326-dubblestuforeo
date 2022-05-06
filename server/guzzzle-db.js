@@ -67,8 +67,21 @@ export class GuzzzleDatabase {
     async deleteUser(uid) {
         this.collection = this.db.collection('users');
         //get user 
+        const user = await this.getUser(uid);
                 //Once unfollow function complete
         // unfollow following, have followers unfollow, remove posts
+        let following = user.following;
+        let followers = user.followers;
+        let posts = user.posts;
+        following.forEach(u => {
+            let result = this.unfollow(uid, u);
+        });
+        followers.forEach(u => {
+            let result = this.unfollow(u, uid);
+        });
+        posts.forEach(p => {
+            let result = this.deletePost(p);
+        });
         const result = await this.collection.deleteOne(
             {
                 uid: uid
@@ -308,11 +321,73 @@ export class GuzzzleDatabase {
         //update uid_to follow list
         //update uid_from following list
         //use updateOne, $push for each user
+        let user1 = await this.getUser(uid_to);
+        let user2 = await this.getUser(uid_from);
+        // let arr1 = user1.following;
+        // arr1.push(uid_from);
+        // let arr2 = user2.followers;
+        // arr2.push(uid_to);
+        this.collection = this.db.collection('users');
+        // following array
+        await this.collection.updateOne(
+            {
+                uid: uid_to
+            },
+            {
+                $push: {
+                   following: uid_from 
+                }
+            }
+        );
+        // followers array
+        await this.collection.updateOne(
+            {
+                uid: uid_from
+            },
+            {
+                $push: {
+                    followers: uid_to
+                }
+            }
+        );
+        return await this.getUser(uid_from).followers;
     }
 
     async unfollow(uid_to, uid_from) {
         //reverse of follow
         //use updateOne, $pull for each user
+        let user1 = await this.getUser(uid_to);
+        let user2 = await this.getUser(uid_from);
+        // let arr1 = user1.following;
+        // let remove1 = arr1.indexOf(user1);
+        // arr1.splice(remove1, 1);
+        // let arr2 = user2.followers;
+        // let remove2 = arr2.indexOf(user2);
+        // arr2.splice(remove2, 1);
+        this.collection = this.db.collection('users');
+        // following array
+        await this.collection.updateOne(
+            {
+                uid: uid_to
+            },
+            {
+                $pull: {
+                   following: uid_from 
+                }
+            }
+        );
+        // followers array
+        await this.collection.updateOne(
+            {
+                uid: uid_from
+            },
+            {
+                $pull: {
+                    followers: uid_to
+                }
+            }
+        );
+        return await this.getUser(uid_from);
     }
 
     //Should probably restructure the commments. Include a comment ID (cid) for each comment obj within a post.

@@ -343,44 +343,32 @@ class GuzzzleServer {
     });
 
     // //FOR USE IS FOLLOW/UNFOLLOW USER
-    // async function manageFollow(response, uid_from, uid_to, follow) {
-    //   //reload users
-    //   await reloadUsers();
-    //   //404 user not found
-    //   if (!entryExists(users, uid_to) || !entryExists(users, uid_from)) {
-    //     response.status(404).json({ error: `User does not exist`});
-    //   }
-    //   //200 success
-    //   else {
-    //     //follow user
-    //     if (follow) {
-    //       users[uid_from].following.push(uid_to);
-    //       users[uid_to].followers.push(uid_from);
-    //     }
-    //     //unfollow user
-    //     else {
-    //       //remove user from following list
-    //       users[uid_from].following = users[uid_from].following.filter(uid => uid != uid_to);
-    //       //remoce user from followers list
-    //       users[uid_to].followers = users[uid_to].followers.filter(uid => uid != uid_from);
-    //     }
-    //     //save users
-    //     await saveFile(users_file, users);
-    //     response.status(200).json(users[uid_from]);
-    //   }
-    // }
+    async function manageFollow(response, uid_to, uid_from, follow) {
+      try {
+        if(follow) {
+          let user = await self.db.follow(uid_to, uid_from);
+          response.status(200).json(user)
+        } else {
+          let user = await self.db.unfollow(uid_to, uid_from);
+          response.status(200).json(user)
+        }
+      }
+      catch(err) {
+        response.status(500).json({error: err});
+      }
+    }
 
     // //FOLLOW A USER
-    // this.app.put('/follow', async (request, response) => {
-    //   const query = request.query;
-    //   manageFollow(response, query.uid_from, query.uid_to, true);
-    // });
+    this.app.put('/follow', async (request, response) => {
+      const query = request.query;
+      manageFollow(response, query.uid_to, query.uid_from, true);
+    });
 
     // //UNFOLLOW A USER
-    // this.app.put('/unfollow', async (request, response) => {
-    //   const query = request.query;
-    //   manageFollow(response, query.uid_from, query.uid_to, false);
-    // });
+    this.app.put('/unfollow', async (request, response) => {
+      const query = request.query;
+      manageFollow(response, query.uid_to, query.uid_from, false);
+    });
 
     //COMMENT ON A POST
     this.app.put('/comment', async (request, response) => {
