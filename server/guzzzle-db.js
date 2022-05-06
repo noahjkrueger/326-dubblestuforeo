@@ -127,8 +127,9 @@ export class GuzzzleDatabase {
         return self.getPost(pid);
     }
 
-    async getOtherPosts(uid, pid) {
-        let user = await this.getUser(uid);
+    async getOtherPosts(pid) {
+        let post = await this.getPost(pid);
+        let user = await this.getUser(post.uid)
         let PIDs = [];
           //get rest of pids in PID list from each user
           user.posts.forEach(post => { 
@@ -343,17 +344,11 @@ export class GuzzzleDatabase {
             },
             {
                 $set: {
-                    // comments: {
-                    //     "uid": uid,
-                    //     "cid": cid,
-                    //     "comment": comment,
-                    //     "likes": []
-                    // }
                     "comments": comments
                 }
             }
         );
-        return 1;
+        return cid;
     }
 
     async getComments(pid) {
@@ -362,28 +357,18 @@ export class GuzzzleDatabase {
         return post.comments;
     }
 
-    async updateComment(pid, cid, comment) {
+    async getComment(pid, cid) {
         //update comment cid on post pid
         let post = await this.getPost(pid);
-        let comments = post.comments
+        const comments = post.comments
+        let comment = {};
         comments.find((o, i) => {
             if (o.cid === cid) {
-                comments[i].comment = comment;
+                comment = comments[i];
                 return true; // stop searching
             }
         });
-        this.collection = this.db.collection('posts');
-        await this.collection.updateOne(
-            {
-                pid: pid
-            },
-            {
-                $set: {
-                    comments: comments
-                }
-            }
-        );
-        return 1;
+        return comment;
     }
 
     async deleteComment(pid, cid) {

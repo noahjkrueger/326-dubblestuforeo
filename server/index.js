@@ -205,9 +205,8 @@ class GuzzzleServer {
     this.app.get('/otherposts', async (request, response) => {
       try {
         const query = request.query;
-        const uid = query.uid;
         const pid = parseInt(query.pid);
-        const PIDs = await self.db.getOtherPosts(uid, pid);
+        const PIDs = await self.db.getOtherPosts(pid);
         response.status(200).json(PIDs);
       }
       catch(err) {
@@ -382,15 +381,15 @@ class GuzzzleServer {
     this.app.put('/comment', async (request, response) => {
       try {
         const query = request.query;
-        const pid = parseInt(query.pid)
-        const uid = query.uid;
-        const comment = query.comment
+        const uid = request.session.uid;
+        const pid = parseInt(query.pid);
+        const comment = query.comment;
         const not_available = await self.db.getUser(uid);
         if (!not_available) {
           response.status(400).json({error: `Must be logged in to comment`});
         }
-        const cid = await self.db.createComment(uid, pid, comment)
-        response.status(200).json({status: "success"});
+        const cid = await self.db.createComment(uid, pid, comment);
+        response.status(200).json(cid);
       }
       catch(err) {
         response.status(500).json({error: err});
@@ -410,15 +409,14 @@ class GuzzzleServer {
       }
     });
 
-    // UPDATE A COMMENT
-    this.app.get('/comment_update', async (request, response) => {
+    // GET A COMMENT
+    this.app.get('/comment_get', async (request, response) => {
       try {
         const query = request.query;
         const pid = parseInt(query.pid);
         const cid = parseInt(query.cid);
-        const comment = query.comment;
-        const result = await self.db.updateComment(pid, cid, comment);
-        response.status(200).json({status: "success"});
+        const comment = await self.db.getComment(pid, cid);
+        response.status(200).json(comment);
       }
       catch(err) {
         response.status(500).json({error: err});
@@ -443,7 +441,7 @@ class GuzzzleServer {
     this.app.get('/comment_check', async (request, response) => {
       try {
         const query = request.query;
-        const uid = query.uid;
+        const uid = request.session.uid;
         const pid = parseInt(query.pid);
         const cid = parseInt(query.cid);
         const obj = await self.db.commentLiked(uid, pid, cid)
@@ -458,7 +456,7 @@ class GuzzzleServer {
     this.app.put('/comment_like', async (request, response) => {
       try {
         const query = request.query;
-        const uid = query.uid;
+        const uid = request.session.uid;
         const pid = parseInt(query.pid);
         const cid = parseInt(query.cid);
         const result = await self.db.likeComment(uid, pid, cid)
@@ -473,7 +471,7 @@ class GuzzzleServer {
     this.app.put('/comment_unlike', async (request, response) => {
       try {
         const query = request.query;
-        const uid = query.uid;
+        const uid = request.session.uid;
         const pid = parseInt(query.pid);
         const cid = parseInt(query.cid);
         const result = await self.db.unlikeComment(uid, pid, cid)

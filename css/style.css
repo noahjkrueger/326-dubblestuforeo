@@ -4,6 +4,10 @@
 
 
 /* B */
+.bold_like {
+    font-weight: bolder;
+}
+
 .border_Related {
     margin: 5px;
     width: 90%;

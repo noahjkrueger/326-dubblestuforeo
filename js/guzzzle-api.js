@@ -127,9 +127,9 @@ export async function readPost(pid) {
     }
 }
 
-export async function readOtherPosts(uid, pid) {
+export async function readOtherPosts(pid) {
     try {
-        const response = await fetch(`/otherposts?uid=${uid}&pid=${pid}`, {
+        const response = await fetch(`/otherposts?pid=${pid}`, {
             method: 'GET',
             headers: {'Content-Type': 'application/json',}
         });
@@ -228,9 +228,9 @@ export async function unfollowUser(uid_from, uid_to) {
     }
 }
 
-export async function commentPost(uid, pid, comment) {
+export async function commentPost(pid, comment) {
     try {
-        const response = await fetch(`/comment?uid=${uid}&pid=${pid}&comment=${comment}`, {
+        const response = await fetch(`/comment?pid=${pid}&comment=${comment}`, {
             method: 'PUT',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({comment: comment})
@@ -257,10 +257,10 @@ export async function getComments(pid) {
     }
 }
 
-export async function updateComments(pid, cid, comment) {
+export async function getComment(pid, cid) {
     try {
-        const response = await fetch(`/comment_update?pid=${pid}&cid=${cid}&comment=${comment}`, {
-            method: 'PUT',
+        const response = await fetch(`/comment_get?pid=${pid}&cid=${cid}`, {
+            method: 'GET',
             headers: {'Content-Type': 'application/json'}
         });
         const data = await response.json();
@@ -278,16 +278,15 @@ export async function commentDelete(pid, cid) {
             headers: {'Content-Type': 'application/json'}
         });
         const data = await response.json();
-        // return data;
     } 
     catch (err) {
         console.log(err);
     }
 }
 
-export async function checkCommentLike(uid, pid, cid) {
+export async function checkCommentLike(pid, cid) {
     try {
-        const response = await fetch(`/comment_check?uid=${uid}&pid=${pid}&cid=${cid}`, {
+        const response = await fetch(`/comment_check?pid=${pid}&cid=${cid}`, {
             method: 'GET',
             headers: {'Content-Type': 'application/json'}
         });
@@ -300,9 +299,9 @@ export async function checkCommentLike(uid, pid, cid) {
 }
 
 
-export async function likeComment(uid, pid, cid) {
+export async function likeComment(pid, cid) {
     try {
-        const response = await fetch(`/comment_like?uid=${uid}&pid=${pid}&cid=${cid}`, {
+        const response = await fetch(`/comment_like?pid=${pid}&cid=${cid}`, {
             method: 'PUT',
             headers: {'Content-Type': 'application/json'}
         });
@@ -315,9 +314,9 @@ export async function likeComment(uid, pid, cid) {
 }
 
 
-export async function unlikeComment(uid, pid, cid) {
+export async function unlikeComment(pid, cid) {
     try {
-        const response = await fetch(`/comment_unlike?&uid=${uid}&pid=${pid}&cid=${cid}`, {
+        const response = await fetch(`/comment_unlike?pid=${pid}&cid=${cid}`, {
             method: 'PUT',
             headers: {'Content-Type': 'application/json'}
         });

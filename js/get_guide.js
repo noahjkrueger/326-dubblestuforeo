@@ -36,8 +36,6 @@ export async function renderFeed(login, uid, pid, columns) {
     const col2 = columns[1];
     const col3 = columns[2];
 
-// content1.forEach(col1_content => {
-
     //first row in col1
     let row_1 = createElement("div");
 
@@ -56,7 +54,8 @@ export async function renderFeed(login, uid, pid, columns) {
     appendChildren(user_name, [user]);
     row_1.style.marginTop = "2%";
     appendChildren(row_1, [user_pfp, user_name]);
-    //display iff logged in user matches posting user
+
+    //display if logged in user matches posting user
     if (log != null && log.uid === posting_user.uid) {
         let editButton = createElement('button');
         editButton.innerText = "Edit Post";
@@ -94,8 +93,6 @@ export async function renderFeed(login, uid, pid, columns) {
     appendChildren(title, [name]);
     appendChildren(row_2, [title]);
 
-
-
     //Third row in col1
     let row_3 = createElement("div");
 
@@ -105,15 +102,12 @@ export async function renderFeed(login, uid, pid, columns) {
     guide_img.src = user_post.image;
     appendChildren(row_3, [guide_img]);
 
-
-
     //Fourth row in col1
     let row_4 = createElement("div");
 
     //create likes and date
     let like = createElement("span");
     addClasses(like, ["btn", "post-options-guide-button", "post-options-guide-like", "stars_Guide"]);
-
     let like_icon = createElement("i");
     if (!log.hasOwnProperty("error") && log.likes.includes(String(user_post.pid))) {
         addClasses(like_icon, ["bi-balloon-heart-fill", "icon"]);
@@ -121,10 +115,8 @@ export async function renderFeed(login, uid, pid, columns) {
     else {
         addClasses(like_icon, ["bi-balloon-heart", "icon"]);
     }
-
     let like_text = createElement("span");
     like_text.innerText = user_post.likes;
-
     like.addEventListener("click", async function(event) {
         if (log.hasOwnProperty("error")) {
             window.location.href="../guzzzlegate";
@@ -140,7 +132,7 @@ export async function renderFeed(login, uid, pid, columns) {
             like_icon.classList.remove("bi-balloon-heart-fill")
             //unlike post
             addClasses(like_icon, ["bi-balloon-heart"]);
-            like_text.innerText = user_post.likes - 1;
+            like_text.innerText = user_post.likes;
             await guzzzleAPI.unlikePost(log.uid, pid);
         }
         event.preventDefault();
@@ -149,8 +141,6 @@ export async function renderFeed(login, uid, pid, columns) {
     let date = createElement("span");
     date.innerText = user_post.date;
     appendChildren(row_4, [like, date]);
-
-
 
     //Fifth row in col1
     let row_5 = createElement("div");
@@ -167,7 +157,6 @@ export async function renderFeed(login, uid, pid, columns) {
     appendChildren(thead, [tr1]);
     let tbody = createElement("tbody");
     let ingred = user_post.ingredients;
-
     if (ingred === null) {
         ingred = []
     }
@@ -179,16 +168,9 @@ export async function renderFeed(login, uid, pid, columns) {
         appendChildren(tr, [th]);
         appendChildren(tbody, [tr]);
     });
-
     appendChildren(tab, [thead, tbody]);
     appendChildren(row_5, [tab]);
-
     appendChildren(col1, [row_1, row_2, row_3, row_4, row_5]);
-// });
-
-
-
-// content2.forEach(col2_content => {
 
     // First row in col2
     let row_10 = createElement("div");
@@ -220,10 +202,8 @@ export async function renderFeed(login, uid, pid, columns) {
     c.innerText = "Comments";
     addClasses(c, ["instruc_Header"]);
     appendChildren(row_20, [c]);
-    
     let section = createElement("div");
     addClasses(section, ["scrollable"]);
-
     let comments = await guzzzleAPI.getComments(pid);
     comments.forEach(async function(comment) {
         let wrapper = createElement("span");
@@ -242,97 +222,119 @@ export async function renderFeed(login, uid, pid, columns) {
                 wrapper.innerHTML = '';
                 await guzzzleAPI.commentDelete(pid, comment.cid);
             });
-            appendChildren(content, [user, comm, button1]);
+            let like_count = createElement("span");
+            const newComment = await guzzzleAPI.getComment(pid, comment.cid);
+            const like_array = newComment.likes;
+            like_count.innerText = "    Likes: " + like_array.length;
+            addClasses(like_count, ["bold_like"]);
+            appendChildren(content, [user, comm, button1, like_count]);
             let divide = createElement("hr");
             appendChildren(wrapper, [content, divide])
         }
         else {
             let button2 = createElement("button");
             button2.setAttribute("type", "submit");
-            let liked = await guzzzleAPI.checkCommentLike(log.uid, pid, comment.cid);
-            console.log(liked)
+            let like_count = createElement("span");
+            like_count.innerText = "    " + comment.likes.length
+            let liked = await guzzzleAPI.checkCommentLike(pid, comment.cid);
             if (liked) {
-                button2.innerText = "Liked" 
+                button2.innerText = "Unlike" 
+                addClasses(like_count, ["bold_like"]);
             }
             else {
                 button2.innerText = "Like"
+                like_count.classList.remove("bold_like")
             }
             button2.addEventListener('click', async function(event) {
                 //implement like feature
-                if (button2.innerText === "Liked") {
-                    button2.innerText = "Like"
-                    await guzzzleAPI.unlikeComment(log.uid, pid, comment.cid)
+                if (button2.innerText === "Unlike") {
+                    button2.innerText = "Like";
+                    await guzzzleAPI.unlikeComment(pid, comment.cid);
+                    content.removeChild(like_count)
+                    like_count = createElement("span");
+                    const newComment = await guzzzleAPI.getComment(pid, comment.cid);
+                    console.log(newComment)
+                    const like_array = newComment.likes;
+                    like_count.innerText = "    " + like_array.length;
+                    appendChildren(content, [like_count])
                 } else {
-                    button2.innerText = "Liked"
-                    await guzzzleAPI.likeComment(log.uid, pid, comment.cid)
+                    button2.innerText = "Unlike";
+                    await guzzzleAPI.likeComment(pid, comment.cid);
+                    content.removeChild(like_count)
+                    like_count = createElement("span");
+                    addClasses(like_count, ["bold_like"]);
+                    const newComment = await guzzzleAPI.getComment(pid, comment.cid);
+                    console.log(newComment)
+                    const like_array = newComment.likes;
+                    like_count.innerText = "    " + like_array.length;
+                    appendChildren(content, [like_count])
                 }
             });
-            appendChildren(content, [user, comm, button2]);
+            appendChildren(content, [user, comm, button2, like_count]);
             let divide = createElement("hr");
             appendChildren(wrapper, [content, divide])
         }
         appendChildren(section, [wrapper]);
     });
-
     appendChildren(row_20, [section]);
 
-    let input = createElement("input")
-    input.setAttribute("type", "text");
-    input.setAttribute("placeholder", "Leave a Comment Here!");
-    addClasses(input, ["comments_Guide"]);
-    appendChildren(row_20, [input]);
+    //If Logged in User same as Post Author, the comment functionality does not appear
+    if(log.uid != uid) {
+        let input = createElement("input")
+        input.setAttribute("type", "text");
+        input.setAttribute("placeholder", "Leave a Comment Here!");
+        addClasses(input, ["comments_Guide"]);
+        appendChildren(row_20, [input]);
+        let button = createElement("button")
+        button.setAttribute("type", "submit");
+        button.innerText = "Comment"
+        button.addEventListener("click", async function(event) {
+            if (log.hasOwnProperty("error")) {
+                window.location.href="../guzzzlegate";
+            }
+            else if (input.value != "") {
+                const message = input.value
+                let wrapper = createElement("span")
+                let comment = createElement("div");
+                let user = createElement("b");
+                addClasses(user, ["comments_User"]);
+                let com = createElement("p");
+                user.innerText = String(log.uid) + ': ';
+                com.innerText = input.value;
+                let del = createElement("button")
+                del.setAttribute("type", "submit");
+                del.innerText = "Delete"
+                const cid = await guzzzleAPI.commentPost(pid, message);
+                let like_count = createElement("span");
+                const newComment = await guzzzleAPI.getComment(pid, cid);
+                const like_array = newComment.likes;
+                like_count.innerText = "    Likes: " + like_array.length;
+                addClasses(like_count, ["bold_like"]);
+                let divide = createElement("hr");
+                appendChildren(comment, [user, com, del, like_count]);
+                appendChildren(wrapper, [comment, divide])
+                appendChildren(section, [wrapper])
+                input.value = "";
+                del.addEventListener('click', async function(event) {
+                    // delete comment
+                    wrapper.innerHTML = ''
+                    await guzzzleAPI.commentDelete(pid, cid)
+                });
+            }
+        });
+        appendChildren(row_20, [button]);
+    }
     appendChildren(col2, [row_20]);
-
-    let button = createElement("button")
-    button.setAttribute("type", "submit");
-    button.innerText = "Comment"
-    button.addEventListener("click", async function(event) {
-        if (log.hasOwnProperty("error")) {
-            window.location.href="../guzzzlegate";
-        }
-        else if (input.value != "" && log.uid != uid) {
-            const message = input.value
-            let wrapper = createElement("span")
-            let comment = createElement("div");
-            let user = createElement("b");
-            addClasses(user, ["comments_User"]);
-            let com = createElement("p");
-            user.innerText = String(log.uid) + ': ';
-            com.innerText = input.value;
-            let del = createElement("button")
-            del.setAttribute("type", "submit");
-            del.innerText = "Delete"
-            let divide = createElement("hr");
-            appendChildren(comment, [user, com, del]);
-            appendChildren(wrapper, [comment, divide])
-            appendChildren(section, [wrapper])
-            const cid = await guzzzleAPI.commentPost(log.uid, pid, message)
-            input.value = "";
-            del.addEventListener('click', async function(event) {
-                // delete comment
-                wrapper.innerHTML = ''
-                await guzzzleAPI.commentDelete(pid, cid)
-            });
-        }
-    });
-
-    appendChildren(row_20, [button]);
-
     let h2 = createElement("h3");
     h2.innerText = "Related Guides";
     addClasses(h2, ["instruc_Header"]);
     appendChildren(col3, [h2]);
-
-
     let login_following_pids = await guzzzleAPI.getFeed(log.uid); // check to make sure users current post not here and duplicates
-    // console.log(login_following_pids)
     if (login_following_pids.hasOwnProperty("error")) {
-        login_following_pids = await guzzzleAPI.readOtherPosts(uid, pid);
+        login_following_pids = await guzzzleAPI.readOtherPosts(pid);
     }
     let user_following_pids = await guzzzleAPI.getFeed(uid); // check to make sure login's posts not here and duplicates
-    // console.log(user_following_pids)
-    let other_user_pids = await guzzzleAPI.readOtherPosts(uid, pid); // already filtered current post, check for duplicates
-    // console.log(other_user_pids)
+    let other_user_pids = await guzzzleAPI.readOtherPosts(pid); // already filtered current post, check for duplicates
     let total_pids = [];
     for(const post of login_following_pids) {
         if (post.pid != pid) {
@@ -349,7 +351,6 @@ export async function renderFeed(login, uid, pid, columns) {
             total_pids.push(post);
         }
     }
-    // console.log(total_pids)
     total_pids.forEach(async function(post) {
         const related_post_info = await guzzzleAPI.readPost(post)
         const related_user_info = await guzzzleAPI.readUser(related_post_info.uid)
@@ -368,20 +369,16 @@ export async function renderFeed(login, uid, pid, columns) {
         related_user.innerText = related_user_info.uid;
         appendChildren(related_user_name, [related_user]);
         appendChildren(p, [related_user_pfp, related_user_name]);
-
         let related_title = createElement("span");
         addClasses(related_title, ["guide_Title"]);
         let related_name = createElement("h3");
         related_name.innerText = related_post_info.title;
         appendChildren(related_title, [related_name]);
         appendChildren(p, [related_title]);
-
         let related_guide_img = createElement("img");
         addClasses(related_guide_img, ["img_Related"]);
         related_guide_img.src = related_post_info.image;
         appendChildren(p, [related_guide_img]);
-
         appendChildren(col3, [p]);
     });
-    
 }
