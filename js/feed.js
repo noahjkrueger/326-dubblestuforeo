@@ -163,18 +163,13 @@ export async function renderFeed(post_objects, element) {
                     like_icon.classList.remove("bi-balloon-heart");
                     addClasses(like_icon, ["bi-balloon-heart-fill"]);
                     //like post
-                   // post_object.likes = post_object.likes + 1;
                     let updated_post_object = await guzzzleAPI.likePost(post_object.pid);
                     like_text.innerText = "Likes: " + updated_post_object.likes;
-                    // await guzzzleAPI.likePost(post_object.pid);
                 }
                 else {
                     like_icon.classList.remove("bi-balloon-heart-fill")
                     //unlike post
-                    // post_object.likes = post_object.likes - 1;
-                    // like_text.innerText = "Likes: " + post_object.likes;
                     addClasses(like_icon, ["bi-balloon-heart"]);
-                    // await guzzzleAPI.unlikePost(post_object.pid);
                     let updated_post_object = await guzzzleAPI.unlikePost(post_object.pid);
                     like_text.innerText = "Likes: " + updated_post_object.likes;
                 }

@@ -323,10 +323,6 @@ export class GuzzzleDatabase {
         //use updateOne, $push for each user
         let user1 = await this.getUser(uid_to);
         let user2 = await this.getUser(uid_from);
-        // let arr1 = user1.following;
-        // arr1.push(uid_from);
-        // let arr2 = user2.followers;
-        // arr2.push(uid_to);
         this.collection = this.db.collection('users');
         // following array
         await this.collection.updateOne(
@@ -358,12 +354,6 @@ export class GuzzzleDatabase {
         //use updateOne, $pull for each user
         let user1 = await this.getUser(uid_to);
         let user2 = await this.getUser(uid_from);
-        // let arr1 = user1.following;
-        // let remove1 = arr1.indexOf(user1);
-        // arr1.splice(remove1, 1);
-        // let arr2 = user2.followers;
-        // let remove2 = arr2.indexOf(user2);
-        // arr2.splice(remove2, 1);
         this.collection = this.db.collection('users');
         // following array
         await this.collection.updateOne(
