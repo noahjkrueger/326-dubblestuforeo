@@ -372,13 +372,13 @@ class GuzzzleServer {
     // //FOLLOW A USER
     this.app.put('/follow', async (request, response) => {
       const query = request.query;
-      manageFollow(response, query.uid_from, query.uid_to, true);
+      manageFollow(response, query.uid_to, query.uid_from, true);
     });
 
     // //UNFOLLOW A USER
     this.app.put('/unfollow', async (request, response) => {
       const query = request.query;
-      manageFollow(response, query.uid_from, query.uid_to, false);
+      manageFollow(response, query.uid_to, query.uid_from, false);
     });
 
     // //COMMENT ON A POST

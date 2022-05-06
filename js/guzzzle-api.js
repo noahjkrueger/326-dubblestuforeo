@@ -214,9 +214,9 @@ export async function followUser(uid_from, uid_to) {
     }
 }
 
-export async function unfollowUser(uid_from, uid_to) {
+export async function unfollowUser(uid_to, uid_from) {
     try {
-        const response = await fetch(`/unfollow?uid_from=${uid_from}&uid_to=${uid_to}`, {
+        const response = await fetch(`/unfollow?uid_to=${uid_to}&uid_from=${uid_from}`, {
             method: 'PUT',
             headers: {'Content-Type': 'application/json'},
         });

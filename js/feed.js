@@ -61,6 +61,7 @@ export async function renderFeed(post_objects, element) {
                 follow_text.innerText = "Follow";
             }
             //add event listener for following from feed
+            const cookie_uid = this_user.uid;
             follow_bar.addEventListener("click", async function(event) {
                 if (cookie_uid === null) {
                     window.location.href = "../guzzzlegate";
