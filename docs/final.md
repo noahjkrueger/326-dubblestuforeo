@@ -252,9 +252,17 @@ In addition, post/guide pages and user pages that are owned by the user have acc
 - Edited and Uploaded final video
 
 ### Piyush Makkapati
-**TODO:**  
-
-    for each team member — that is, saying who did what, for the entire project.
+- made login page
+    - Login and Signup work # need a proper email to sign up
+- Used API to correctly display the right profile when view profile is clicked
+- Got rid of the hard coded profile html and turned it into JS
+- Deployed app into Heroku originally
+- Implemented Database calls for Follow and Unfollow of users. 
+    - Changed around the function/parameters in index.js for manageFollow
+    - Needed to change around the following/ unfollowing section in feed.js to correctly follow and unfollow an user.
+- Couple small bug fixes here and there for the db file.
+- Deployed the fully merged branched onto Heroku to keep the website up to date
+- Wrote the conclusion in final.md 
 
 ## Conclusion (TODO)
 **TODO:** Write the conclusion.  
