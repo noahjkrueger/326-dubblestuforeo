@@ -88,25 +88,43 @@ MS3 Instructions:
      - /user_create
         Creates a new user. Must be created using a username and password.
      - /user
-        Gets the user's page.
+        Gets a specific user's page. Used when clicking someone's profile.
      - /user_update
+        Allows the user to update their password, biography, or profile image. User must be logged in and supply the password of their account.
      - /user_delete
+        Allows the user to delete their account. The user must be logged in and must supply the password of their account.
      - /post_create
+        Allows the user to create a new post. The user must be logged in.
      - /post
+        Gets a specific post's page. 
      - /post_update
+        Allows the user to update thier post. Must be logged into the account that owns the post.
      - /post_delete
+        Allows the user to delete their post.
      - /query
+        Gets a specific search query, shows the posts that match the query.
      - /feed
+        Gets a users feed based on their following. The user must be logged in, otherwise the default feed will show.
      - /like
+        Allows a user to like a specific post. User must be logged in, and not previously liked the post.
      - /unlike
+        Allows a user to unlike a specific post. The user must be logged in, and must have liked the post already.
      - /follow
+        Allows a user to follow another user. The user must be logged in.
      - /unfollow
+        Allows a user to unfollow another user. The user must be logged in.
      - /comment
+        Allows the user to comment on a specific post. The user must be logged in.
      - /comments_get
+        Gets the comments of a specific post.
      - /comment_delete
+        Allows the user to delete their own comment. User must be the author of the comment and logged in.
      - /comment_check
+        
      - /comment_like
+        Allows a user to like a comment. The user must be logged in.
      - /comment_unlike
+        Allows a user to unlike a comment. The user must be logged in and have already liked the post.
 
 ## Authentication/Authorization
 All visitors of the application are able to:
