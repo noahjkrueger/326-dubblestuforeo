@@ -265,10 +265,4 @@ In addition, post/guide pages and user pages that are owned by the user have acc
 - Wrote the conclusion in final.md 
 
 ## Conclusion (TODO)
-**TODO:** Write the conclusion.  
-MS3 Instructions:  
-
-     A conclusion describing your team’s experience in working on this project.  
-     This should include what you learned through the design and implementation process,
-     the difficulties you encountered, what your team would have liked to know before starting the project  
-     that would have helped you later, and any other technical hurdles that your team encountered.
+    Our team's experience in working on this project has been very productive. Every member of the team communicates with another easily without any problems. We believe that we efficiently used the concepts taught in class to implement our website the way we wanted it to function. We had difficulties with keeping the passwords of users safe, rendering the pages, cookies, and some API/Mongodb functionality at first. We worked together as a team and got rid of the issues. Knowing about Heroku and MongoDB before starting the project would have helped a decent amount because these were the things that needed to be learned quickly in order to connect everything together. It would have been better to know ahead of time so that the implementation could be same throughout instead of changing it at the end.
