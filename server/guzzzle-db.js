@@ -139,6 +139,19 @@ export class GuzzzleDatabase {
         );
         return self.getPost(pid);
     }
+
+    async getOtherPosts(pid) {
+        let post = await this.getPost(pid);
+        let user = await this.getUser(post.uid)
+        let PIDs = [];
+          //get rest of pids in PID list from each user
+          user.posts.forEach(post => { 
+            if (post != pid) {
+              PIDs.push(post);
+            }
+          });
+        return PIDs;
+    }
     
     async updatePost(pid, title, image, ingredient_keys, ingredients, instructions, description) {
         this.collection = this.db.collection('posts');
@@ -383,27 +396,137 @@ export class GuzzzleDatabase {
     //                  comment: (String, the actual comment)
     //                  likes: (Array<String> -> list of uids?) or (Int, keep list of liked comments in user DB ?)
     //}
-    async createComment(pid, uid, comment) {
-
+    async createComment(uid, pid, comment) {
+        let post = await this.getPost(pid);
+        let comments = post.comments
+        let cid = -1;
+        comments.forEach(res => {
+            cid = res.cid > cid ? res.cid : cid;
+        });
+        cid += 1;
+        let newComment = {
+            uid: uid,
+            cid: cid,
+            comment: comment,
+            likes: []
+        }
+        comments.push(newComment);
+        comments.sort((a, b) => b.likes.length - a.likes.length);
+        this.collection = this.db.collection('posts');
+        await this.collection.updateOne(
+            {
+                pid: pid
+            },
+            {
+                $set: {
+                    "comments": comments
+                }
+            }
+        );
+        return cid;
     }
 
     async getComments(pid) {
         //return the comments attribute of post
+        const post = await this.getPost(pid);
+        return post.comments;
     }
 
-    async updateComment(pid, cid, comment) {
+    async getComment(pid, cid) {
         //update comment cid on post pid
+        let post = await this.getPost(pid);
+        const comments = post.comments
+        let comment = {};
+        comments.find((o, i) => {
+            if (o.cid === cid) {
+                comment = comments[i];
+                return true; // stop searching
+            }
+        });
+        return comment;
     }
 
     async deleteComment(pid, cid) {
-        //remove comment cid on post pid
+        let post = await this.getPost(pid);
+        let comments = post.comments
+        const index = comments.findIndex(o => {
+            return o.cid === cid;
+        });
+        comments.splice(index, 1)
+        comments.sort((a, b) => b.likes.length - a.likes.length)
+        this.collection = this.db.collection('posts');
+        await this.collection.updateOne(
+            {
+                pid: pid
+            },
+            {
+                $set: {
+                    "comments": comments
+                }
+            }
+        );
+        return 1;
+    }
+
+    async commentLiked(uid, pid, cid) {
+        const comments = await this.getComments(pid);
+        let b = false
+        comments.forEach(c => {
+          if (parseInt(c.cid) === cid && c.likes.includes(uid)) {
+            b = true;
+          }
+        });
+        return {"value": b};
     }
 
     async likeComment(uid, pid, cid) {
-
+        let post = await this.getPost(pid);
+        let comments = post.comments;
+        comments.find((o, i) => {
+            if (o.cid === cid) {
+                comments[i].likes.push(uid);
+                return true; // stop searching
+            }
+        });
+        comments.sort((a, b) => b.likes.length - a.likes.length)
+        this.collection = this.db.collection('posts');
+        await this.collection.updateOne(
+            {
+                pid: pid
+            },
+            {
+                $set: {
+                    "comments": comments
+                }
+            }
+        );
+        return 1;
     }
 
     async unlikeComment(uid, pid, cid) {
-
+        let post = await this.getPost(pid);
+        let comments = post.comments;
+        comments.find((o, i) => {
+            if (o.cid === cid) {
+                let likes = comments[i].likes;
+                const index = likes.indexOf(uid);
+                likes.splice(index, 1)
+                comments[i].likes = likes;
+                return true; // stop searching
+            }
+        });
+        comments.sort((a, b) => b.likes.length - a.likes.length)
+        this.collection = this.db.collection('posts');
+        await this.collection.updateOne(
+            {
+                pid: pid
+            },
+            {
+                $set: {
+                    "comments": comments
+                }
+            }
+        );
+        return 1;
     }
 }

@@ -73,8 +73,6 @@ async function post() {
     }
 };
 
-// pid of post -> read post -> fill title, etc , for ingred for ingred in ingreds (-> call duplicate)
-
 function duplicate() {
     let container = document.getElementById("cg_ingClass");
     let p = document.createElement("p");

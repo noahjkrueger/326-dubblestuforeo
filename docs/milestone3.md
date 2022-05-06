@@ -37,7 +37,14 @@ here
 
 ### Kenneth Drewry
 
-here
+- Implemented Database calls for Like and Unlike of posts.
+    - Includes restructure of functions/calls in index.js
+    - Changed feed.js and get_guide.js to display like count correctly when updated        
+- Added Create Post button in navbar
+- Bug fixes / Error checking
+- Code cleanup
+- Wrote URL endpoints in final.md
+- Edited and Uploaded final video
 
 ### Piyush Makkapati
 

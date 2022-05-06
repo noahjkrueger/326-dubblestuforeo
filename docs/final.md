@@ -79,6 +79,52 @@ MS3 Instructions:
 
      A final up-to-date table of all the URL routes that your application supports and a short description  
      of what those routes are used for. You should also indicate any authentication and permissions on those routes.
+     - /currentuser
+        Gets the current user. User must be logged in.
+     - /login
+        Logs the user in. User must use a username and password to log in.
+     - /logout
+        Logs the user out. User must be logged in.
+     - /user_create
+        Creates a new user. Must be created using a username and password.
+     - /user
+        Gets a specific user's page. Used when clicking someone's profile.
+     - /user_update
+        Allows the user to update their password, biography, or profile image. User must be logged in and supply the password of their account.
+     - /user_delete
+        Allows the user to delete their account. The user must be logged in and must supply the password of their account.
+     - /post_create
+        Allows the user to create a new post. The user must be logged in.
+     - /post
+        Gets a specific post's page. 
+     - /post_update
+        Allows the user to update thier post. Must be logged into the account that owns the post.
+     - /post_delete
+        Allows the user to delete their post.
+     - /query
+        Gets a specific search query, shows the posts that match the query.
+     - /feed
+        Gets a users feed based on their following. The user must be logged in, otherwise the default feed will show.
+     - /like
+        Allows a user to like a specific post. User must be logged in, and not previously liked the post.
+     - /unlike
+        Allows a user to unlike a specific post. The user must be logged in, and must have liked the post already.
+     - /follow
+        Allows a user to follow another user. The user must be logged in.
+     - /unfollow
+        Allows a user to unfollow another user. The user must be logged in.
+     - /comment
+        Allows the user to comment on a specific post. The user must be logged in.
+     - /comments_get
+        Gets the comments of a specific post.
+     - /comment_delete
+        Allows the user to delete their own comment. User must be the author of the comment and logged in.
+     - /comment_check
+        Checks if the user has liked
+     - /comment_like
+        Allows a user to like a comment. The user must be logged in.
+     - /comment_unlike
+        Allows a user to unlike a comment. The user must be logged in and have already liked the post.
 
 ## Authentication/Authorization
 All visitors of the application are able to:
@@ -189,9 +235,21 @@ In addition, post/guide pages and user pages that are owned by the user have acc
     for each team member — that is, saying who did what, for the entire project.
 
 ### Kenneth Drewry
-**TODO:**  
-
-    for each team member — that is, saying who did what, for the entire project.
+- made create_guide page
+- release for milestone 2
+- Complete overhaul of create guide page
+- Added API call to createPost when creating a new post
+- Edited createPost and updatePost APIs
+- Created and added master ingredient list to navigation bar
+- Wrote setup.md for milestone2
+- Implemented Database calls for Like and Unlike of posts.
+    - Includes restructure of functions/calls in index.js
+    - Changed feed.js and get_guide.js to display like count correctly when updated        
+- Added Create Post button in navbar
+- Bug fixes / Error checking
+- Code cleanup
+- Wrote URL endpoints in final.md
+- Edited and Uploaded final video
 
 ### Piyush Makkapati
 **TODO:**  
