@@ -67,8 +67,21 @@ export class GuzzzleDatabase {
     async deleteUser(uid) {
         this.collection = this.db.collection('users');
         //get user 
+        const user = await this.getUser(uid);
                 //Once unfollow function complete
         // unfollow following, have followers unfollow, remove posts
+        let following = user.following;
+        let followers = user.followers;
+        let posts = user.posts;
+        following.forEach(u => {
+            let result = this.unfollow(uid, u);
+        });
+        followers.forEach(u => {
+            let result = this.unfollow(u, uid);
+        });
+        posts.forEach(p => {
+            let result = this.deletePost(p);
+        });
         const result = await this.collection.deleteOne(
             {
                 uid: uid
@@ -332,12 +345,12 @@ export class GuzzzleDatabase {
         //use updateOne, $pull for each user
         let user1 = await this.getUser(uid_to);
         let user2 = await this.getUser(uid_from);
-        let arr1 = user1.following;
-        let remove1 = arr1.indexOf(user1);
-        arr1.splice(remove1, 1);
-        let arr2 = user2.followers;
-        let remove2 = arr2.indexOf(user2);
-        arr2.splice(remove2, 1);
+        // let arr1 = user1.following;
+        // let remove1 = arr1.indexOf(user1);
+        // arr1.splice(remove1, 1);
+        // let arr2 = user2.followers;
+        // let remove2 = arr2.indexOf(user2);
+        // arr2.splice(remove2, 1);
         this.collection = this.db.collection('users');
         // following array
         await this.collection.updateOne(
@@ -346,7 +359,7 @@ export class GuzzzleDatabase {
             },
             {
                 $pull: {
-                   following: remove1 
+                   following: uid_from 
                 }
             }
         );
@@ -357,7 +370,7 @@ export class GuzzzleDatabase {
             },
             {
                 $pull: {
-                    followers: remove2
+                    followers: uid_to
                 }
             }
         );
