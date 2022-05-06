@@ -351,6 +351,24 @@ export async function renderFeed(login, uid, pid, columns) {
             total_pids.push(post);
         }
     }
+
+    //helper function for related guides
+    function randThree(min, max) { 
+        let numArray = []; 
+        for(let i = 0; i < 3; i++) {
+            let num = (Math.floor(Math.random() * max) + min);
+            while (numArray.includes(num)) {
+                num = (Math.floor(Math.random() * max) + min);
+            }
+            numArray.push(num);
+        } 
+        return numArray; 
+    }
+
+    if(total_pids.length > 3) {
+        const indexes = randThree(0, total_pids.length - 1)
+        total_pids = [total_pids[indexes[0]], total_pids[indexes[1]], total_pids[indexes[2]]]
+    }
     total_pids.forEach(async function(post) {
         const related_post_info = await guzzzleAPI.readPost(post)
         const related_user_info = await guzzzleAPI.readUser(related_post_info.uid)
