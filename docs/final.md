@@ -235,9 +235,21 @@ In addition, post/guide pages and user pages that are owned by the user have acc
     for each team member — that is, saying who did what, for the entire project.
 
 ### Kenneth Drewry
-**TODO:**  
-
-    for each team member — that is, saying who did what, for the entire project.
+- made create_guide page
+- release for milestone 2
+- Complete overhaul of create guide page
+- Added API call to createPost when creating a new post
+- Edited createPost and updatePost APIs
+- Created and added master ingredient list to navigation bar
+- Wrote setup.md for milestone2
+- Implemented Database calls for Like and Unlike of posts.
+    - Includes restructure of functions/calls in index.js
+    - Changed feed.js and get_guide.js to display like count correctly when updated        
+- Added Create Post button in navbar
+- Bug fixes / Error checking
+- Code cleanup
+- Wrote URL endpoints in final.md
+- Edited and Uploaded final video
 
 ### Piyush Makkapati
 **TODO:**  
