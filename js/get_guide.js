@@ -3,64 +3,6 @@ import * as guzzzleAPI from './guzzzle-api.js'
 const column1 = document.getElementById('col1');
 const column2 = document.getElementById('col2');
 const column3 = document.getElementById('col3');
-// const content1 = [
-//     {
-//         "title": "Bloody Mary",
-//         "user": "urmom420",
-//         "pfp": "https://i.guim.co.uk/img/media/a1b7129c950433c9919f5670c92ef83aa1c682d9/55_344_1971_1183/master/1971.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=88ba2531f114b9b58b9cb2d8e723abe1",
-//         "image": "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/bloody-mary-glass-2258f4e.jpg?quality=90&resize=504,458?quality=90&webp=true&resize=504,458",
-//         "date": "03/18/2022",
-//         "stars": "4 stars",
-//         "ingredients" : ['Celery salt',
-//                             '1 lemon wedge',
-//                             '1 lime wedge',
-//                             '2 ounces vodka',
-//                             '4 ounces tomato juice',
-//                             '2 teaspoons prepared horseradish',
-//                             '2 dashes Tabasco sauce',
-//                             '2 dashes Worcestershire sauce',
-//                             '1 pinch ground black pepper',
-//                             '1 pinch smoked paprika',
-//                             'Garnished parsley sprig',
-//                             'Garnished green olives',
-//                             'Garnished lime wedge',
-//                             'Garnished celery stalk']
-//     }
-// ]
-
-// const content2 = [
-//     {
-//         "Instructions" : [  '1) Pour some celery salt onto a small plate.',
-//                             '2) Rub the juicy side of the lemon or lime wedge along the lip of a pint glass.',
-//                             '3) Roll the outer edge of the glass in celery salt until fully coated, then fill the glass with ice and set aside.',
-//                             '4) Squeeze the lemon and lime wedges into a shaker and drop them in.',
-//                             '5) Add the vodka, tomato juice, horseradish, Tabasco, Worcestershire, black pepper, paprika, plus a pinch of celery salt along with ice and shake gently.',
-//                             '6) Strain into the prepared glass.',
-//                             '7) Garnish with parsley sprig, 2 speared green olives, a lime wedge and a celery stalk (optional).'
-//         ]
-//     }
-// ]
-
-// const content3 = [
-//     {
-//         "title": "Vampire Juice",
-//         "user": "urmom421",
-//         "pfp": "https://i.guim.co.uk/img/media/a1b7129c950433c9919f5670c92ef83aa1c682d9/55_344_1971_1183/master/1971.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=88ba2531f114b9b58b9cb2d8e723abe1",
-//         "image": "https://insanelygoodrecipes.com/wp-content/uploads/2021/09/Red-Negroni-Cocktail-with-Ice-800x530.jpg"
-//     },
-//     {
-//         "title": "Jim Carry",
-//         "user": "urmom422",
-//         "pfp": "https://i.guim.co.uk/img/media/a1b7129c950433c9919f5670c92ef83aa1c682d9/55_344_1971_1183/master/1971.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=88ba2531f114b9b58b9cb2d8e723abe1",
-//         "image": "https://createyum.com/wp-content/uploads/2020/05/alcohol-drinks-caribbean-rum-punch-83.jpg"
-//     },
-//     {
-//         "title": "Mary O' Death",
-//         "user": "urmom423",
-//         "pfp": "https://i.guim.co.uk/img/media/a1b7129c950433c9919f5670c92ef83aa1c682d9/55_344_1971_1183/master/1971.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=88ba2531f114b9b58b9cb2d8e723abe1",
-//         "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiEndHkjFmusKIlYoQEuLAfh7DM44Xu_pPxQ&usqp=CAU"
-//     }
-// ]
 
 const appendChildren = function (element, children) {
     children.forEach(child => {
@@ -83,7 +25,7 @@ const cookie_login_uid = await guzzzleAPI.currentUser();
 const cookie_uid = cookie_guide_info.uid;   
 const cookie_pid = cookie_guide_info.pid;
 
-renderFeed(cookie_login_uid, cookie_uid, cookie_pid, [column1, column2, column3]);
+renderFeed(cookie_login_uid, cookie_uid, parseInt(cookie_pid), [column1, column2, column3]);
 
 export async function renderFeed(login, uid, pid, columns) {
     let posting_user = await guzzzleAPI.readUser(uid);
@@ -93,8 +35,6 @@ export async function renderFeed(login, uid, pid, columns) {
     const col1 = columns[0];
     const col2 = columns[1];
     const col3 = columns[2];
-
-// content1.forEach(col1_content => {
 
     //first row in col1
     let row_1 = createElement("div");
@@ -114,7 +54,8 @@ export async function renderFeed(login, uid, pid, columns) {
     appendChildren(user_name, [user]);
     row_1.style.marginTop = "2%";
     appendChildren(row_1, [user_pfp, user_name]);
-    //display iff logged in user matches posting user
+
+    //display if logged in user matches posting user
     if (log != null && log.uid === posting_user.uid) {
         let editButton = createElement('button');
         editButton.innerText = "Edit Post";
@@ -152,8 +93,6 @@ export async function renderFeed(login, uid, pid, columns) {
     appendChildren(title, [name]);
     appendChildren(row_2, [title]);
 
-
-
     //Third row in col1
     let row_3 = createElement("div");
 
@@ -163,26 +102,21 @@ export async function renderFeed(login, uid, pid, columns) {
     guide_img.src = user_post.image;
     appendChildren(row_3, [guide_img]);
 
-
-
     //Fourth row in col1
     let row_4 = createElement("div");
 
     //create likes and date
     let like = createElement("span");
     addClasses(like, ["btn", "post-options-guide-button", "post-options-guide-like", "stars_Guide"]);
-
     let like_icon = createElement("i");
-    if (!log.hasOwnProperty("error") && log.likes.includes(String(user_post.pid))) {
+    if (!log.hasOwnProperty("error") && log.likes.includes((pid))) {
         addClasses(like_icon, ["bi-balloon-heart-fill", "icon"]);
     }
     else {
         addClasses(like_icon, ["bi-balloon-heart", "icon"]);
     }
-
     let like_text = createElement("span");
     like_text.innerText = user_post.likes;
-
     like.addEventListener("click", async function(event) {
         if (log.hasOwnProperty("error")) {
             window.location.href="../guzzzlegate";
@@ -191,17 +125,15 @@ export async function renderFeed(login, uid, pid, columns) {
             like_icon.classList.remove("bi-balloon-heart");
             addClasses(like_icon, ["bi-balloon-heart-fill"]);
             //like post
-            user_post.likes = user_post.likes + 1;
-            like_text.innerText = user_post.likes;
-            await guzzzleAPI.likePost(login.uid, pid);
+            let post = await guzzzleAPI.likePost(pid);
+            like_text.innerText = post.likes;
         }
         else {
             like_icon.classList.remove("bi-balloon-heart-fill")
             //unlike post
             addClasses(like_icon, ["bi-balloon-heart"]);
-            user_post.likes = user_post.likes - 1;
-            like_text.innerText = user_post.likes;
-            await guzzzleAPI.unlikePost(login.uid, pid);
+            let post = await guzzzleAPI.unlikePost(pid);
+            like_text.innerText = post.likes;
         }
         event.preventDefault();
     });
@@ -209,8 +141,6 @@ export async function renderFeed(login, uid, pid, columns) {
     let date = createElement("span");
     date.innerText = user_post.date;
     appendChildren(row_4, [like, date]);
-
-
 
     //Fifth row in col1
     let row_5 = createElement("div");
@@ -226,8 +156,10 @@ export async function renderFeed(login, uid, pid, columns) {
     appendChildren(tr1, [th1]);
     appendChildren(thead, [tr1]);
     let tbody = createElement("tbody");
-    let ingred = user_post.ingredient_keys;
-
+    let ingred = user_post.ingredients;
+    if (ingred === null) {
+        ingred = []
+    }
     ingred.forEach(ing => {
         let tr = createElement("tr");
         let th = createElement("th");
@@ -236,16 +168,9 @@ export async function renderFeed(login, uid, pid, columns) {
         appendChildren(tr, [th]);
         appendChildren(tbody, [tr]);
     });
-
     appendChildren(tab, [thead, tbody]);
     appendChildren(row_5, [tab]);
-
     appendChildren(col1, [row_1, row_2, row_3, row_4, row_5]);
-// });
-
-
-
-// content2.forEach(col2_content => {
 
     // First row in col2
     let row_10 = createElement("div");
@@ -258,7 +183,9 @@ export async function renderFeed(login, uid, pid, columns) {
     //Instructions body
     let instruc = createElement("div")
     let steps = [user_post.instructions]
-
+    if (steps[0] == null) {
+        steps = []
+    }
     steps.forEach(step => {
         let s = createElement("p");
         s.innerText = step
@@ -275,10 +202,8 @@ export async function renderFeed(login, uid, pid, columns) {
     c.innerText = "Comments";
     addClasses(c, ["instruc_Header"]);
     appendChildren(row_20, [c]);
-    
     let section = createElement("div");
     addClasses(section, ["scrollable"]);
-
     let comments = await guzzzleAPI.getComments(pid);
     comments.forEach(async function(comment) {
         let wrapper = createElement("span");
@@ -288,120 +213,162 @@ export async function renderFeed(login, uid, pid, columns) {
         let comm = createElement("p");
         user.innerText = String(comment.uid) + ': ';
         comm.innerText = comment.comment;
-        if (login === comment.uid) {
+        if (log.uid === comment.uid) {
             let button1 = createElement("button")
             button1.setAttribute("type", "submit");
             button1.innerText = "Delete"
             button1.addEventListener('click', async function(event) {
                 //implement delete feature
                 wrapper.innerHTML = '';
-                await guzzzleAPI.commentDelete(login, pid, comment.comment);
+                await guzzzleAPI.commentDelete(pid, comment.cid);
             });
-            appendChildren(content, [user, comm, button1]);
+            let like_count = createElement("span");
+            const newComment = await guzzzleAPI.getComment(pid, comment.cid);
+            const like_array = newComment.likes;
+            like_count.innerText = "    Likes: " + like_array.length;
+            addClasses(like_count, ["bold_like"]);
+            appendChildren(content, [user, comm, button1, like_count]);
             let divide = createElement("hr");
             appendChildren(wrapper, [content, divide])
         }
         else {
             let button2 = createElement("button");
             button2.setAttribute("type", "submit");
-            let temp = await guzzzleAPI.checkCommentLike(login, comment.uid, pid, comment.comment);
-            let liked = temp.value;
+            let like_count = createElement("span");
+            like_count.innerText = "    " + comment.likes.length
+            let liked = await guzzzleAPI.checkCommentLike(pid, comment.cid);
             if (liked) {
-                button2.innerText = "Liked" 
+                button2.innerText = "Unlike" 
+                addClasses(like_count, ["bold_like"]);
             }
             else {
                 button2.innerText = "Like"
+                like_count.classList.remove("bold_like")
             }
             button2.addEventListener('click', async function(event) {
                 //implement like feature
-                if (button2.innerText === "Liked") {
-                    button2.innerText = "Like"
-                    await guzzzleAPI.unlikeComment(login, comment.uid, pid, comment.comment)
+                if (button2.innerText === "Unlike") {
+                    button2.innerText = "Like";
+                    await guzzzleAPI.unlikeComment(pid, comment.cid);
+                    content.removeChild(like_count)
+                    like_count = createElement("span");
+                    const newComment = await guzzzleAPI.getComment(pid, comment.cid);
+                    console.log(newComment)
+                    const like_array = newComment.likes;
+                    like_count.innerText = "    " + like_array.length;
+                    appendChildren(content, [like_count])
                 } else {
-                    button2.innerText = "Liked"
-                    await guzzzleAPI.likeComment(login, comment.uid, pid, comment.comment)
+                    button2.innerText = "Unlike";
+                    await guzzzleAPI.likeComment(pid, comment.cid);
+                    content.removeChild(like_count)
+                    like_count = createElement("span");
+                    addClasses(like_count, ["bold_like"]);
+                    const newComment = await guzzzleAPI.getComment(pid, comment.cid);
+                    console.log(newComment)
+                    const like_array = newComment.likes;
+                    like_count.innerText = "    " + like_array.length;
+                    appendChildren(content, [like_count])
                 }
             });
-            appendChildren(content, [user, comm, button2]);
+            appendChildren(content, [user, comm, button2, like_count]);
             let divide = createElement("hr");
             appendChildren(wrapper, [content, divide])
         }
         appendChildren(section, [wrapper]);
     });
-
     appendChildren(row_20, [section]);
 
-    let input = createElement("input")
-    input.setAttribute("type", "text");
-    input.setAttribute("placeholder", "Leave a Comment Here!");
-    addClasses(input, ["comments_Guide"]);
-    appendChildren(row_20, [input]);
+    //If Logged in User same as Post Author, the comment functionality does not appear
+    if(log.uid != uid) {
+        let input = createElement("input")
+        input.setAttribute("type", "text");
+        input.setAttribute("placeholder", "Leave a Comment Here!");
+        addClasses(input, ["comments_Guide"]);
+        appendChildren(row_20, [input]);
+        let button = createElement("button")
+        button.setAttribute("type", "submit");
+        button.innerText = "Comment"
+        button.addEventListener("click", async function(event) {
+            if (log.hasOwnProperty("error")) {
+                window.location.href="../guzzzlegate";
+            }
+            else if (input.value != "") {
+                const message = input.value
+                let wrapper = createElement("span")
+                let comment = createElement("div");
+                let user = createElement("b");
+                addClasses(user, ["comments_User"]);
+                let com = createElement("p");
+                user.innerText = String(log.uid) + ': ';
+                com.innerText = input.value;
+                let del = createElement("button")
+                del.setAttribute("type", "submit");
+                del.innerText = "Delete"
+                const cid = await guzzzleAPI.commentPost(pid, message);
+                let like_count = createElement("span");
+                const newComment = await guzzzleAPI.getComment(pid, cid);
+                const like_array = newComment.likes;
+                like_count.innerText = "    Likes: " + like_array.length;
+                addClasses(like_count, ["bold_like"]);
+                let divide = createElement("hr");
+                appendChildren(comment, [user, com, del, like_count]);
+                appendChildren(wrapper, [comment, divide])
+                appendChildren(section, [wrapper])
+                input.value = "";
+                del.addEventListener('click', async function(event) {
+                    // delete comment
+                    wrapper.innerHTML = ''
+                    await guzzzleAPI.commentDelete(pid, cid)
+                });
+            }
+        });
+        appendChildren(row_20, [button]);
+    }
     appendChildren(col2, [row_20]);
-
-    let button = createElement("button")
-    button.setAttribute("type", "submit");
-    button.innerText = "Comment"
-    button.addEventListener("click", async function(event) {
-        if (log.hasOwnProperty("error")) {
-            window.location.href="../guzzzlegate";
-        }
-        else if (input.value != "" && login != uid) {
-            const message = input.value
-            let wrapper = createElement("span")
-            let comment = createElement("div");
-            let user = createElement("b");
-            addClasses(user, ["comments_User"]);
-            let com = createElement("p");
-            user.innerText = String(login) + ': ';
-            com.innerText = input.value;
-            let del = createElement("button")
-            del.setAttribute("type", "submit");
-            del.innerText = "Delete"
-            let divide = createElement("hr");
-            appendChildren(comment, [user, com, del]);
-            appendChildren(wrapper, [comment, divide])
-            appendChildren(section, [wrapper])
-            del.addEventListener('click', async function(event) {
-                // delete comment
-                wrapper.innerHTML = ''
-                await guzzzleAPI.commentDelete(login, pid, message)
-            });
-            await guzzzleAPI.commentPost(login, pid, message)
-            input.value = "";
-        }
-    });
-
-    appendChildren(row_20, [button]);
-
     let h2 = createElement("h3");
     h2.innerText = "Related Guides";
     addClasses(h2, ["instruc_Header"]);
     appendChildren(col3, [h2]);
-
-
-    let login_following_pids = await guzzzleAPI.getFeed(login); // check to make sure users current post not here and duplicates
+    let login_following_pids = await guzzzleAPI.getFeed(log.uid); // check to make sure users current post not here and duplicates
     if (login_following_pids.hasOwnProperty("error")) {
-        login_following_pids = await guzzzleAPI.readOtherPosts(uid, pid);
+        login_following_pids = await guzzzleAPI.readOtherPosts(pid);
     }
     let user_following_pids = await guzzzleAPI.getFeed(uid); // check to make sure login's posts not here and duplicates
-    let other_user_pids = await guzzzleAPI.readOtherPosts(uid, pid); // already filtered current post, check for duplicates
+    let other_user_pids = await guzzzleAPI.readOtherPosts(pid); // already filtered current post, check for duplicates
     let total_pids = [];
     for(const post of login_following_pids) {
-        if (post != pid) {
-            total_pids.push(post);
+        if (post.pid != pid) {
+            total_pids.push(post.pid);
         }
     }
     for(const post of user_following_pids) {
-        if (!post in total_pids && !post in log.posts) {
-            total_pids.push(post);
+        if (!(post.pid in total_pids) && !(post.pid in log.posts)) {
+            total_pids.push(post.pid);
         }
     }
     for(const post of other_user_pids) {
-        if (!post in total_pids) {
+        if (!(post in total_pids)) {
             total_pids.push(post);
         }
     }
 
+    //helper function for related guides
+    function randThree(min, max) { 
+        let numArray = []; 
+        for(let i = 0; i < 3; i++) {
+            let num = (Math.floor(Math.random() * max) + min);
+            while (numArray.includes(num)) {
+                num = (Math.floor(Math.random() * max) + min);
+            }
+            numArray.push(num);
+        } 
+        return numArray; 
+    }
+
+    if(total_pids.length > 3) {
+        const indexes = randThree(0, total_pids.length - 1)
+        total_pids = [total_pids[indexes[0]], total_pids[indexes[1]], total_pids[indexes[2]]]
+    }
     total_pids.forEach(async function(post) {
         const related_post_info = await guzzzleAPI.readPost(post)
         const related_user_info = await guzzzleAPI.readUser(related_post_info.uid)
@@ -420,20 +387,16 @@ export async function renderFeed(login, uid, pid, columns) {
         related_user.innerText = related_user_info.uid;
         appendChildren(related_user_name, [related_user]);
         appendChildren(p, [related_user_pfp, related_user_name]);
-
         let related_title = createElement("span");
         addClasses(related_title, ["guide_Title"]);
         let related_name = createElement("h3");
         related_name.innerText = related_post_info.title;
         appendChildren(related_title, [related_name]);
         appendChildren(p, [related_title]);
-
         let related_guide_img = createElement("img");
         addClasses(related_guide_img, ["img_Related"]);
         related_guide_img.src = related_post_info.image;
         appendChildren(p, [related_guide_img]);
-
         appendChildren(col3, [p]);
     });
-    
 }
