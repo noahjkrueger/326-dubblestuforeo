@@ -627,15 +627,17 @@ In addition, post/guide pages and user pages that are owned by the user have acc
 - Edited and Uploaded final video
 
 ### Piyush Makkapati
-**TODO:**  
-
-    for each team member — that is, saying who did what, for the entire project.
+- made login page
+    - Login and Signup work # need a proper email to sign up
+- Used API to correctly display the right profile when view profile is clicked
+- Got rid of the hard coded profile html and turned it into JS
+- Deployed app into Heroku originally
+- Implemented Database calls for Follow and Unfollow of users. 
+    - Changed around the function/parameters in index.js for manageFollow
+    - Needed to change around the following/ unfollowing section in feed.js to correctly follow and unfollow an user.
+- Couple small bug fixes here and there for the db file.
+- Deployed the fully merged branched onto Heroku to keep the website up to date
+- Wrote the conclusion in final.md 
 
 ## Conclusion (TODO)
-**TODO:** Write the conclusion.  
-MS3 Instructions:  
-
-     A conclusion describing your team’s experience in working on this project.  
-     This should include what you learned through the design and implementation process,
-     the difficulties you encountered, what your team would have liked to know before starting the project  
-     that would have helped you later, and any other technical hurdles that your team encountered.
+    Our team's experience in working on this project has been very productive. Every member of the team communicates with another easily without any problems. We believe that we efficiently used the concepts taught in class to implement our website the way we wanted it to function. We had difficulties with keeping the passwords of users safe, rendering the pages, cookies, and some API/Mongodb functionality at first. We worked together as a team and got rid of the issues. Knowing about Heroku and MongoDB before starting the project would have helped a decent amount because these were the things that needed to be learned quickly in order to connect everything together. It would have been better to know ahead of time so that the implementation could be same throughout instead of changing it at the end.

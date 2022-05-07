@@ -1,8 +1,8 @@
-# 326-dubblestuforeo  
-## guzzzle.
-### Team Overview  
+# 326-dubblestuforeo - guzzzle.
+
+## Team Overview  
 Noah Krueger - noahjkrueger  
-Diganta Mainali - D-Mainali
+Diganta Mainali - D-Mainali  
 Kenneth Drewry - kendrewry  
 Piyush Makkapati - piyushm2001
 
@@ -68,8 +68,29 @@ Piyush Makkapati - piyushm2001
 
 here
 
-### Database Counters
-#### Users
+### Kenneth Drewry
+
+- Implemented Database calls for Like and Unlike of posts.
+    - Includes restructure of functions/calls in index.js
+    - Changed feed.js and get_guide.js to display like count correctly when updated        
+- Added Create Post button in navbar
+- Bug fixes / Error checking
+- Code cleanup
+- Wrote URL endpoints in final.md
+- Edited and Uploaded final video
+
+### Piyush Makkapati
+
+- Implemented Database calls for Follow and Unfollow of users. 
+    - Changed around the function/parameters in index.js for manageFollow
+    - Needed to change around the following/ unfollowing section in feed.js to correctly follow and unfollow an user.
+- Couple small bug fixes here and there for the db file.
+- Deployed the fully merged branched onto Heroku 
+- Wrote the conclusion in final.md 
+
+## Database Cluster
+
+### Users Collection
     document user {
         _id: <ObjectID>,
         uid: String,
@@ -82,7 +103,8 @@ here
         followers: Array<String>, 
         likes: Array<Integer>
     }
-#### Posts
+
+### Posts Collection
     document post {
         pid: Integer,
         uid: String,
@@ -96,4 +118,3 @@ here
         description : String, 
         comments: Array<Object>, 
     }
-    
