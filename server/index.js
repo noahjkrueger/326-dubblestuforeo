@@ -220,9 +220,8 @@ class GuzzzleServer {
         const pid = request.body.pid;
         const body = request.body;
         const post = await self.db.getPost(pid);
-        console.log(post);
         if (post.uid != request.session.uid) {
-          response.status(400).json({erroe: "You must own this post to update."})
+          response.status(400).json({error: "You must own this post to update."})
         }
         else {
           const result = await self.db.updatePost(
@@ -314,7 +313,7 @@ class GuzzzleServer {
       try {
         const not_available = await self.db.getUser(uid);
         if (!not_available) {
-          response.status(400).json({error: `Must be logged in to post`});
+          response.status(400).json({error: `Must be logged in to like/unlike`});
         } else {
           if(like) {
             let post = await self.db.likePost(uid, pid);
