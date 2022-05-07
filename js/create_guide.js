@@ -31,8 +31,13 @@ async function post() {
         let ing = document.getElementById("cg_ing" + i);
         let amount = document.getElementById("cg_amount" + i);
         let brand = document.getElementById("cg_brand" + i);
-        ingredient_keys.push(ing.value);
-        ingredientStr.push(brand.value + " " + ing.value + " " + amount.value);
+        let other = document.getElementById("otherSelect" + i);
+        if(other == null) {
+            ingredient_keys.push(ing.value);
+            ingredientStr.push(brand.value + " " + ing.value + " " + amount.value);
+        } else {
+            ingredientStr.push(brand.value + " " + ing.value + " " + amount.value);
+        }
     }
     const toBase64 = file => new Promise((resolve, reject) => {
         const reader = new FileReader();
