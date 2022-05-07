@@ -60,7 +60,7 @@ const data = [
     },
     {
         "icon": "/images/vegtable.png",
-        "type": "Vegtable",
+        "type": "Vegetable",
         "list": [
             "Carrot",
             "Celery",
