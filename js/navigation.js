@@ -177,12 +177,13 @@ await fetch(navbar_src).then((response) => response.text()).then((html) => {
     const searchBox = document.getElementById("searchBox");
     const serachBoxSubmit = document.getElementById("serachBoxSubmit");
     serachBoxSubmit.addEventListener("click", async function (event){
+        event.preventDefault();
         const result = await guzzzleAPI.readUser(searchBox.value);
         if (result.hasOwnProperty("error")) {
             window.alert(result.error);
         }
         else {
-            window.localStorage.setItem("user-info", JSON.stringify({uid: result.uid}));
+            window.localStorage.setItem("user-info", JSON.stringify({uid: searchBox.value}));
             window.location.href = "../guzzzler";
         }
     });
