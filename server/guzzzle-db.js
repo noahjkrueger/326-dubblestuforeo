@@ -66,22 +66,19 @@ export class GuzzzleDatabase {
 
     async deleteUser(uid) {
         this.collection = this.db.collection('users');
-        //get user 
         const user = await this.getUser(uid);
-                //Once unfollow function complete
-        // unfollow following, have followers unfollow, remove posts
         let following = user.following;
         let followers = user.followers;
         let posts = user.posts;
-        following.forEach(u => {
-            let result = this.unfollow(uid, u);
-        });
-        followers.forEach(u => {
-            let result = this.unfollow(u, uid);
-        });
-        posts.forEach(p => {
-            let result = this.deletePost(p);
-        });
+        for (const u of following) {
+            await this.unfollow(uid, u);
+        }
+        for (const u of followers) {
+            await this.unfollow(u, uid);
+        }
+        for (const p of posts) {
+            await this.deletePost(p);
+        }
         const result = await this.collection.deleteOne(
             {
                 uid: uid
@@ -91,8 +88,6 @@ export class GuzzzleDatabase {
     }
 
     async getPost(pid) {
-        // console.log(pid)
-        // console.log(typeof(pid))
         this.collection = this.db.collection('posts');
         const result = await this.collection.findOne(
             {
@@ -251,7 +246,7 @@ export class GuzzzleDatabase {
     }
 
     async defaultFeed() {
-        const default_follow = ["noah", "hi"]; //change this to our accounts
+        const default_follow = ["noah", "diggy", "piyush", "kenny"];
         return this.feedHelper(default_follow);
     }
 
@@ -318,11 +313,6 @@ export class GuzzzleDatabase {
     }
 
     async follow(uid_to, uid_from) {
-        //update uid_to follow list
-        //update uid_from following list
-        //use updateOne, $push for each user
-        let user1 = await this.getUser(uid_to);
-        let user2 = await this.getUser(uid_from);
         this.collection = this.db.collection('users');
         // following array
         await this.collection.updateOne(
@@ -350,10 +340,6 @@ export class GuzzzleDatabase {
     }
 
     async unfollow(uid_to, uid_from) {
-        //reverse of follow
-        //use updateOne, $pull for each user
-        let user1 = await this.getUser(uid_to);
-        let user2 = await this.getUser(uid_from);
         this.collection = this.db.collection('users');
         // following array
         await this.collection.updateOne(
@@ -380,12 +366,6 @@ export class GuzzzleDatabase {
         return await this.getUser(uid_from);
     }
 
-    //Should probably restructure the commments. Include a comment ID (cid) for each comment obj within a post.
-    //comment object = {uid: (who posted), 
-    //                  cid: (comment ID - see createPost for getting new cid (keep in mind this is nested))
-    //                  comment: (String, the actual comment)
-    //                  likes: (Array<String> -> list of uids?) or (Int, keep list of liked comments in user DB ?)
-    //}
     async createComment(uid, pid, comment) {
         let post = await this.getPost(pid);
         let comments = post.comments
