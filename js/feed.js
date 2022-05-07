@@ -61,9 +61,8 @@ export async function renderFeed(post_objects, element) {
                 follow_text.innerText = "Follow";
             }
             //add event listener for following from feed
-            const cookie_uid = this_user.uid;
             follow_bar.addEventListener("click", async function(event) {
-                if (cookie_uid === null) {
+                if (this_user === null) {
                     window.location.href = "../guzzzlegate";
                 }
                 else if (follow_icon.classList.contains("bi-person-plus")) {
@@ -71,14 +70,14 @@ export async function renderFeed(post_objects, element) {
                     addClasses(follow_icon, ["bi-person-check-fill"]);
                     //follow user
                     follow_text.innerText = "Following";
-                    await guzzzleAPI.followUser(cookie_uid, posting_user.uid);
+                    await guzzzleAPI.followUser(this_user.uid, posting_user.uid);
                 }
                 else {
                     follow_icon.classList.remove("bi-person-check-fill");
                     addClasses(follow_icon, ["bi-person-plus"]);
                     //unfollow user
                     follow_text.innerText = "Follow";
-                    await guzzzleAPI.unfollowUser(cookie_uid, posting_user.uid);
+                    await guzzzleAPI.unfollowUser(this_user.uid, posting_user.uid);
                 }
                 event.preventDefault();
             });
