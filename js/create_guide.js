@@ -1,6 +1,7 @@
 import * as guzzzleAPI from './guzzzle-api.js'
 let ingredientCount = 1;
 const ingType = ['Booze', 'Juice', 'Garnish', 'Vegetable', 'Fruit'];
+let otherSelect = false;
 
 const postButton = document.getElementById("cg_postbutton");
 const title = document.getElementById("cg_title");
@@ -96,15 +97,28 @@ function duplicate() {
     cloneAmount.value = '';
     parent.appendChild(cloneAmount);
     //cg_ings
-    let originalIngs = document.getElementById('cg_ing' + ingredientCount);
-    let cloneIngs = originalIngs.cloneNode(false);
-    cloneIngs.id = "cg_ing" + (ingredientCount + 1);
-    cloneIngs.value = '';
-    cloneIngs.disabled = true;
-    parent.appendChild(cloneIngs);
+    if(otherSelect) {
+        otherSelect = false;
+        let originalIngs = document.getElementById('cg_ing' + (ingredientCount - 1));
+        let cloneIngs = originalIngs.cloneNode(false);
+        cloneIngs.id = "cg_ing" + (ingredientCount + 1);
+        cloneIngs.value = '';
+        cloneIngs.disabled = true;
+        parent.appendChild(cloneIngs);
 
-    p.appendChild(parent);
-    container.appendChild(p);
+        p.appendChild(parent);
+        container.appendChild(p);
+    } else {
+        let originalIngs = document.getElementById('cg_ing' + ingredientCount);
+        let cloneIngs = originalIngs.cloneNode(false);
+        cloneIngs.id = "cg_ing" + (ingredientCount + 1);
+        cloneIngs.value = '';
+        cloneIngs.disabled = true;
+        parent.appendChild(cloneIngs);
+
+        p.appendChild(parent);
+        container.appendChild(p);
+    }
 
     ingredientCount += 1;
     document.getElementById("cg_type" + ingredientCount).addEventListener("change", ingredientType);
@@ -183,7 +197,9 @@ function ingredientType() {
             select.appendChild(option);
         }
     } else {
+        otherSelect = true;
         let oth = document.createElement("other");
+        oth.id = "otherSelect" + String(ingredientCount);
         oth.innerHTML = "<input type='text' id='cg_other' placeholder='Specify ingredient' class='cg_amount'></input>"
         document.getElementById("cg_ing" + ingredientCount).replaceWith(oth);
     }
