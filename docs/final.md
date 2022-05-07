@@ -20,28 +20,40 @@ Piyush Makkapati - piyushm2001
 
 ## User Interface
 
-LOGIN AND SIGNUP PAGE
-![img](screenshots/Login-Signup_Page.png)
+### LOGIN AND SIGNUP PAGE
+
+![login/signup](screenshots/Login-Signup_Page.png)
+
 This is the login screen, where users can sign up and log in using their newly created username and password.
 
-PROFILE PAGE
-![img](screenshots/Profile_page.png)
+### PROFILE PAGE
+
+![profile](screenshots/Profile_page.png)
+
 This is an example of a user profile, which consists of profile picture, username, a biography about the user and a stream of all guides the user has ever made and posted.
 
-FEED PAGE
-![img](screenshots/Feed_page.png)
+### FEED PAGE
+
+![feed](screenshots/Feed_page.png)
+
 This is a sample of the main feed, made up of posts that you can comment on, like and users you can follow. The feed is primarily based off of the users you follow, and you can view each post in the feed.
 
-NAVIGATION PAGE
-![img](screenshots/Navigation_Page.png)
+### NAVIGATION PAGE
+
+![navigation](screenshots/Navigation_Page.png)
+
 This is a built-in interface meant to filter your feed page by 5 categories of ingredients: Booze, Juice, Fruit, Vegetable and Garnish. Filtering based on the various types of these main 5 groups will make it so the feed will only show you posts whoich contain the ingredients you selected. One can also search for a specific user if they so desire.
 
-CREATE AND EDIT POST PAGE
-![img](screenshots/Create-Edit_Post_page.png)
+### CREATE AND EDIT POST PAGE
+
+![create/modify post](screenshots/Create-Edit_Post_page.png)
+
 This is the form to fill out if you want to make a post about a recipe. You can post the guides for other users to interact with it. This is also the screen which will be presented if you choose to edit an existing guide.
 
-GUIDE PAGE
-![img](screenshots/Guide_page.png)
+### GUIDE PAGE
+
+![guide](screenshots/Guide_page.png)
+
 This is the guide page for a specific example post, you can add comments, delete comments, like comments, like the post itself. Follow the ingredients and instructions to make the drink or browse through related guides.
 
 
