@@ -2,7 +2,7 @@
 
 ### UMass CS326 Final Project - Spring 2022
 
-### guzzzle.
+### [guzzzle.](https://guzzzle.herokuapp.com/)
 
 ## Overview  
 Our application is called **guzzzle.** (period included). It is *our* take on a social media platform, where users are able to connect 
@@ -18,13 +18,7 @@ Diganta Mainali - D-Mainali
 Kenneth Drewry - kendrewry  
 Piyush Makkapati - piyushm2001
 
-## User Interface (TODO)
-**TODO:** here, put screenshot examples of each page and describe the interface.    
-MS3 Instructions:  
-
-    A final up-to-date list/table describing your application’s user interface.  
-    This should include the name of the UI view and its purpose.  
-    You should include a screenshot of each of your UI views.
+## User Interface
 
 LOGIN AND SIGNUP PAGE
 ![img](screenshots/Login-Signup_Page.png)
@@ -52,14 +46,10 @@ This is the guide page for a specific example post, you can add comments, delete
 
 
 ## APIs (TODO)
-**TODO:** Once the API documentation section is rewritten/reworked, paste it here (reformat it to fit here too !)  
-MS3 Instructions:  
 
-    A final up-to-date list/table describing your application’s API
+### Users
 
-
-#### Users
-##### Login
+#### Login
     guzzzleAPI.login(uid, password)
 Will send a GET request to the server to login.
 If the UID does not exist, the server will respond with status 404 and a message that UID does not exist.
@@ -68,18 +58,18 @@ This function saves the uid used to login as the session's uidand returns the us
 Any other error leads to a 500 error response.
 If successful, a 200 status response is returned
 
-##### Logout
+#### Logout
     guzzzleAPI.logout()
 Will send a GET request to the server to logout.
 The session is destroyed and a 200 success response is returned
 
-##### Get Current User
+#### Get Current User
     guzzzleAPI.currentUser()
 Will send a GET request to the server.
 The server will access the current session's uid (also known as the logged in user) and makes a call to get the user from the database and returns the user object corresponding to the session's uid with a 200 status response.
 Any other error leads to a 500 error response.
 
-##### Create a User
+#### Create a User
     guzzzleAPI.createUser(uid, email, password, pfp)
 Will send a POST request to the server to create an account.
 If the UID is already in use, the server will respond with status 400 and a message that UID is already taken.
@@ -97,7 +87,7 @@ A user object includes:
 This function returns the user object as it is stored in the database with a 200 status response is returned
 Any other error leads to a 500 error response.
 
-##### Read a User
+#### Read a User
     guzzzleAPI.readUser(uid)
 Will send a GET request to the server to get an account.
 If the UID does not exist, the server will respond with status 404 and a message that UID does not exist.
@@ -115,7 +105,7 @@ A user object includes:
 This function returns the user object as it is stored in the database with a 200 status response.
 Any other error leads to a 500 error response.
 
-##### Update a User
+#### Update a User
     guzzzleAPI.updateUser(password, newPassword, newProfileImage, newBiography)
 Will send a PUT request to the server to update an account.
 The server will access the current session's uid.
@@ -128,7 +118,7 @@ This function returns the user object that was updated as it is stored in the da
 All of these fields update on function call, so make sure to pass in all of them! (pass in the original of each if do not wish to update)
 Any other error leads to a 500 error response.
 
-##### Delete a User
+#### Delete a User
     guzzzleAPI.deleteUser(password)
 Will send a DELETE request to the server to remove an account.
 The server will access the current session's uid.
@@ -139,7 +129,7 @@ This will be done by calling the next 2 API calls, followUser and unfollowUser
 This function responds with status 200 and a message that the deletion was successful.
 Any other error leads to a 500 error response.
 
-##### Follow a User
+#### Follow a User
     guzzzleAPI.followUser(uid_to, uid_from)
 Will send a PUT request to the server to update both the following and followers lists of the two accounts.
 If the password is not correct or the result from the database is null, the server will respond with status 400 error message.
@@ -150,7 +140,7 @@ Otherwise, the two uid's following and followers list be updated:
 This function returns the followers list of the user object corresponding to uid_from with a 200 status response.
 Any other error leads to a 500 error response.
 
-##### Unfollow a User
+#### Unfollow a User
     guzzzleAPI.unfollowUser(uid_from, uid_to)
 Will send a PUT request to the server to update both the following and followers lists of the two accounts.
 If the password is not correct or the result from the database is null, the server will respond with status 400 error message.
@@ -161,7 +151,7 @@ Otherwise, the two uid's following and followers list be updated:
 This function returns the user object corresponding to uid_from with a 200 status response.
 Any other error leads to a 500 error response.
 
-##### Getting a User Feed
+#### Getting a User Feed
     guzzzleAPI.getFeed()
 The server will access the current session's uid and get the user that corresponds with it from the database.
 The feed is based on a user's following and returns user objects whose posts will be used as the data for the stream.
@@ -171,27 +161,12 @@ This function will thus return a list of post objects authored by users that the
 If successful, a 200 status response is returned
 Any other error leads to a 500 error response.
 
-
-#### Index
-The index is used to query posts. It is an inverted index that maps ingredients to posts. This data structure is modified by functions under the 'Posts' section.
-
-##### Querying the Index
-    guzzzleAPI.queryPosts(ingredients)
-Will send a GET request to the server with a list of ingredients as a parameter.
-When passed in a list of ingredients, this function will accumulate posts under each ingredient index. 
-This function returns a object with PID keys mapping to integers. The higher the integer, the more frequent the post
-showed up within the index with respect to the ingredients passed in. This enables one to extract PIDs that are most
-relevant to the query, then use those PIDs to retrive posts (see "Read a Post").
-If there are no matching ingredients, it will respond in a 404 status error, any other error a response status of 500.
-If successful, a 200 status response is returned.
-
-
-#### Posts
-##### A Note about ingredient_keys
+### Posts
+#### A Note about ingredient_keys
 ingredient_keys is an array stored in a post object. These are used to index posts for querying. They do not include specific brands or measurements.
 For example, if a post included 'Tito's vodka', the ingredient key should be 'Vodka'. Same goes for other ingredients. If an ingredient is not listed (aka niche ingredients), please do not include it as it will not be indexed. The purpose of this is to keep the queries general and limited to the options the site offers.
 
-##### Create a Post
+#### Create a Post
     guzzzleAPI.createPost(title, image, ingredient_keys, ingredients, instructions, description)
 Will send a POST request to the server to create a post.
 The server will access the current session's uid.
@@ -213,7 +188,7 @@ ingredient_keys is used to modify the index to include the created post.
 This function returns the post object that was created as it is stored in the database with a 200 status response
 Any other error leads to a 500 error response.
 
-##### Read a Post
+#### Read a Post
     guzzzleAPI.readPost(pid)
 Will send a GET request to the server to read a post.
 If the PID does not exist, the server will respond with status 404 and a message that PID does not exist.
@@ -232,13 +207,13 @@ A post object includes:
 This function returns the post object that was searched for and retrieved from the database with a 200 status response
 Any other error leads to a 500 error response.
 
-##### Read Other Posts
+#### Read Other Posts
     guzzzleAPI.readOtherPosts(pid)
 Will send a GET request to the server to read and collect multiple posts.
 This function returns an array of pids representing posts which are posted by the same author except for the current post. This is done by retrieving post object correpsonding to the pid from the database, accessing the post objects uid, and using that uid to get a user object from database and append all of the pids in the user objects pid field except for the one passed in to a list. This list is returned with a 200 status response
 This return value is the used as one of the components that factors into the algoritm for finding related Guides for the guide page. Any error leads to a 500 error response.
 
-##### Update a Post
+#### Update a Post
     guzzzleAPI.updatePost(pid, newTitle, newImage, newIngredient_keys, newIngredients, newInstructions, newDescription)
 Will send a PUT request to the server to update a post. Post object is retrieved via pid from the database.
 If the retrieved post object's uid does not match the session's uid, the server will respond with status 400 due to the session uid not being the owner of the post.
@@ -256,7 +231,7 @@ All of these fields update on function call, so make sure to pass in all of them
 Any other error leads to a 500 error response.
 If successful, a 200 status response is returned
 
-##### Delete a Post
+#### Delete a Post
     guzzzleAPI.deletePost(pid)
 Will send a DELETE request to the server to remove an account. Post object is retrieved via pid from the database.
 If the retrieved post object's uid does not match the session's uid, the server will respond with status 400 due to the session uid not being the owner of the post.
@@ -266,7 +241,7 @@ Otherwise, the database will be updated to remove the post entry and also remove
 Any other error leads to a 500 error response.
 This function responds with status 200 and a message that the post was deleted.
 
-##### Like a Post
+#### Like a Post
     guzzzleAPI.likePost(pid)
 Will send a PUT request to the server to update the likes on a post. The server will access the current session's uid.
 The session uid is used to retrieve it's user object from the database. If the user object is null, a 400 status response results in an error message saying login is required to like a post.
@@ -275,7 +250,7 @@ The user object tied to the session's uid will have the like recorded.
 This function returns the post object that was updated as it is stored in the database with a 200 status response
 Any other error leads to a 500 error response.
 
-##### Unlike a Post
+#### Unlike a Post
     guzzzleAPI.unlikePost(pid)
 Will send a PUT request to the server to update the likes on a post. The server will access the current session's uid.
 The session uid is used to retrieve it's user object from the database. If the user object is null, a 400 status response results in an error message saying login is required to unlike a post.
@@ -284,9 +259,18 @@ The user object tied to the session's uid will have the like unrecorded.
 This function returns the post object that was updated as it is stored in the database with a 200 status response
 Any other error leads to a 500 error response.
 
+### Querying the Index
+    guzzzleAPI.queryPosts(ingredients)
+Will send a GET request to the server with a list of ingredients as a parameter.
+When passed in a list of ingredients, this function will accumulate posts under each ingredient index. 
+This function returns a object with PID keys mapping to integers. The higher the integer, the more frequent the post
+showed up within the index with respect to the ingredients passed in. This enables one to extract PIDs that are most
+relevant to the query, then use those PIDs to retrive posts (see "Read a Post").
+If there are no matching ingredients, it will respond in a 404 status error, any other error a response status of 500.
+If successful, a 200 status response is returned.
 
-#### Comments
-##### Comment on a Post
+### Comments
+#### Comment on a Post
     guzzzleAPI.commentPost(pid, comment)
 Will send a PUT request to the server to create a comment on a post. The server will access the current session's uid.
 The session uid is used to retrieve it's user object from the database. If the user object is null, a 400 status response results in an error message saying login is required to comment on a post.
@@ -300,7 +284,7 @@ A comment object includes:
 To be noted: The Author of a comment can delete their post but cannot like their post.
 This function returns the cid of the comment that was created and added to the database with a 200 status response
 
-##### Get Comments of a Post
+#### Get Comments of a Post
     guzzzleAPI.getComments(pid)
 Will send a GET request to the server to read all the comments on a particular post.
 The pid is used to retrieve its corresponding post object from the database.
@@ -309,14 +293,14 @@ This function returns the comments to display in the browser with a 200 status r
 To be noted: The comments are sorted by highest liked to lowest liked top to bottom.
 Any error leads to a 500 error response.
 
-##### Get a Specific Comment of a Post
+#### Get a Specific Comment of a Post
     guzzzleAPI.getComments(pid, cid)
 Will send a GET request to the server to read a specific comment on a particular post.
 The pid is used to retrieve its corresponding post object from the database.
 The specific comment is accessed from the post object using and the cid (comment identifier).
 This function returns the comment with a 200 status response, Any error leads to a 500 error response.
 
-##### Delete a Comment
+#### Delete a Comment
     guzzzleAPI.commentDelete(pid, cid)
 Will send a DELETE request to the server to delete a comment on a particular post.
 The pid is used to retrieve its corresponding post object from the database.
@@ -324,7 +308,7 @@ The specific comment is accessed from the post object using and the cid (comment
 The found comment is spliced out of the comment list, which is then resorted by likes and then set as the new comment list of the post object in the database, essentially deleting the comment.
 This function returns 1 with a 200 status response, any error leads to a 500 error response.
 
-##### Check if Comment Liked
+#### Check if Comment Liked
     guzzzleAPI.checkCommentLike(pid, cid)
 Will send a GET request to the server to check if the logged in user has liked a specific comment.
 The server will access the current session's uid. The pid is used to access the post object from the database and then the comments of the post object is looped through until one with the matching cid (comment identifier) is found.
@@ -332,14 +316,14 @@ By then checking if the uid exists within the likes list of the specific comment
 This function returns True if uid is in the likes list, else false, and any error leads to a 500 error response.
 If successful, a 200 status response is returned
 
-##### Like a Comment
+#### Like a Comment
     guzzzleAPI.likeComment(pid, cid)
 Will send a PUT request to the server in order to like a specific comment. The server will access the current session's uid.
 The pid is used to access the post object from the database and then the comments of the post object is looped through until one with the matching cid (comment identifier) is found. It then adds the session's uid to the found comments likes list, resorting the list, and setting the updated list as the likes field for the comment in the database.
 This function returns 1 with a 200 status response and any error leads to a 500 error response.
 
 
-##### Unlike a Comment
+#### Unlike a Comment
     guzzzleAPI.unlikeComment(pid, cid)
 Will send a PUT request to the server in order to like a specific comment. The server will access the current session's uid.
 The pid is used to access the post object from the database and then the comments of the post object is looped through until one with the matching cid (comment identifier) is found. It then removes the session's uid to the found comments likes list, resorting the list, and setting the updated list as the likes field for the comment in the database.
@@ -387,60 +371,102 @@ A post document includes the followinf that allows for user to post interaction:
 - A count of likes the post has
 - A list of keys used for querying posts
 
-## URL Routes/Mappings (TODO)
-**TODO:** List all endpoints and write a description of each.  
-MS3 Instructions:  
+## URL Routes/Mappings
 
-     A final up-to-date table of all the URL routes that your application supports and a short description  
-     of what those routes are used for. You should also indicate any authentication and permissions on those routes.
-     - /currentuser
-        Gets the current user. User must be logged in.
-     - /login
-        Logs the user in. User must use a username and password to log in.
-     - /logout
-        Logs the user out. User must be logged in.
-     - /user_create
-        Creates a new user. Must be created using a username and password.
-     - /user
-        Gets a specific user's page. Used when clicking someone's profile.
-     - /user_update
-        Allows the user to update their password, biography, or profile image. User must be logged in and supply the password of their account.
-     - /user_delete
-        Allows the user to delete their account. The user must be logged in and must supply the password of their account.
-     - /post_create
-        Allows the user to create a new post. The user must be logged in.
-     - /post
-        Gets a specific post's page. 
-     - /post_update
-        Allows the user to update thier post. Must be logged into the account that owns the post.
-     - /post_delete
-        Allows the user to delete their post.
-     - /query
-        Gets a specific search query, shows the posts that match the query.
-     - /feed
-        Gets a users feed based on their following. The user must be logged in, otherwise the default feed will show.
-     - /like
-        Allows a user to like a specific post. User must be logged in, and not previously liked the post.
-     - /unlike
-        Allows a user to unlike a specific post. The user must be logged in, and must have liked the post already.
-     - /follow
-        Allows a user to follow another user. The user must be logged in.
-     - /unfollow
-        Allows a user to unfollow another user. The user must be logged in.
-     - /comment
-        Allows the user to comment on a specific post. The user must be logged in.
-     - /comments_get
-        Gets the comments of a specific post.
-     - /comment_delete
-        Allows the user to delete their own comment. User must be the author of the comment and logged in.
-     - /comment_check
-        Checks if the user has liked
-     - /comment_like
-        Allows a user to like a comment. The user must be logged in.
-     - /comment_unlike
-        Allows a user to unlike a comment. The user must be logged in and have already liked the post.
+### /currentuser
+
+Gets the current user. User must be logged in.
+
+### /login
+
+Logs the user in. User must use a username and password to log in.
+
+### /logout
+
+Logs the user out. User must be logged in.
+
+### /user_create
+
+Creates a new user. Must be created using a username and password.
+
+### /user
+
+Gets a specific user's page. Used when clicking someone's profile.
+
+### /user_update
+
+Allows the user to update their password, biography, or profile image. User must be logged in and supply the password of their account.
+
+### /user_delete
+
+Allows the user to delete their account. The user must be logged in and must supply the password of their account.
+
+### /post_create
+
+Allows the user to create a new post. The user must be logged in.
+
+### /post
+
+Gets a specific post's page. 
+
+### /post_update
+
+Allows the user to update thier post. Must be logged into the account that owns the post.
+
+### /post_delete
+
+Allows the user to delete their post.
+
+### /query
+
+Gets a specific search query, shows the posts that match the query.
+
+### /feed
+
+Gets a users feed based on their following. The user must be logged in, otherwise the default feed will show.
+
+### /like
+
+Allows a user to like a specific post. User must be logged in, and not previously liked the post.
+
+### /unlike
+
+Allows a user to unlike a specific post. The user must be logged in, and must have liked the post already.
+
+### /follow
+
+Allows a user to follow another user. The user must be logged in.
+
+### /unfollow
+
+Allows a user to unfollow another user. The user must be logged in.
+
+### /comment
+
+Allows the user to comment on a specific post. The user must be logged in.
+
+### /comments_get
+
+Gets the comments of a specific post.
+
+### /comment_delete
+
+Allows the user to delete their own comment. User must be the author of the comment and logged in.
+
+### /comment_check
+
+Checks if the user has liked a comment
+
+### /comment_like
+
+Allows a user to like a comment. The user must be logged in.
+
+### /comment_unlike
+
+Allows a user to unlike a comment. The user must be logged in and have already liked the post.
 
 ## Authentication/Authorization
+
 All visitors of the application are able to:
 - View a post
 - Query guides
@@ -474,6 +500,7 @@ In addition, post/guide pages and user pages that are owned by the user have acc
 ## Division of labor
 
 ### Noah Krueger
+
 - Laid out structure of application
     - Organization of files
     - How posts are represented
@@ -544,6 +571,7 @@ In addition, post/guide pages and user pages that are owned by the user have acc
     - Contributed to final video
 
 ### Diganta Mainali
+
 - Created the Guide Page
     - Utilizes a render function to render content into a design of 3 columns
         - First Column: Profile Picture, Username, Title, Image, Likes, Date, Ingredients
@@ -610,6 +638,7 @@ In addition, post/guide pages and user pages that are owned by the user have acc
     
 
 ### Kenneth Drewry
+
 - made create_guide page
 - release for milestone 2
 - Complete overhaul of create guide page
@@ -627,6 +656,7 @@ In addition, post/guide pages and user pages that are owned by the user have acc
 - Edited and Uploaded final video
 
 ### Piyush Makkapati
+
 - made login page
     - Login and Signup work # need a proper email to sign up
 - Used API to correctly display the right profile when view profile is clicked
@@ -639,5 +669,6 @@ In addition, post/guide pages and user pages that are owned by the user have acc
 - Deployed the fully merged branched onto Heroku to keep the website up to date
 - Wrote the conclusion in final.md 
 
-## Conclusion (TODO)
+## Conclusion
+
     Our team's experience in working on this project has been very productive. Every member of the team communicates with another easily without any problems. We believe that we efficiently used the concepts taught in class to implement our website the way we wanted it to function. We had difficulties with keeping the passwords of users safe, rendering the pages, cookies, and some API/Mongodb functionality at first. We worked together as a team and got rid of the issues. Knowing about Heroku and MongoDB before starting the project would have helped a decent amount because these were the things that needed to be learned quickly in order to connect everything together. It would have been better to know ahead of time so that the implementation could be same throughout instead of changing it at the end.
